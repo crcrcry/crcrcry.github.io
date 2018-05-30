@@ -1,5 +1,0 @@
-baseURL = "http://example.org/"
-languageCode = "en-us"
-title = "Ran Chen"
-theme = "herring-cove"
-buildDrafts = true
