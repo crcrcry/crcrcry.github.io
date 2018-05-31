@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ran Chen</title>
-    <link>http://example.org/</link>
+    <link>https://crcrcry.github.io/</link>
     <description>Recent content on Ran Chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.</copyright>
     <lastBuildDate>Wed, 02 Aug 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://crcrcry.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>About</title>
-      <link>http://example.org/about/</link>
+      <link>https://crcrcry.github.io/about/</link>
       <pubDate>Wed, 02 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/about/</guid>
+      <guid>https://crcrcry.github.io/about/</guid>
       <description>I am Ran Chen (陈然), a master student candidate in the State Key Laboratory of CAD&amp;amp;CG, Zhejiang University and a ZJUVIS team member supervised by Prof. Yingcai Wu. I have received my bachelor degree from Computer Science School in Zhejiang University, 2018. My current research interests mainly include Visual Analytics, Data Mining and Urban Computing.  Education  2018.9 - 2021.3 &amp;nbsp; College of CS &amp;amp; Tech, Zhejiang University &amp;nbsp; Master 2014.</description>
     </item>
     
     <item>
       <title>正则中的贪心和懒惰</title>
-      <link>http://example.org/post/regexr/%E8%B4%AA%E5%BF%83%E5%92%8C%E6%87%92%E6%83%B0/</link>
+      <link>https://crcrcry.github.io/post/regexr/%E8%B4%AA%E5%BF%83%E5%92%8C%E6%87%92%E6%83%B0/</link>
       <pubDate>Thu, 31 May 2018 14:44:44 +0800</pubDate>
       
-      <guid>http://example.org/post/regexr/%E8%B4%AA%E5%BF%83%E5%92%8C%E6%87%92%E6%83%B0/</guid>
+      <guid>https://crcrcry.github.io/post/regexr/%E8%B4%AA%E5%BF%83%E5%92%8C%E6%87%92%E6%83%B0/</guid>
       <description>&lt;p&gt;正则匹配时，对贪心和懒惰理解不到位，常常会匹配到一些我们不想要的结果。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -34,10 +34,10 @@
     
     <item>
       <title>总结：跨域资源共享</title>
-      <link>http://example.org/post/js/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</link>
+      <link>https://crcrcry.github.io/post/js/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</link>
       <pubDate>Thu, 31 May 2018 14:42:23 +0800</pubDate>
       
-      <guid>http://example.org/post/js/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</guid>
+      <guid>https://crcrcry.github.io/post/js/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</guid>
       <description>&lt;p&gt;关于 JavaScript 常遇到的跨域问题的一些总结&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -45,10 +45,10 @@
     
     <item>
       <title>笔记：高性能 JavaScript</title>
-      <link>http://example.org/post/js/js%E6%80%A7%E8%83%BD/</link>
+      <link>https://crcrcry.github.io/post/js/js%E6%80%A7%E8%83%BD/</link>
       <pubDate>Thu, 31 May 2018 14:38:37 +0800</pubDate>
       
-      <guid>http://example.org/post/js/js%E6%80%A7%E8%83%BD/</guid>
+      <guid>https://crcrcry.github.io/post/js/js%E6%80%A7%E8%83%BD/</guid>
       <description>&lt;p&gt;本文主要是作者在阅读《高性能 JavaScript》时的笔记与心得。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -56,10 +56,10 @@
     
     <item>
       <title>总结：ECMAScript5</title>
-      <link>http://example.org/post/js/es5/</link>
+      <link>https://crcrcry.github.io/post/js/es5/</link>
       <pubDate>Thu, 31 May 2018 14:31:28 +0800</pubDate>
       
-      <guid>http://example.org/post/js/es5/</guid>
+      <guid>https://crcrcry.github.io/post/js/es5/</guid>
       <description>&lt;p&gt;本文主要是作者在阅读《JavaScript 高级程序设计》第三版时的笔记与心得。包含 ECMAScript 5 中的一些较为重要的内容。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -67,10 +67,10 @@
     
     <item>
       <title>LineUp：多属性排名的可视分析方法</title>
-      <link>http://example.org/post/vis/lineup/</link>
+      <link>https://crcrcry.github.io/post/vis/lineup/</link>
       <pubDate>Thu, 31 May 2018 14:21:53 +0800</pubDate>
       
-      <guid>http://example.org/post/vis/lineup/</guid>
+      <guid>https://crcrcry.github.io/post/vis/lineup/</guid>
       <description>&lt;p&gt;排名是一种流行的通用方法，通过基于一个或多个属性的值为每个项目计算排名来构造有序的项目集合。这使我们能够评估各项目相对于彼此的性能。虽然排名本身的直观性很强，但它的解释并不直观，因为一个项目的排名仅代表其属性与其他项目之间潜在复杂关系的总结。所以需要对排名进行比较和分析，以深入了解多个异构属性如何影响排名。人们需要先进的视觉探索工具来使这个过程变得更加高效。在本文中，作者对多属性排名的可视化要求进行了全面分析。基于这些考虑，作者提出了 LineUp：一种使用条形图的新颖且可扩展的可视化技术。这种交互式技术支持基于具有不同尺度和语义的多个不同属性的项目排序。它使用户能够交互式地组合属性并灵活地改进参数，以探索属性组合中变化的影响。此外，通过整合斜坡图，LineUp 还可用于比较同一组项目上的多个备选排名，例如，随时间推移或跨越不同的属性组合。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -78,10 +78,10 @@
     
     <item>
       <title>Tree Colors：层次结构数据的配色方案选择</title>
-      <link>http://example.org/post/vis/treecolors/</link>
+      <link>https://crcrcry.github.io/post/vis/treecolors/</link>
       <pubDate>Thu, 31 May 2018 14:00:53 +0800</pubDate>
       
-      <guid>http://example.org/post/vis/treecolors/</guid>
+      <guid>https://crcrcry.github.io/post/vis/treecolors/</guid>
       <description>&lt;p&gt;数据通常显式或隐式的带有层次结构。例子：商务数据可以分解为经济活动、地理区域人口数据。在数据可视化中，颜色是一个重要的视觉编码元素。在可视分析中，好的配色方案对反映层次结构是有帮助的。对节点连接图，甚至可以放松树的布局来获取更多空间、通过颜色增强对层次结构关系的表达。本文就将介绍，如何获得层次结构数据的最优配色方案。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -89,10 +89,10 @@
     
     <item>
       <title>可视化基础知识</title>
-      <link>http://example.org/post/vis/vis3/</link>
+      <link>https://crcrcry.github.io/post/vis/vis3/</link>
       <pubDate>Wed, 30 May 2018 19:31:43 +0800</pubDate>
       
-      <guid>http://example.org/post/vis/vis3/</guid>
+      <guid>https://crcrcry.github.io/post/vis/vis3/</guid>
       <description>&lt;p&gt;计算机图形学的一个主要应用领域是可视化，其中计算机生成的图像可以用于帮助人们理解空间数据和非空间数据。然而，有的问题是计算机无法充分定义和通过算法自动处理的，此时则需要可视化协助增强人的分析能力，帮助人们更好的解决问题。而本文，则是对数据可视化这一研究领域的概览。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -100,10 +100,10 @@
     
     <item>
       <title>可视化分析图表</title>
-      <link>http://example.org/post/vis/vis2/</link>
+      <link>https://crcrcry.github.io/post/vis/vis2/</link>
       <pubDate>Wed, 30 May 2018 19:30:57 +0800</pubDate>
       
-      <guid>http://example.org/post/vis/vis2/</guid>
+      <guid>https://crcrcry.github.io/post/vis/vis2/</guid>
       <description>&lt;p&gt;本文是一篇从简单到晦涩的可视化技术的调查 survey，通过例子简要展示了一些关于可视化和交互的技术，用于处理一些数据集。很多情况下，简单的数据图表是不够的，我们将关注一些更为复杂的、用于处理复杂数据集的技术。本文涉及处理的数据包含：时序数据、统计分布、地图、层次结构、网络等。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -111,10 +111,10 @@
     
     <item>
       <title>大数据时代的可视化与协同创新</title>
-      <link>http://example.org/post/vis/vis1/</link>
+      <link>https://crcrcry.github.io/post/vis/vis1/</link>
       <pubDate>Wed, 30 May 2018 19:27:06 +0800</pubDate>
       
-      <guid>http://example.org/post/vis/vis1/</guid>
+      <guid>https://crcrcry.github.io/post/vis/vis1/</guid>
       <description>&lt;p&gt;从数据，到海量数据，再到大数据，对人类的做事和思维方式都有很大的影响。对大数据的研究涉及计算机、数学、生物学等多个领域。大数据尤其是对数据存储、数据挖掘等提出了重大挑战。而数据的可视化也将在大数据时代扮演一个重要的角色。设计正是数据可视化中非常重要的一环，需要计算机科学家和设计师紧密合作，协同攻关。本文讨论什么是数据可视化，数据可视化和平面设计的关系，并用多个案例来示例说明数据可视化系统是如何设计的。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
