@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>笔记：高性能 JavaScript</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Ran Chen" />
+  <meta name="description" content="本文主要是作者在阅读《高性能 JavaScript》时的笔记与心得。
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="笔记：高性能 JavaScript" />
+    <meta name="twitter:description" content="本文主要是作者在阅读《高性能 JavaScript》时的笔记与心得。
+
+" />
+    <meta name="twitter:image" content="http://example.org/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="笔记：高性能 JavaScript" />
+  <meta property="og:description" content="本文主要是作者在阅读《高性能 JavaScript》时的笔记与心得。
+
+" />
+  <meta property="og:url" content="http://example.org/post/js/js%E6%80%A7%E8%83%BD/" />
+  <meta property="og:image" content="http://example.org/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.40.2" />
+
+
+<link rel="canonical" href="http://example.org/post/js/js%E6%80%A7%E8%83%BD/" />
+<link rel="alternative" href="/index.xml" title="Ran Chen" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Ran Chen" />
+<meta name="msapplication-tooltip" content="Ran Chen" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="/css/bundle.ff02473a9a.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="/images/about/chenran.png" alt="Avatar">
+  
+  <h2 class="title">Ran Chen</h2>
+  
+  <p class="subtitle">Keep moving and explore my limit</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/crcrcry">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/tags/">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:crcrcry.hello@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/crcrcry" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/images/about/wechat.jpeg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      <li class="social-item">
+        <a href="//www.zhihu.com/people/crcr-30" title="Zhihu"><span class="icon icon-zhihu"></span></a>
+      </li>
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">笔记：高性能 JavaScript</h1>
+      <p class="post-meta">@Ran Chen · May 31, 2018 · 4 min read</p>
+    </header>
+    <article class="post-content"><p>本文主要是作者在阅读《高性能 JavaScript》时的笔记与心得。</p>
+
+<p></p>
+
+<h1 id="一-加载和执行">一、加载和执行</h1>
+
+<h2 id="1-1-脚本的位置">1.1 脚本的位置</h2>
+
+<ul>
+<li>JavaScript 脚本阻塞页面渲染：
+
+<ul>
+<li>原因：
+
+<ul>
+<li>当浏览器遇到 &lt;script&gt; 时，会停止处理页面，先下载、处理 JavaScript 代码。此时，页面渲染和用户交互被完全阻塞。</li>
+<li>浏览器解析到 &lt;body&gt; 前，不会渲染页面的任何部分。</li>
+<li>JavaScript 文件允许并行下载，&lt;script&gt; 下载外部资源时不会阻塞其他 &lt;script&gt;，但会阻塞图片、样式表等资源下载。</li>
+</ul></li>
+<li>解决方式：
+
+<ul>
+<li>脚本放在底部
+<br /></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="1-2-组织脚本">1.2 组织脚本</h2>
+
+<ul>
+<li>JavaScript 脚本合并，减少 &lt;script&gt; 外链 JavaScript 文件数量。
+
+<ul>
+<li>HTTP 请求会有额外开销，下载单个 100KB 文件理论上比下载四个 25KB 文件快。</li>
+</ul></li>
+<li>不要把内嵌脚本跟在 &lt;link&gt; 之后。
+
+<ul>
+<li>否则，会导致页面阻塞去等待样式表的下载。</li>
+<li>确保内嵌脚本在执行时获得最精准的样式信息。</li>
+</ul></li>
+</ul>
+
+<h2 id="1-3-无阻塞的脚本">1.3 无阻塞的脚本</h2>
+
+<ul>
+<li>异步加载：defer 和 async</li>
+<li>动态脚本元素</li>
+<li>Ajax</li>
+</ul>
+
+<h1 id="二-数据存取">二、数据存取</h1>
+
+<h2 id="2-1-管理作用域">2.1 管理作用域</h2>
+
+<ul>
+<li>标识符解析：
+
+<ul>
+<li>现象：
+
+<ul>
+<li>在没有优化过的浏览器中，标识符在作用域链的位置越深，解析速度越慢。</li>
+<li>Chrome 和 Safari4 采用经过优化过的 JavaScript 引擎，就没有这样的性能损失。</li>
+<li>IE、Firefox2、Safari 3.2 受到严重影响。</li>
+</ul></li>
+<li>解决方式：
+
+<ul>
+<li>如果某个跨作用域的值在函数中被引用超过一次，则存储到局部变量。</li>
+<li>现在经过优化的 JavaScript 引擎都可以经过分析代码，用标识符索引的方式进行快速查找。</li>
+</ul></li>
+</ul></li>
+<li>改变作用域链：
+
+<ul>
+<li>现象：
+
+<ul>
+<li>with 可以改变执行环境的作用域链，将一个新的变量对象推入作用域链的头部。</li>
+<li>try-catch 语句中的 catch 在错误时，将异常对象推入一个变量对象并置于作用域的首位。catch 执行完毕时，作用域链恢复开始的状态。</li>
+</ul></li>
+<li>结果：
+
+<ul>
+<li>作用域首尾放入新的变量对象，对该变量对象的解析速度加快。</li>
+<li>局部变量位于作用域链第二个变量对象中，解析代价变高。</li>
+</ul></li>
+</ul></li>
+<li>闭包：
+
+<ul>
+<li>现象：
+
+<ul>
+<li>闭包函数会引用作用域链上的对象，当该闭包函数没有被解除引用前，闭包函数的这一条作用域链不会被销毁。</li>
+<li>闭包中引用了跨作用域链的标识符，位置在作用域链深处，导致标识符解析性能损失。</li>
+<li>作用域上被引用的变量，即便不在该函数执行环境也不能释放，消耗内存。</li>
+</ul></li>
+<li>解决方式：
+
+<ul>
+<li>小心使用闭包。</li>
+<li>标识符解析的解决方式。
+
+<br /></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="2-2-对象成员">2.2 对象成员</h2>
+
+<ul>
+<li>访问对象成员：
+
+<ul>
+<li>现象：
+
+<ul>
+<li>访问对象成员（属性和方法）的速度比访问字面量或变量要慢，和访问数组速度相近。</li>
+<li>对象成员在原型链中位置越深，找到的速度越慢。</li>
+<li>优化过的 JavaScript 引擎的新浏览器在此过程表现优异，老浏览器仍存在性能损失。</li>
+</ul></li>
+<li>原因：
+
+<ul>
+<li>解析对象成员的过程与标识符解析的过程类似，沿着原型链。</li>
+</ul></li>
+</ul></li>
+<li>嵌套成员：
+
+<ul>
+<li>现象：
+
+<ul>
+<li>对象成员可能包含其他的对象嵌套，嵌套太深会影响读取速度。</li>
+</ul></li>
+<li>解决方式：
+
+<ul>
+<li>缓存对象成员</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="2-3-总结">2.3 总结</h2>
+
+<ul>
+<li>沿着作用域链进行的标识符查找和沿着原型链的对象成员查找会影响性能。</li>
+<li>优化过的 JavaScript 引擎基本没有此类的性能损失，老浏览器仍旧存在这一类问题。</li>
+<li>解决方式是，对多次用到的深处的标识符或对象成员进行缓存。</li>
+</ul>
+
+<h1 id="三-dom-编程">三、DOM 编程</h1>
+
+<h2 id="3-1-访问和修改-dom">3.1 访问和修改 DOM</h2>
+
+<ul>
+<li>操作 DOM 天生就慢：
+
+<ul>
+<li>现象：
+
+<ul>
+<li>访问和修改 DOM 要付出昂贵的代价</li>
+</ul></li>
+<li>原因：
+
+<ul>
+<li>DOM 是一个独立于语言的，用于操作 XML 和 HTML 文档的接口 API。在浏览器中是用 JavaScript 实现的。</li>
+<li>浏览器通常把 DOM 和 JavaScript 独立实现。每次 JavaScript 访问 DOM 都伴随着巨大的开销。</li>
+<li>HTML 集合是以一种实时状态存在，HTML 集合一直与文档保持着连接，每次需要最新信息时都会重新执行查询过程来实时更新。遍历操作数组的速度远快于操作 HTML 集合。</li>
+</ul></li>
+<li>解决方式：
+
+<ul>
+<li>减少访问 DOM，运算尽可能留在 ECMAScript 这一端处理，即使需要访问 DOM 也需要尽量少，将需要重复访问的缓存。</li>
+<li>innerHTML 和 DOM 原生方法：
+
+<ul>
+<li>旧版本浏览器中 innerHTML 性能优势明显。</li>
+<li>基于 WebKit 内核的新版浏览器中，DOM 原生方法略胜一筹。</li>
+</ul></li>
+<li>节点克隆而不是创建新元素，但节点克隆快的不是很明显。</li>
+<li>关于 HTML 集合：
+
+<ul>
+<li>HTML 集合一直与文档保持着连接，每次需要信息时，都会重复执行查询。</li>
+<li>将对 HTML 集合需要多次用到的部分缓存到局部变量，而不是缓存 HTML 集合。</li>
+<li>若需要多次遍历 HTML 集合，则最好将 HTML 集合深拷贝到数组，然后遍历数组。这样只需要遍历 HTML 集合一次。</li>
+</ul></li>
+<li>需要从多种 DOM API 中选择时，选择高效的 API。
+
+<ul>
+<li>querySelectorAll()：
+
+<ul>
+<li>比 getElement&hellip; 系列方法快很多。</li>
+<li>不需要组合调用 getElement&hellip; 系列方法。</li>
+<li>返回一个 NodeList 而不是 HTML 集合，返回的节点不会实时对应文档结构。</li>
+</ul></li>
+<li>遍历 DOM 时，在老版本浏览器中，nextSibling 比 childNode 快。</li>
+<li>现代浏览器 API，可以实现一些元素节点和其他节点的过滤，这些 API 执行效率比手动 JavaScript 过滤效率高。</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="3-2-修改-dom-样式导致重绘-repaint-和重排-reflow">3.2 修改 DOM 样式导致重绘（repaint）和重排（reflow）</h2>
+
+<ul>
+<li><p>基本理论：</p>
+
+<ul>
+<li>DOM 树：表示页面 DOM 结构的树。</li>
+<li>渲染树：表示 DOM 节点如何显示。</li>
+<li>重排：DOM 的变化影响了元素的几何属性，也影响到其他元素的几何属性。浏览器会让渲染树中受到影响的部分失效，并重新构造渲染树。</li>
+<li>重绘：完成重排后，浏览器会重新绘制受影响的部分到屏幕。</li>
+<li>重排何时发生：
+
+<ul>
+<li>添加或删除 DOM 元素</li>
+<li>元素位置改变</li>
+<li>元素尺寸改变</li>
+<li>内容改变</li>
+<li>页面渲染器初始化</li>
+<li>浏览器窗口尺寸改变</li>
+</ul></li>
+<li>不影响几何属性的 DOM 变化，只需要重绘不需要重排，因为元素的布局没有改变。</li>
+
+<li><p>浏览器重排过程的实现：</p>
+
+<ul>
+<li>普通任务，队列化修改并批量执行</li>
+<li>可能会不知不觉中执行某些任务，需要强制性立刻执行重排并刷新队列。</li>
+</ul>
+
+<pre><code>// 以下属性和方法需要返回最新布局信息，因此浏览器需要立即刷新渲染队列
+- offset系列：offsetTop...
+- scroll系列：scrollLeft...
+- client系列：clientLeft...
+- getComputedStyle()
+</code></pre></li>
+</ul></li>
+
+<li><p>重绘和重排代价很昂贵</p>
+
+<ul>
+<li>解决方式：
+
+<ul>
+<li>减少重绘和重排：
+
+<ul>
+<li>减少使用强制刷新渲染队列的 API</li>
+<li>合并多次对 DOM 和样式的修改，一次处理掉</li>
+<li>批量修改 DOM：2次重排，否则 step2 每次修改都可能需要重排
+
+<ol>
+<li>使元素脱离文档流</li>
+<li>将其应用多重改变</li>
+<li>将元素带回文档</li>
+</ol></li>
+<li>避免页面中的大部分重排，让重排只影响渲染树一小部分：
+
+<ol>
+<li>使用绝对位置定位页面上的动画元素，将其脱离文档流</li>
+<li>让元素动起来。当它扩大时，会临时覆盖部分页面。但这只是页面一个小区域的重绘过程，不会产生重排并重绘页面的大部分内容。</li>
+<li>当动画结束时恢复定位，从而只会下移一次文档的其他元素</li>
+</ol></li>
+<li>减少使用 CSS 伪选择器，会影响性能且占用 CPU。</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="3-3-通过-dom-事件处理与用户的交互">3.3 通过 DOM 事件处理与用户的交互</h2>
+
+<ul>
+<li>大量元素的事件绑定代价昂贵
+
+<ul>
+<li>原因：
+
+<ul>
+<li>每个函数都是对象，都占用内存。</li>
+<li>要事先指定所有事件处理器，导致 DOM 访问次数过多。</li>
+</ul></li>
+<li>解决方式：
+
+<ul>
+<li>事件委托：
+
+<ul>
+<li>事件逐级冒泡并能被父级元素捕获。</li>
+<li>只需给外层元素绑定事件处理器，就可以处理子元素上触发的所有事件。</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="3-4-总结">3.4 总结</h2>
+
+<ul>
+<li>操作 DOM 天生就慢</li>
+<li>解决方式：
+
+<ul>
+<li>将多次操作的 DOM 缓存。</li>
+<li>调用高效的 API。</li>
+<li>批量操作。（减少重排和事件委托）</li>
+</ul></li>
+</ul>
+
+<h1 id="四-算法和流程控制">四、算法和流程控制</h1>
+
+<h2 id="4-1-循环">4.1 循环</h2>
+
+<ul>
+<li>循环类型：
+
+<ul>
+<li>标准 for 循环</li>
+<li>while 循环</li>
+<li>do-while 循环</li>
+<li>for-in 循环：实际上是用来枚举对象自身的和继承的可枚举的属性，用在数组时是把数组当成对象来看。</li>
+</ul></li>
+<li>循环性能：
+
+<ul>
+<li>for-in 循环比其他循环明显慢
+
+<ul>
+<li>表现：只有 <sup>1</sup>&frasl;<sub>7</sub> 左右的速度。</li>
+<li>原因：每次迭代会同时搜索实例和原型属性。</li>
+</ul></li>
+</ul></li>
+<li>循环类型和性能无关时：
+
+<ul>
+<li>减少每次迭代处理的事务。
+
+<ul>
+<li>arr.length。</li>
+<li>倒序循环。</li>
+</ul></li>
+<li>减少迭代的次数。
+
+<ul>
+<li>Duff&rsquo;s Device：一次迭代中执行多次迭代。</li>
+</ul></li>
+</ul></li>
+<li>forEach()：慢八倍</li>
+</ul>
+
+<h2 id="4-2-条件">4.2 条件</h2>
+
+<ul>
+<li>switch 和 if-else：
+
+<ul>
+<li>大多数情况下 switch 比 if-else 运行的快。</li>
+<li>但只有条件数量很大时才快的明显。</li>
+<li>性能差别：当条件增加时，if-else 性能负担增加的程度比 switch 要多。</li>
+</ul></li>
+<li>优化 if-else：
+
+<ul>
+<li>目标：最小化到达正确分支前所需要判断的条件数量。</li>
+<li>解决方式：
+
+<ul>
+<li>条件语句应该按照概率从大到小排列：概率差别较大时。</li>
+<li>二分法嵌套 if-else：当概率比较相近均匀时。</li>
+</ul></li>
+</ul></li>
+<li>查找表：
+
+<ul>
+<li>目的：有大量离散值需要测试时。</li>
+<li>解决方式：用数组和普通对象构建查找表。</li>
+</ul></li>
+</ul>
+
+<h2 id="4-3-递归">4.3 递归</h2>
+
+<ul>
+<li>调用栈限制：
+
+<ul>
+<li>概念：
+
+<ul>
+<li>浏览器存在最大允许递归调用的栈容量。</li>
+<li>超过限制即栈溢出。</li>
+</ul></li>
+<li>解决方式：
+
+<ul>
+<li>迭代</li>
+<li>Memoization
+
+<ul>
+<li>概念：避免重复工作。</li>
+<li>例子：斐波那契数列递归计算。</li>
+<li>解决方式：缓存重复使用的计算结果。</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="4-4-总结">4.4 总结</h2>
+
+<ul>
+<li>问题：
+
+<ul>
+<li>循环、条件：不同写法性能也不同。</li>
+<li>递归：防止栈溢出。</li>
+</ul></li>
+<li>解决方式：采取最好的写法，减少重复计算和操作的次数。</li>
+</ul>
+
+<h1 id="五-字符串和正则表达式">五、字符串和正则表达式</h1>
+
+<h2 id="5-1-字符串连接">5.1 字符串连接</h2>
+
+<ul>
+<li>常用字符串拼接方法：
+
+<ol>
+<li>+</li>
+<li>+=</li>
+<li>array.join()</li>
+<li>string.concat()</li>
+</ol></li>
+<li>+ 和 +=：
+
+<ul>
+<li>eg：str += “one” + “two”</li>
+<li>运行步骤：
+
+<ol>
+<li>内存中创建一个临时字符串。</li>
+<li>连接后的字符串 “onetwo” 被赋值给该临时字符串。</li>
+<li>临时字符串与 str 当前的值连接。</li>
+<li>结果赋值给 str。</li>
+</ol></li>
+<li>改进方法：
+
+<ul>
+<li>方法一：
+
+<ul>
+<li>str += “one”;</li>
+<li>str += “two”;</li>
+</ul></li>
+<li>方法二：
+
+<ul>
+<li>str = str + “one” + “two”;</li>
+<li>等价于 str = ((str + “one”) + “two”;</li>
+</ul></li>
+<li>这两种方法避免了产生临时字符串（步骤中的1、2步），在大多数浏览器中能够提速 10% —— 40%</li>
+</ul></li>
+<li>原因：
+
+<ul>
+<li>先运算 + 再运算 +=。</li>
+<li>“one” 和 “two” 的拼接运算结果，需要一个内存来存储。</li>
+<li>优化方法即不用临时内存，而是直接放在 str 中。</li>
+<li>浏览器合并字符串时分配内存的方法为：除 IE，其他浏览器都为表达式左侧的字符串分配更多的内存，然后简单的将第二个字符串拷贝至它的末尾。</li>
+</ul></li>
+</ul></li>
+<li>Array.prototype.join：
+
+<ul>
+<li>性能：
+
+<ul>
+<li>大多数浏览器中，比其他所有字符串连接方法更慢。</li>
+<li>但在 IE 7 及更早版本浏览器中合并大量字符串性能很高（IE 7 已经很少有人用了，原理不理解也没太大关系）</li>
+</ul></li>
+</ul></li>
+<li>String.prototype.concat：
+
+<ul>
+<li>性能：
+
+<ul>
+<li>比简单的 + 和 += 稍慢，尤其在 IE、Opera 和 Chrome 中慢的更明显。</li>
+<li>若使用 concat 连接字符串数组，比 array.join 方法还要慢一点，潜伏着灾难性问题（像IE 7- 中使用 + 来构建大字符串一样）</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="5-2-正则表达式优化">5.2 正则表达式优化</h2>
+
+<ul>
+<li>核心：如何优雅正确的使用正则表达式</li>
+<li>正则表达式工作原理
+
+<ol>
+<li>编译：
+
+<ul>
+<li>当创建了一个正则表达式对象（使用正则直接量或 RegExp 构造函数），浏览器会验证表达式，然后转化为一个原生代码程序，用于执行匹配工作。</li>
+<li>如果把正则对象赋值给一个变量保存下来，可避免重复执行这一步骤。</li>
+</ul></li>
+<li>设置起始位置：
+
+<ul>
+<li>确定目标字符串的起始搜索位置。</li>
+<li>浏览器厂商正在优化正则表达式引擎，提出了很多方法</li>
+</ul></li>
+<li>匹配每个正则表达式字元</li>
+<li>匹配成功或失败：
+
+<ul>
+<li>如果在字符串当前位置发现了一个完全匹配，那么正则表达式宣布匹配成功。</li>
+<li>如果所有可能路径都没有匹配到，那正则表达式引擎回退第二步，从下一个字符作为起始位置开始重新尝试。</li>
+<li>当字符串每个字符（包括最后一个字符串后面的位置）都经历了这个过程还没有成功，就彻底宣布匹配失败。</li>
+</ul></li>
+</ol></li>
+<li>匹配的核心算法：回溯
+
+<ul>
+<li>回溯：
+
+<ul>
+<li>概述：
+
+<ul>
+<li>在包含问题的所有解的解空间树中，按照深度优先的策略进行搜索解。</li>
+<li>正则表达式的核心与低效之源。</li>
+</ul></li>
+<li>算法：
+
+<ul>
+<li>从根结点出发搜索解空间树。搜索至任一结点时，若不包含解则向其祖父节点回溯。</li>
+<li>否则，进入子树递归搜索。</li>
+</ul></li>
+<li>结束条件：
+
+<ul>
+<li>用来求问题的所有解时，要回溯到根，且根结点的所有子树都已被搜索遍才结束。</li>
+<li>用来求问题的任一解时，只要搜索到问题的一个解就可以结束。</li>
+</ul></li>
+</ul></li>
+<li>搜索类型：
+
+<ul>
+<li>贪婪：默认，搜索尽可能长的解，+、*。</li>
+<li>惰性：搜索尽可能短的解，？。</li>
+</ul></li>
+</ul></li>
+<li>回溯失控：
+
+<ul>
+<li>例子：一个 HTML 没有写 &lt;/html&gt; 导致正则表达式性能消耗过大。</li>
+<li>概念：当正则表达式使用了“.”等概括过广的匹配符且字符串中找不到一些子字符串时，过多的回溯决策选择导致查找性能消耗过大。</li>
+<li>解决方案：
+
+<ul>
+<li>谨慎而尽可能具体的书写正则表达式。比如：
+
+<ul>
+<li>将“.”代替为“\S”等更具体一些的描述符。</li>
+<li>小心使用嵌套量词，可能会在内部量词和外部量词之间产生一大堆文本拆解路径，导致性能问题。比如：
+
+<ul>
+<li>正确写法：/AA+B/i.exec(&ldquo;AAAAAAAAA&rdquo;)</li>
+<li>错误写法：/(A+A+)+B/i.exec(&ldquo;AAAAAAAAA&rdquo;)</li>
+</ul></li>
+<li>&hellip;</li>
+</ul></li>
+<li>使用预查和反向引用的模拟原子组。</li>
+</ul></li>
+</ul></li>
+<li>提高正则表达式效率的方法：
+
+<ul>
+<li>关注如何让匹配更快失败</li>
+<li>正则表达式以简单、必需的字元开始</li>
+<li>使用量词模式，使它们后面的字元互斥</li>
+<li>减少分支数量，缩小分支范围</li>
+<li>使用非捕获组</li>
+<li>只捕获感兴趣的文本以减少后处理</li>
+<li>暴露必需的字元</li>
+<li>使用合适的量词</li>
+<li>把正则表达式赋值给变量并重用它们</li>
+<li>将复杂的正则表达式拆分为简单的片段</li>
+<li>关注何时不使用正则表达式
+<br /></li>
+</ul></li>
+</ul>
+
+<h2 id="5-3-去除字符串首尾空白">5.3 去除字符串首尾空白</h2>
+
+<ul>
+<li>背景：ECMAScript 5 添加了原生 trim 方法，但 JavaScript 尚未包含它，对最新浏览器来说，需要手动实现一个 trim 或依赖一个包含此功能的库。</li>
+<li>方法：<strong>先跳过</strong>，毕竟现代浏览器都提供了相应 trim 方法。有时间再来深入研究。</li>
+</ul>
+
+<h2 id="5-4-总结">5.4 总结</h2>
+
+<ul>
+<li>字符串拼接时优先考虑 + 和 +=，但在使用这两个运算符时也要考虑高性能的写法。</li>
+<li>如何优雅的使用正则表达式。<strong>还需要回顾和理解。</strong></li>
+<li>trim 方法的手动最佳实现。<strong>还需要回顾和理解。</strong></li>
+</ul>
+
+<h1 id="六-快速响应的用户界面">六、快速响应的用户界面</h1>
+
+<h2 id="6-1-浏览器-ui-线程">6.1 浏览器 UI 线程</h2>
+
+<ul>
+<li>浏览器 UI 线程：
+
+<ul>
+<li>概念：用于执行 JavaScript 和更新用户界面的进程。</li>
+<li>原理：基于一个简单的队列系统，任务会被保存到队列中直到进程空闲。</li>
+</ul></li>
+<li>浏览器限制：
+
+<ul>
+<li>概念：浏览器限制了 JavaScript 任务的运行时间。</li>
+<li>需求：确保某些恶意代码不能锁住浏览器。</li>
+<li>类型：
+
+<ul>
+<li>调用栈大小限制。</li>
+<li>长时间运行脚本限制。</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="6-2-使用定时器让出时间片段">6.2 使用定时器让出时间片段</h2>
+
+<ul>
+<li>目的：每个子任务之间都有一段空闲，避免锁定浏览器给用户带来的糟糕体验。</li>
+</ul>
+
+<h2 id="6-3-web-workers">6.3 Web Workers</h2>
+
+<ul>
+<li><p>Web Workders API：</p>
+
+<ul>
+<li>概念：引入了一个接口，能使代码运行且不占用浏览器 UI 线程的时间。</li>
+<li>缺点：没有绑定 UI 线程，不能访问浏览器许多资源，比如 DOM。</li>
+<li>运行环境：
+
+<ul>
+<li>一个 navigator 对象，包含四个属性：appName、appVersion、user Agent、platform。</li>
+<li>一个 location 对象，与 window.location 相同，不过所有属性都是只读的。</li>
+<li>一个 self 对象，指向全局 worker 对象。</li>
+<li>一个 importScripts()，阻塞式加载 Worker 用到的外部 JavaScript 文件。</li>
+<li>所有 ECMAScript 对象。</li>
+<li>XMLHttpRequest。</li>
+<li>setTimeout() 和 setInterval()。</li>
+<li>一个 close()，用于停止 Worker 运行。</li>
+</ul></li>
+
+<li><p>使用：</p>
+
+<ul>
+<li>代码一旦执行，将为文件创建一个新的线程和新的 Worker 运行环境，该文件被异步下载，直到文件被下载完成后 Worker 开始发挥作用。</li>
+</ul>
+
+<pre><code>var worker = new Worker(&quot;code.js&quot;);
+</code></pre></li>
+</ul></li>
+
+<li><p>与 Worker 通信：</p>
+
+<ul>
+<li>通过事件接口通信：
+
+<ul>
+<li>postMessage()：传输数据。</li>
+<li>onmessage()：接受数据。</li>
+</ul></li>
+</ul></li>
+
+<li><p>应用：</p>
+
+<ul>
+<li>适用场景：处理纯数据，或者与浏览器 UI 无关的长时间运行脚本。</li>
+<li>example：
+
+<ul>
+<li>编码、解码大字符串。</li>
+<li>复杂数学运算（包括图像或视频处理）。</li>
+<li>大数组排序。</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="6-4-总结">6.4 总结</h2>
+
+<ul>
+<li>高效管理浏览器 UI 线程，任何任务不该超过 100 ms。</li>
+<li>方法：
+
+<ul>
+<li>定时器分割大任务。</li>
+<li>Web Workers。</li>
+</ul></li>
+</ul></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="/tags/javascript"><span class="tag">JavaScript</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Ran Chen</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="/js/bundle.d1288006cf.js"></script>
+
+
+
+
+  </body>
+</html>

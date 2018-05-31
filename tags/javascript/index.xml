@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Javascript on Ran Chen</title>
+    <link>http://example.org/tags/javascript/</link>
+    <description>Recent content in Javascript on Ran Chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.</copyright>
+    <lastBuildDate>Thu, 31 May 2018 14:42:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>总结：跨域资源共享</title>
+      <link>http://example.org/post/js/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</link>
+      <pubDate>Thu, 31 May 2018 14:42:23 +0800</pubDate>
+      
+      <guid>http://example.org/post/js/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/</guid>
+      <description>&lt;p&gt;关于 JavaScript 常遇到的跨域问题的一些总结&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>笔记：高性能 JavaScript</title>
+      <link>http://example.org/post/js/js%E6%80%A7%E8%83%BD/</link>
+      <pubDate>Thu, 31 May 2018 14:38:37 +0800</pubDate>
+      
+      <guid>http://example.org/post/js/js%E6%80%A7%E8%83%BD/</guid>
+      <description>&lt;p&gt;本文主要是作者在阅读《高性能 JavaScript》时的笔记与心得。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>总结：ECMAScript5</title>
+      <link>http://example.org/post/js/es5/</link>
+      <pubDate>Thu, 31 May 2018 14:31:28 +0800</pubDate>
+      
+      <guid>http://example.org/post/js/es5/</guid>
+      <description>&lt;p&gt;本文主要是作者在阅读《JavaScript 高级程序设计》第三版时的笔记与心得。包含 ECMAScript 5 中的一些较为重要的内容。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

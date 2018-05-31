@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>数据可视化基本知识</title>
+  <title>可视化基础知识</title>
 
   
   
@@ -16,23 +16,29 @@
 
   
   <meta name="author" content="Ran Chen" />
-  <meta name="description" content="一、概述  用途：当问题不能被计算机良好的定义、算法性的处理时，需要人类分析思考 方式：良好设计的图片便于代替我们对一件事的全过程的记忆 visual encoding：视觉编码，数据集属性到可视化展示的映射 中心问题：如何选择一种最合适的 visual encoding 摘自 《Fundamentals of Computer Graphics》第三版，第 27 章，可视化。  二、背景 2.1 历史  图片表达信息可以追溯到超过三千年前，壁画时代。 今天的可视化交流，从餐巾纸上粗糙的素描到广告上精细的图片设计。 静态图片 -&amp;gt; 动图 -&amp;gt; 可交互的动态图 小数据集的静态可视化手工制作，但是可交互的大数据集的动态可视化需要依赖计算机图形学。  2.2 资源限制  可视化系统的三个限制  计算能力  计算机的计算和存储能力有限 可交互的可视化系统需要算法，使运行时间为秒级甚至更低  人类感知力和认知能力  人类的记忆力、注意力是有限的资源  显示能力  显示器大小不够用于在一个屏幕上，同时展示所有有价值的信息 信息密度：被编码的信息数量，相对于没有被使用的空间 如何权衡，展示的太多或者太少的问题     三、数据类型  可视化设计是由我们关注的数据类型驱动的。 一些经典的数据类型：  数据表：  属性的类型：  可量化的数据属性，eg：身高、体重 有序的数据属性，虽然不可完全量化和计算，但已经良好定义了序列，eg：衬衫尺码（L、M、S） 明确的数据属性，eg：姓名、最喜欢的水果   相关的数据（图、树、网络）  构成：节点、连接线  空间的数据：  eg：  地理位置 三维空间位置测量    属性和数据项的数量  是可视化设计问题中很重要的基本方面  数据要编码的属性项数量 有多少项数据也很重要   数据转化和提炼属性  数据转化：表 &amp;lt;-&amp;gt; 相关数据（图、树、网络） &amp;lt;-&amp;gt; 空间数据 …… 原始的数据属性可能主要由可量化的数据组成，使用时需要转化 eg：温度  查看人的体温：作为可量化的数据属性直接使用 决定水温是否适合洗澡：转化为有序的数据属性（热、冷、合适）使用 烤面包：转化为明确的数据属性（烤糊的、没烤糊的）使用  结论：数据不是直接进行可视化编码，而需要恰当的提炼   四、以人为中心的设计过程  可视化设计过程可以被拆分为一个瀑布流层次的集合。各层次相互依赖，上层的输出作为数据流输入下层。  问题描述：即通过交流理解用户需求 数据、操作抽象设计：  数据即数据类型，涉及到数据转化和提炼属性 操作即用户需求的交互式操作，eg：排序、过滤、分发、查询、描述趋势、寻找相关  编码、交互技术设计 算法设计  验证：即验证上述四个步骤的可行性。  就像软件测试一样，以后用到需要的时候再说吧。   五、视觉编码原则  视觉编码：通过图像、视觉元素，经过视觉信道传达数据信息。 图像视觉元素：  根据维度：点、线、面、立体。  视觉信道：位置、颜色、形状、大小 &amp;hellip;  5." />
+  <meta name="description" content="计算机图形学的一个主要应用领域是可视化，其中计算机生成的图像可以用于帮助人们理解空间数据和非空间数据。然而，有的问题是计算机无法充分定义和通过算法自动处理的，此时则需要可视化协助增强人的分析能力，帮助人们更好的解决问题。而本文，则是对数据可视化这一研究领域的概览。
+
+" />
 
   
   
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@gohugoio" />
-    <meta name="twitter:title" content="数据可视化基本知识" />
-    <meta name="twitter:description" content="一、概述  用途：当问题不能被计算机良好的定义、算法性的处理时，需要人类分析思考 方式：良好设计的图片便于代替我们对一件事的全过程的记忆 visual encoding：视觉编码，数据集属性到可视化展示的映射 中心问题：如何选择一种最合适的 visual encoding 摘自 《Fundamentals of Computer Graphics》第三版，第 27 章，可视化。  二、背景 2.1 历史  图片表达信息可以追溯到超过三千年前，壁画时代。 今天的可视化交流，从餐巾纸上粗糙的素描到广告上精细的图片设计。 静态图片 -&amp;gt; 动图 -&amp;gt; 可交互的动态图 小数据集的静态可视化手工制作，但是可交互的大数据集的动态可视化需要依赖计算机图形学。  2.2 资源限制  可视化系统的三个限制  计算能力  计算机的计算和存储能力有限 可交互的可视化系统需要算法，使运行时间为秒级甚至更低  人类感知力和认知能力  人类的记忆力、注意力是有限的资源  显示能力  显示器大小不够用于在一个屏幕上，同时展示所有有价值的信息 信息密度：被编码的信息数量，相对于没有被使用的空间 如何权衡，展示的太多或者太少的问题     三、数据类型  可视化设计是由我们关注的数据类型驱动的。 一些经典的数据类型：  数据表：  属性的类型：  可量化的数据属性，eg：身高、体重 有序的数据属性，虽然不可完全量化和计算，但已经良好定义了序列，eg：衬衫尺码（L、M、S） 明确的数据属性，eg：姓名、最喜欢的水果   相关的数据（图、树、网络）  构成：节点、连接线  空间的数据：  eg：  地理位置 三维空间位置测量    属性和数据项的数量  是可视化设计问题中很重要的基本方面  数据要编码的属性项数量 有多少项数据也很重要   数据转化和提炼属性  数据转化：表 &amp;lt;-&amp;gt; 相关数据（图、树、网络） &amp;lt;-&amp;gt; 空间数据 …… 原始的数据属性可能主要由可量化的数据组成，使用时需要转化 eg：温度  查看人的体温：作为可量化的数据属性直接使用 决定水温是否适合洗澡：转化为有序的数据属性（热、冷、合适）使用 烤面包：转化为明确的数据属性（烤糊的、没烤糊的）使用  结论：数据不是直接进行可视化编码，而需要恰当的提炼   四、以人为中心的设计过程  可视化设计过程可以被拆分为一个瀑布流层次的集合。各层次相互依赖，上层的输出作为数据流输入下层。  问题描述：即通过交流理解用户需求 数据、操作抽象设计：  数据即数据类型，涉及到数据转化和提炼属性 操作即用户需求的交互式操作，eg：排序、过滤、分发、查询、描述趋势、寻找相关  编码、交互技术设计 算法设计  验证：即验证上述四个步骤的可行性。  就像软件测试一样，以后用到需要的时候再说吧。   五、视觉编码原则  视觉编码：通过图像、视觉元素，经过视觉信道传达数据信息。 图像视觉元素：  根据维度：点、线、面、立体。  视觉信道：位置、颜色、形状、大小 &amp;hellip;  5." />
-    <meta name="twitter:image" content="http://example.org/img/avatar.jpg" />
+    <meta name="twitter:title" content="可视化基础知识" />
+    <meta name="twitter:description" content="计算机图形学的一个主要应用领域是可视化，其中计算机生成的图像可以用于帮助人们理解空间数据和非空间数据。然而，有的问题是计算机无法充分定义和通过算法自动处理的，此时则需要可视化协助增强人的分析能力，帮助人们更好的解决问题。而本文，则是对数据可视化这一研究领域的概览。
+
+" />
+    <meta name="twitter:image" content="http://example.org/images/blogs/vis/1.png" />
   
 
   
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="数据可视化基本知识" />
-  <meta property="og:description" content="一、概述  用途：当问题不能被计算机良好的定义、算法性的处理时，需要人类分析思考 方式：良好设计的图片便于代替我们对一件事的全过程的记忆 visual encoding：视觉编码，数据集属性到可视化展示的映射 中心问题：如何选择一种最合适的 visual encoding 摘自 《Fundamentals of Computer Graphics》第三版，第 27 章，可视化。  二、背景 2.1 历史  图片表达信息可以追溯到超过三千年前，壁画时代。 今天的可视化交流，从餐巾纸上粗糙的素描到广告上精细的图片设计。 静态图片 -&amp;gt; 动图 -&amp;gt; 可交互的动态图 小数据集的静态可视化手工制作，但是可交互的大数据集的动态可视化需要依赖计算机图形学。  2.2 资源限制  可视化系统的三个限制  计算能力  计算机的计算和存储能力有限 可交互的可视化系统需要算法，使运行时间为秒级甚至更低  人类感知力和认知能力  人类的记忆力、注意力是有限的资源  显示能力  显示器大小不够用于在一个屏幕上，同时展示所有有价值的信息 信息密度：被编码的信息数量，相对于没有被使用的空间 如何权衡，展示的太多或者太少的问题     三、数据类型  可视化设计是由我们关注的数据类型驱动的。 一些经典的数据类型：  数据表：  属性的类型：  可量化的数据属性，eg：身高、体重 有序的数据属性，虽然不可完全量化和计算，但已经良好定义了序列，eg：衬衫尺码（L、M、S） 明确的数据属性，eg：姓名、最喜欢的水果   相关的数据（图、树、网络）  构成：节点、连接线  空间的数据：  eg：  地理位置 三维空间位置测量    属性和数据项的数量  是可视化设计问题中很重要的基本方面  数据要编码的属性项数量 有多少项数据也很重要   数据转化和提炼属性  数据转化：表 &amp;lt;-&amp;gt; 相关数据（图、树、网络） &amp;lt;-&amp;gt; 空间数据 …… 原始的数据属性可能主要由可量化的数据组成，使用时需要转化 eg：温度  查看人的体温：作为可量化的数据属性直接使用 决定水温是否适合洗澡：转化为有序的数据属性（热、冷、合适）使用 烤面包：转化为明确的数据属性（烤糊的、没烤糊的）使用  结论：数据不是直接进行可视化编码，而需要恰当的提炼   四、以人为中心的设计过程  可视化设计过程可以被拆分为一个瀑布流层次的集合。各层次相互依赖，上层的输出作为数据流输入下层。  问题描述：即通过交流理解用户需求 数据、操作抽象设计：  数据即数据类型，涉及到数据转化和提炼属性 操作即用户需求的交互式操作，eg：排序、过滤、分发、查询、描述趋势、寻找相关  编码、交互技术设计 算法设计  验证：即验证上述四个步骤的可行性。  就像软件测试一样，以后用到需要的时候再说吧。   五、视觉编码原则  视觉编码：通过图像、视觉元素，经过视觉信道传达数据信息。 图像视觉元素：  根据维度：点、线、面、立体。  视觉信道：位置、颜色、形状、大小 &amp;hellip;  5." />
+  <meta property="og:title" content="可视化基础知识" />
+  <meta property="og:description" content="计算机图形学的一个主要应用领域是可视化，其中计算机生成的图像可以用于帮助人们理解空间数据和非空间数据。然而，有的问题是计算机无法充分定义和通过算法自动处理的，此时则需要可视化协助增强人的分析能力，帮助人们更好的解决问题。而本文，则是对数据可视化这一研究领域的概览。
+
+" />
   <meta property="og:url" content="http://example.org/post/vis/vis3/" />
-  <meta property="og:image" content="http://example.org/img/avatar.jpg" />
+  <meta property="og:image" content="http://example.org/images/blogs/vis/1.png" />
 
 
 
@@ -223,10 +229,14 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">数据可视化基本知识</h1>
+      <h1 class="post-title">可视化基础知识</h1>
       <p class="post-meta">@Ran Chen · May 30, 2018 · 2 min read</p>
     </header>
-    <article class="post-content">
+    <article class="post-content"><p>计算机图形学的一个主要应用领域是可视化，其中计算机生成的图像可以用于帮助人们理解空间数据和非空间数据。然而，有的问题是计算机无法充分定义和通过算法自动处理的，此时则需要可视化协助增强人的分析能力，帮助人们更好的解决问题。而本文，则是对数据可视化这一研究领域的概览。</p>
+
+<p></p>
+
+<p><a href="/files/papers/Visualization.pdf">原文链接：摘自 《Fundamentals of Computer Graphics》第三版，第 27 章，可视化</a></p>
 
 <h1 id="一-概述">一、概述</h1>
 
@@ -710,9 +720,14 @@
 <li>What software and toolkits are available for visualization?</li>
 <li>The most popular toolkit for spatial data is vtk, a C/C++ codebase available at www.vtk.org. For abstract data, the Java-based prefuse (<a href="http://www.prefuse">http://www.prefuse</a>. org) and Processing (processing.org) toolkits are becoming widely used. The ManyEyes site from IBM Research (www.many-eyes.com) allows people to upload their own data, create interactive visualizations in a variety of formats, and carry on conversations about visual data analysis.</li>
 <li>个人观点：感觉可视化工具好像用的比较多的都是 JavaScript?</li>
-</ul>
-</article>
+</ul></article>
     <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="tag">数据可视化</span></a></li>
+        
+      </ul>
       
       <p class="post-copyright">
         Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Tree Colors：层次结构数据的配色方案选择</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Ran Chen" />
+  <meta name="description" content="数据通常显式或隐式的带有层次结构。例子：商务数据可以分解为经济活动、地理区域人口数据。在数据可视化中，颜色是一个重要的视觉编码元素。在可视分析中，好的配色方案对反映层次结构是有帮助的。对节点连接图，甚至可以放松树的布局来获取更多空间、通过颜色增强对层次结构关系的表达。本文就将介绍，如何获得层次结构数据的最优配色方案。
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="Tree Colors：层次结构数据的配色方案选择" />
+    <meta name="twitter:description" content="数据通常显式或隐式的带有层次结构。例子：商务数据可以分解为经济活动、地理区域人口数据。在数据可视化中，颜色是一个重要的视觉编码元素。在可视分析中，好的配色方案对反映层次结构是有帮助的。对节点连接图，甚至可以放松树的布局来获取更多空间、通过颜色增强对层次结构关系的表达。本文就将介绍，如何获得层次结构数据的最优配色方案。
+
+" />
+    <meta name="twitter:image" content="http://example.org/images/blogs/vis/Tree%20Colors4.png" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Tree Colors：层次结构数据的配色方案选择" />
+  <meta property="og:description" content="数据通常显式或隐式的带有层次结构。例子：商务数据可以分解为经济活动、地理区域人口数据。在数据可视化中，颜色是一个重要的视觉编码元素。在可视分析中，好的配色方案对反映层次结构是有帮助的。对节点连接图，甚至可以放松树的布局来获取更多空间、通过颜色增强对层次结构关系的表达。本文就将介绍，如何获得层次结构数据的最优配色方案。
+
+" />
+  <meta property="og:url" content="http://example.org/post/vis/treecolors/" />
+  <meta property="og:image" content="http://example.org/images/blogs/vis/Tree%20Colors4.png" />
+
+
+
+
+<meta name="generator" content="Hugo 0.40.2" />
+
+
+<link rel="canonical" href="http://example.org/post/vis/treecolors/" />
+<link rel="alternative" href="/index.xml" title="Ran Chen" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Ran Chen" />
+<meta name="msapplication-tooltip" content="Ran Chen" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="/css/bundle.ff02473a9a.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="/images/about/chenran.png" alt="Avatar">
+  
+  <h2 class="title">Ran Chen</h2>
+  
+  <p class="subtitle">Keep moving and explore my limit</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/crcrcry">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/tags/">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:crcrcry.hello@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/crcrcry" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/images/about/wechat.jpeg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      <li class="social-item">
+        <a href="//www.zhihu.com/people/crcr-30" title="Zhihu"><span class="icon icon-zhihu"></span></a>
+      </li>
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Tree Colors：层次结构数据的配色方案选择</h1>
+      <p class="post-meta">@Ran Chen · May 31, 2018 · 2 min read</p>
+    </header>
+    <article class="post-content"><p>数据通常显式或隐式的带有层次结构。例子：商务数据可以分解为经济活动、地理区域人口数据。在数据可视化中，颜色是一个重要的视觉编码元素。在可视分析中，好的配色方案对反映层次结构是有帮助的。对节点连接图，甚至可以放松树的布局来获取更多空间、通过颜色增强对层次结构关系的表达。本文就将介绍，如何获得层次结构数据的最优配色方案。</p>
+
+<p></p>
+
+<p><a href="/files/papers/Tree Colors.pdf">原文链接：Tree Colors: Color Schemes for Tree-Structured Data</a></p>
+
+<h1 id="一-介绍">一、介绍</h1>
+
+<ul>
+<li>背景：
+
+<ul>
+<li>数据通常显式或隐式的带有层次结构。例子：商务数据可以分解为经济活动、地理区域人口数据</li>
+<li>在数据可视化中，颜色是一个重要的视觉编码元素</li>
+</ul></li>
+<li>需求：
+
+<ul>
+<li>在可视分析中，好的配色方案对反映层次结构是有帮助的。对节点连接图，甚至可以放松树的布局来获取更多空间、通过颜色增强对层次结构关系的表达。</li>
+</ul></li>
+<li>现状：
+
+<ul>
+<li>简单的数据配色方案是易得的。然而，层次结构数据的配色问题，尚无特别的研究和指导</li>
+</ul></li>
+<li>解决方案：带着以下几项考虑，设计了一个层次结构配色方案 Tree Colors
+
+<ul>
+<li>是一种定性的配色方案，为每个树节点分配一个唯一的、没有感知顺序的颜色</li>
+<li>编码了父子关系，子节点颜色和父节点相似</li>
+<li>节点深度可以通过颜色来反映</li>
+</ul></li>
+<li>颜色空间：
+
+<ul>
+<li>HCL（色调-色度-亮度）空间。优点在于，更利于人的感知，不同色调值的颜色在色彩和亮度上的感知是均匀的。这一点 HSV、HSL 颜色空间都无法做到。</li>
+</ul></li>
+<li>评估：
+
+<ul>
+<li>方法：将 Tree Colors 和一种树的每个主支具有不同的颜色的配色方案作比较</li>
+<li>结果：Tree Colors 在树形结构可视化中是有效的</li>
+<li>不足：树形图的结果是混合的，此领域需要更多的研究</li>
+</ul></li>
+<li>Outline：
+
+<ul>
+<li>第二章：相关工作</li>
+<li>第三章：配色方案描述</li>
+<li>第四章：开发软件</li>
+<li>第五章：应用探索</li>
+<li>第六章：user study（评估）</li>
+<li>第七章：结论和讨论</li>
+</ul></li>
+</ul>
+
+<h1 id="二-相关工作">二、相关工作</h1>
+
+<ul>
+<li>InterRing：
+
+<ul>
+<li>叶子节点不同色调。</li>
+<li>父节点的颜色是子节点的加权平均，会导致高层次节点颜色是低饱和度的。</li>
+</ul></li>
+<li>Hyperbolic Wheel：
+
+<ul>
+<li>使用 HSL。</li>
+<li>亮度从根到叶子逐渐减少。</li>
+<li>子节点色调继承父节点色调，但有小的不同，可能会导致同层色调重复。</li>
+</ul></li>
+<li>很多网站都应用了颜色来可视编码树形结构：
+
+<ul>
+<li>newsmap.jp：
+
+<ul>
+<li>使用 HCL</li>
+<li>同层 nodes 之间色度、亮度不同但色调相同</li>
+<li>这和 Tree Colors 相反</li>
+</ul></li>
+<li>IBM&rsquo;s Many Eyes：
+
+<ul>
+<li>使用 HSV</li>
+<li>同层 nodes 之间色调不同但饱和度、亮度相同</li>
+<li>类似 Tree Colors</li>
+</ul></li>
+</ul></li>
+<li>存在的问题：对于构建树形层次结构配色，（已有使用案例但）尚没有指导或描述。</li>
+</ul>
+
+<h1 id="三-方法">三、方法</h1>
+
+<ul>
+<li>将树形结构映射到 HCL 空间
+
+<ul>
+<li>H：范围 [0, 360]，同层 nodes 色调不同，且都和父节点色调类似。</li>
+<li>C、L：范围 [0, 100]，同层 nodes 色度和亮度相同，用于区分不同的层次结构。</li>
+</ul></li>
+</ul>
+
+<h2 id="3-1-色调">3.1 色调</h2>
+
+<ul>
+<li><p>递归算法：用于给每个节点赋值色调</p>
+
+<ul>
+<li>输入：树节点 v；色调范围 r；色调分数 f；布尔值 perm、rev</li>
+<li>算法逻辑：
+
+<ol>
+<li>选择色调范围中值，作为节点 v 的色调值。</li>
+<li>设 N 为子节点数量，如果 N 大于 0：
+
+<ol>
+<li>将 r 分为 N 等分</li>
+<li>if perm，重排列所有等分块</li>
+<li>if rev，反转偶数节点的子节点</li>
+<li>根据色调分数，减少每个等分块</li>
+<li>对每个子节点，递归调用该函数</li>
+</ol></li>
+</ol></li>
+</ul>
+
+<p><img src="/images/blogs/vis/Tree Colors1.png" alt="" /></p></li>
+
+<li><p>色调排列和反转</p>
+
+<ul>
+<li>重排列：
+
+<ul>
+<li>原因：在大多数层次结构中，同级节点没有顺序。因此，同级节点的颜色不应该引入感知顺序</li>
+<li>解决方案：基于X元素排列，例如 5 元素排序 [1, 3, 5, 2, 4]，每两个临近节点相差 <sup>2</sup>&frasl;<sub>5</sub> * 360 = 144°。</li>
+<li>例子：对于位置为 [1, 2, 3, 4, 5] 的兄弟节点，颜色分配算法为 [1, 3, 5, 2, 4]，则重排列后的颜色位置为 [1, 4, 2, 5, 3]
+<br /></li>
+</ul></li>
+</ul>
+
+<p><img src="/images/blogs/vis/Tree Colors2.png" alt="" /></p>
+
+<ul>
+<li>反转：
+
+<ul>
+<li>原因：不同父亲的同级临近节点，颜色距离不够大，容易产生认知偏差。</li>
+<li>解决方案：反转偶数节点的子节点的颜色分配，以增加不同父亲的相邻邻接节点的色调距离。</li>
+<li>例子：[A.1, A.3, A.2] [B.2, B.3, B.1] [C.1, C.3, C.2]</li>
+</ul></li>
+</ul>
+
+<p><img src="/images/blogs/vis/Tree Colors3.png" alt="" /></p>
+
+<ul>
+<li>适用范围：兄弟节点线性或径向分布时。</li>
+</ul></li>
+
+<li><p>色调分数：</p>
+
+<ul>
+<li>the percentage of hue range available</li>
+<li>是一个权衡
+
+<ul>
+<li>分辨不同主支（f 小，可用 range 小，主支 gap 大）</li>
+<li>分辨一主支下不同分支（f 大，可用 range 大，主支 gap 小）</li>
+</ul></li>
+<li>对于线性或径向布局，可通过重排列和反转来帮助分辨叶子</li>
+<li>根据多个方面，如：数据层次和结构、布局、应用等，来决定 f。
+
+<ul>
+<li>例如图6，布局对分辨不同主支很有帮助，就可以选取大的 f。</li>
+<li>例如图7，主支 ABCD 难以分辨，适合选小的 f。
+<br /></li>
+</ul></li>
+</ul>
+
+<p><img src="/images/blogs/vis/Tree Colors4.png" alt="" />
+<img src="/images/blogs/vis/Tree Colors5.png" alt="" /></p></li>
+</ul>
+
+<h2 id="3-2-色度和亮度">3.2 色度和亮度</h2>
+
+<ul>
+<li>方法：
+
+<ul>
+<li>加色法：深度增加，亮度增加，饱和度减少</li>
+<li>减色法：深度增加，亮度减少，饱和度增加</li>
+</ul></li>
+<li>原因：
+
+<ul>
+<li>更明亮的原色有过渡饱和的倾向</li>
+<li>对于暗色，高色度有助于区分</li>
+</ul></li>
+
+<li><p>说明：本文使用减色法，作者提出了一系列参数参考和分析，但具体应该依据总层数和关注的层</p>
+
+<p><img src="/images/blogs/vis/Tree Colors6.png" alt="" />
+<img src="/images/blogs/vis/Tree Colors7.png" alt="" />
+<img src="/images/blogs/vis/Tree Colors8.png" alt="" /></p></li>
+</ul>
+
+<h2 id="3-3-参数概览">3.3 参数概览</h2>
+
+<p><img src="/images/blogs/vis/Tree Colors9.png" alt="" /></p>
+
+<h2 id="3-4-色觉障碍">3.4 色觉障碍</h2>
+
+<ul>
+<li>Tree Color 应能被色觉障碍的人群使用</li>
+<li>原因：
+
+<ul>
+<li>正常：具有正常颜色视觉的人们通过三类锥视蛋白（S、M、L 锥视蛋白）在短（蓝）、中（绿）、长（红）波长处具有吸收峰，从而感知颜色。</li>
+<li>二色：
+
+<ul>
+<li>原因：色盲人群只有两类或更少锥视蛋白。</li>
+<li>结果：不能识别某种颜色</li>
+</ul></li>
+<li>三色异常：
+
+<ul>
+<li>原因：可能有三类，但其中两个吸收峰比正常更接近。</li>
+<li>结果：难以分辨某些颜色</li>
+</ul></li>
+</ul></li>
+
+<li><p>解决方案：</p>
+
+<ul>
+<li>方案：调整 Tree Colors 方法，删掉障碍的色调范围</li>
+<li>问题：锥视蛋白对颜色的适应是近似对数的而不是线性的</li>
+<li>结果：二色和三色异常人群将失去对 HCL 颜色空间的感知特性</li>
+</ul></li>
+
+<li><p>例子：绿色弱和红色盲的仿真</p>
+
+<ul>
+<li>绿色弱：三色异常，可以分辨所有色调，但饱和度和亮度不相等。</li>
+<li>红色盲：二色，色调多样性减少，饱和度和亮度也有很大变化。
+<img src="/images/blogs/vis/Tree Colors10.png" alt="" /></li>
+</ul></li>
+</ul>
+
+<h1 id="四-软件">四、软件</h1>
+
+<ul>
+<li>树图、节点链接图：R 语言，treemap 包，布局算法</li>
+<li>sunburst 图：d3.js，Tree Colors</li>
+</ul>
+
+<h1 id="五-应用">五、应用</h1>
+
+<ul>
+<li>本节讨论 Tree Colors 树可视化的真实世界数据应用</li>
+</ul>
+
+<h1 id="六-用户研究">六、用户研究</h1>
+
+<h1 id="七-讨论">七、讨论</h1>
+
+<ul>
+<li>工作总结</li>
+<li>用颜色来编码层次结构不是新奇的，但本文有两个创新点
+
+<ol>
+<li>hue gap</li>
+<li>permiutation and reversals</li>
+</ol></li>
+<li>对于节点链接图，Tree Colors 的确是有用的增强</li>
+<li>本文的局限性和未来方向
+
+<ol>
+<li>配色只适合线性布局或径向布局。对于二维可视化方法，如 treemap，配色仍不够好。深度的研究应该提升排列和反转方法。</li>
+<li>减色法和加色法各自的偏好和作用的研究。</li>
+<li>分析响应时间来揭示不同配色方案的有效性之间的差异、进行眼睛跟踪实验来了解参与者对可视树形结构的理解。</li>
+<li>对色调值范围，非基本颜色附近是难以完美线性察觉的。</li>
+<li>色觉障碍难以良好克服，而这一问题是重要的。</li>
+<li>对于大型多层次数据集，其效果是未知且不乐观的。
+
+<br /></li>
+</ol></li>
+</ul>
+
+<h1 id="我的反思">我的反思</h1>
+
+<ol>
+<li>关于偶数节点的子节点都反转，为何不改成节点的偶数子节点反转，是会造成感知顺序问题吗？</li>
+<li>反转对第一个和最后一个的影响？
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br /></li>
+</ol></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="tag">数据可视化</span></a></li>
+        
+          <li><a href="/tags/tvcg"><span class="tag">TVCG</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Ran Chen</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="/js/bundle.d1288006cf.js"></script>
+
+
+
+
+  </body>
+</html>

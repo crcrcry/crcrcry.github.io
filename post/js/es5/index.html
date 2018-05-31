@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>总结：ECMAScript5</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Ran Chen" />
+  <meta name="description" content="本文主要是作者在阅读《JavaScript 高级程序设计》第三版时的笔记与心得。包含 ECMAScript 5 中的一些较为重要的内容。
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="总结：ECMAScript5" />
+    <meta name="twitter:description" content="本文主要是作者在阅读《JavaScript 高级程序设计》第三版时的笔记与心得。包含 ECMAScript 5 中的一些较为重要的内容。
+
+" />
+    <meta name="twitter:image" content="http://example.org/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="总结：ECMAScript5" />
+  <meta property="og:description" content="本文主要是作者在阅读《JavaScript 高级程序设计》第三版时的笔记与心得。包含 ECMAScript 5 中的一些较为重要的内容。
+
+" />
+  <meta property="og:url" content="http://example.org/post/js/es5/" />
+  <meta property="og:image" content="http://example.org/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.40.2" />
+
+
+<link rel="canonical" href="http://example.org/post/js/es5/" />
+<link rel="alternative" href="/index.xml" title="Ran Chen" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Ran Chen" />
+<meta name="msapplication-tooltip" content="Ran Chen" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="/css/bundle.ff02473a9a.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="/images/about/chenran.png" alt="Avatar">
+  
+  <h2 class="title">Ran Chen</h2>
+  
+  <p class="subtitle">Keep moving and explore my limit</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/crcrcry">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/tags/">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:crcrcry.hello@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/crcrcry" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/images/about/wechat.jpeg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      <li class="social-item">
+        <a href="//www.zhihu.com/people/crcr-30" title="Zhihu"><span class="icon icon-zhihu"></span></a>
+      </li>
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">总结：ECMAScript5</h1>
+      <p class="post-meta">@Ran Chen · May 31, 2018 · 2 min read</p>
+    </header>
+    <article class="post-content"><p>本文主要是作者在阅读《JavaScript 高级程序设计》第三版时的笔记与心得。包含 ECMAScript 5 中的一些较为重要的内容。</p>
+
+<p></p>
+
+<h1 id="一-简介">一、简介</h1>
+
+<ol>
+<li>JavaScript
+
+<ol>
+<li>核心：ECMAScript</li>
+<li>文档对象模型：DOM</li>
+<li>浏览器对象模型：BOM</li>
+</ol></li>
+<li>ECMAScript 是一种通过 ECMA-262 标准化的脚本程序设计语言。这种语言在万维网上应用广泛，它往往被称为 JavaScript 或 JScript，但实际上后两者是 ECMA-262 标准的实现和扩展。</li>
+</ol>
+
+<h1 id="二-语法">二、语法</h1>
+
+<ol>
+<li>for-in：用于枚举对象的属性。in 操作符也可单独使用。</li>
+<li>label：添加标签，将来使用。</li>
+<li>函数参数：存储于arguments对象，命名的参数只提供便利。但二者同步。</li>
+</ol>
+
+<h1 id="三-变量">三、变量</h1>
+
+<ol>
+<li>ECMAScript 变量有两种类型：
+
+<ol>
+<li>基本类型：undefined, null, boolean, number, string</li>
+<li>引用类型：object</li>
+</ol></li>
+<li>复制变量值时：
+
+<ol>
+<li>基本类型：值传递，栈中创建新值。</li>
+<li>引用类型：复制指针。</li>
+</ol></li>
+<li>typeof：检测基本数据类型</li>
+<li>instanceof：检测引用类型</li>
+</ol>
+
+<h1 id="四-执行环境与作用域">四、执行环境与作用域</h1>
+
+<h2 id="4-1-核心概念">4.1 核心概念</h2>
+
+<ol>
+<li>执行环境：execution context，一个函数域或全局域中，代码执行时相应创建的环境。</li>
+<li>变量对象：variable object：
+
+<ul>
+<li>函数参数。</li>
+<li>环境中定义的所有变量和函数（提前声明机制）。</li>
+</ul></li>
+<li>作用域链：scope chain，变量对象链：
+
+<ul>
+<li>函数定义时，会创建一个预先包含定义该函数的变量对象的作用域链，存于函数的内部属性[[scope]]中，所以作用域链不是只有一条。</li>
+<li>函数调用时，为函数创建执行环境，通过复制函数的[[scope]]属性中的对象构建<strong>执行环境的作用域链</strong>，再创建变量对象作为活动对象，推入执行环境作用域链前端。</li>
+<li>作用域链本质上是一个指向变量对象的指针列表，只引用但不实际包含变量对象。</li>
+</ul></li>
+<li>活动对象：activation object，作用域上正在被执行和引用的变量对象。</li>
+<li>标志符解析：沿着作用域链一级一级搜索标志符，从前端向后回溯，找到为止。</li>
+</ol>
+
+<h2 id="4-2-延长作用域链">4.2 延长作用域链</h2>
+
+<ol>
+<li>理念：在作用域链的前端临时增加一个变量对象，代码执行后该变量对象被移除。</li>
+<li>方式：
+
+<ol>
+<li>try-catch 中的 catch 块：创建一个新的变量对象，包含的是被抛出的错误对象的声明。</li>
+<li>with：将指定的对象添加到作用域链中。</li>
+</ol></li>
+</ol>
+
+<h2 id="4-3-垃圾收集">4.3 垃圾收集</h2>
+
+<ol>
+<li>标记清除
+
+<ul>
+<li>较为常用。</li>
+<li>变量进入执行环境时，标记为“进入环境”。不能释放这种变量的内存，因为执行流在该环境中可能用到这些变量。</li>
+<li>变量离开环境时，标记为“离开环境”。删除离开环境的变量。</li>
+</ul></li>
+<li>引用计数
+
+<ul>
+<li>不常用。</li>
+<li>跟踪每个值被引用的次数，引用次数变成0时释放内存。</li>
+<li>问题：循环引用。</li>
+</ul></li>
+</ol>
+
+<h1 id="五-function-类型">五、Function 类型</h1>
+
+<h2 id="5-1-函数内部属性">5.1 函数内部属性</h2>
+
+<ol>
+<li>arguments：函数参数。
+
+<ol>
+<li>callee属性：指向拥有这个arguments对象的函数</li>
+</ol></li>
+<li>this：函数据以执行的环境对象。</li>
+<li>caller：调用此函数的对象，不可写。</li>
+</ol>
+
+<h2 id="5-2-函数属性和方法">5.2 函数属性和方法</h2>
+
+<ol>
+<li>length 和 prototype</li>
+<li>apply() 和 call()：在特定作用域中调用函数
+
+<ol>
+<li>apply 的参数是：作用域、参数数组</li>
+<li>call 的参数是：作用域、所有参数枚举</li>
+</ol></li>
+<li>bind()：创建函数实例，并将 this 绑定到传给 bind() 的参数。</li>
+<li>apply / call 和 bind 的区别：
+
+<ul>
+<li>apply / call 是在某作用域下立即去调用一个函数。</li>
+<li>bind 是返回一个绑定了作用域的函数实例，而不是调用。</li>
+</ul></li>
+</ol>
+
+<h1 id="六-对象">六、对象</h1>
+
+<h2 id="6-1-特性">6.1 特性</h2>
+
+<ol>
+<li>特性：描述了对象属性（属性分两种）的各种特征，为实现 JavaScript 引擎而产生，不能直接访问，放在两对方括号中。
+
+<ol>
+<li>数据属性，包含数据值的属性，有4个特性：
+
+<ol>
+<li>[[ Configurable ]]</li>
+<li>[[ Enumberable ]]</li>
+<li>[[ Writable ]]</li>
+<li>[[ Value ]]</li>
+</ol></li>
+<li>访问器属性，不包含数据值的属性，有4个特性：
+
+<ol>
+<li>[[ Configurable ]]</li>
+<li>[[ Enumerable ]]</li>
+<li>[[ Get ]]</li>
+<li>[[ Set ]]</li>
+</ol></li>
+</ol></li>
+<li>操作特性：
+
+<ol>
+<li>修改属性的特性：Object.defineProperty()</li>
+<li>读取属性的特性：Object.getOwnPropertyDescriptor()</li>
+</ol></li>
+<li>delete 操作符，可以删除对象的属性</li>
+</ol>
+
+<h2 id="6-2-创建对象">6.2 创建对象</h2>
+
+<ol>
+<li>工厂模式：
+
+<ol>
+<li>通过一个函数工厂化生产和返回对象。</li>
+<li>缺点：无法解决对象识别问题，instanceof无法确定对象类型。</li>
+</ol></li>
+<li>构造函数模式：利用 new 操作符。
+
+<ol>
+<li>实际步骤：
+
+<ol>
+<li>创建一个新对象</li>
+<li>将构造函数的作用域赋给新对象（this 指向新对象）</li>
+<li>执行构造函数中的代码（为对象添加属性）</li>
+<li>返回新对象</li>
+</ol></li>
+<li>缺点：对象中的方法会被重复创建</li>
+</ol></li>
+<li>原型模式：
+
+<ol>
+<li>所有对象实例共享 prototype 属性包含的属性和方法（指针）。</li>
+<li>重写原型会使对象的 prototype 指针指向新写的原型，但不会改变已创建的对象实例的 prototype 指针。</li>
+<li>在实例中创建同名属性，对原型只会屏蔽不会覆盖。</li>
+<li>搜索对象的属性会从对象本身实例搜索到原型，向上直到找到。</li>
+<li>缺点：原型中包含引用类型的属性，比如 array ，则操作的就是原型对象本身而不会发生同名属性屏蔽。</li>
+</ol></li>
+<li>组合使用构造函数模式和原型模式：解决二者的缺点。</li>
+<li>动态原型模式：初次调用时将共享数据加入原型。</li>
+<li>寄生构造函数模式：
+
+<ol>
+<li>类似工厂模式，但使用 new 操作符，且调用的函数叫做构造函数（但返回的对象和构造函数和原型之间，没有关关联）。</li>
+<li>缺点：同工厂模式，且更复杂，不建议使用。</li>
+</ol></li>
+<li>稳妥构造函数模式：没有公共属性，方法不引用 this 对象。适合安全的环境。</li>
+</ol>
+
+<h2 id="6-3-继承">6.3 继承</h2>
+
+<ol>
+<li>原型链是实现继承的主要方法：
+
+<ol>
+<li>原理：沿着原型链向上搜索。</li>
+<li>缺点：
+
+<ol>
+<li>引用类型的原型，引用类型共享。</li>
+<li>子类型无法向超类型的构造函数传递参数。</li>
+</ol></li>
+</ol></li>
+<li>借用构造函数：子类型构造函数的内部调用超类型构造函数。
+
+<ol>
+<li>优点：
+
+<ol>
+<li>解决了引用类型共享的问题。因为通过 apply() 或 call() 方法，借调超类型构造函数。就会在子类型的实例中运行超类型构造函数的代码，子类型就会拥有自己的引用类型变量。</li>
+<li>可以传递参数给超类型构造函数。</li>
+</ol></li>
+<li>缺点：
+
+<ol>
+<li>方法在构造函数中定义，无法函数复用（函数被重复创建）。</li>
+</ol></li>
+</ol></li>
+<li>组合继承：将原型链和借用构造函数的技术组合到一起。
+
+<ol>
+<li>原型链实现对原型属性和方法的继承。</li>
+<li>借用构造函数来实现对实例属性的继承。</li>
+</ol></li>
+<li>原型式继承</li>
+<li>寄生式继承</li>
+<li>寄生组合式继承</li>
+</ol>
+
+<h1 id="七-闭包">七、闭包</h1>
+
+<h2 id="7-1-闭包">7.1 闭包</h2>
+
+<ol>
+<li>闭包：有权访问另一个函数作用域中的变量的函数。</li>
+<li>通常情况：函数内部定义的匿名函数，会将包含函数的变量对象添加到它的作用域链。包含函数执行完毕后，匿名函数被返回，所以包含函数的活动对象不会被销毁（仍然被匿名函数引用）。所以需要手动解除对匿名函数的引用（设置为 null ），以便释放内存。</li>
+</ol>
+
+<h2 id="7-2-this-对象">7.2 this 对象</h2>
+
+<ol>
+<li>匿名函数的执行环境具有全局性，this 通常指向全局。</li>
+</ol>
+
+<h2 id="7-3-模仿块级作用域">7.3 模仿块级作用域</h2>
+
+<pre><code class="language-javascript">(function(){
+	// code
+	// 这里是块级作用域
+	// 匿名函数立即执行来模仿块级作用域
+})();
+</code></pre>
+
+<h2 id="7-4-私有变量">7.4 私有变量</h2>
+
+<ol>
+<li>在构造函数内部定义var变量或者构造函数传递变量，然后定义 this.method() 来访问这些变量。
+<br /></li>
+</ol>
+
+<h2 id="7-5-静态私有变量">7.5 静态私有变量</h2>
+
+<pre><code class="language-javascript">// 闭包
+(function(){
+	// 内部私有变量
+	var name = &quot;&quot;;
+	
+	// 全局变量 Person，构造函数
+	Person = function(value){
+		name = value;
+	}
+	
+	Person.prototype.getName = function(){
+		return name;
+	}
+	
+	Person.prototype.setName = function(value){
+		name = value;
+	}
+})();
+
+var person1 = new Person(&quot;Hello&quot;);
+person1.getName();	// Hello
+var person2 = new Person(&quot;World&quot;);
+person1.getName();	// World
+</code></pre>
+
+<h1 id="八-高级技巧">八、高级技巧</h1>
+
+<h2 id="8-1-高级函数">8.1 高级函数</h2>
+
+<ol>
+<li>安全的类型检测：
+
+<ol>
+<li>这一技巧用于解决 instanceof 操作符的一些问题：
+
+<ol>
+<li>多个全局作用域</li>
+<li>Json 对象是否原生</li>
+</ol></li>
+<li>实现方法：
+
+<ol>
+<li>在 object 上调用原生的 toString()，都会返回一个字符串，显示该对象的构造函数名。</li>
+<li>Object.prototype.toString.call(value);  // [object RegExp]</li>
+</ol></li>
+</ol></li>
+<li>作用域安全的构造函数：
+
+<ol>
+<li>这一技巧用于解决：
+
+<ol>
+<li>没有用 new 调用构造函数的情况。</li>
+</ol></li>
+<li>实现方法：判断 this 是否是构造函数的实例，来正确调用构造函数。</li>
+<li>但在继承时若没有使用原型链（比如，使用借用构造函数），继承可能被破坏。</li>
+</ol></li>
+<li>惰性载入函数   ：
+
+<ol>
+<li>这一技巧用于解决：
+
+<ol>
+<li>由于浏览器差异，大量 if 语句来检查浏览器能力，导致运行缓慢。</li>
+</ol></li>
+<li>实现方法：
+
+<ol>
+<li>函数第一次调用时，将该函数覆盖。</li>
+<li>声明函数时就将函数指定为适当的函数</li>
+</ol></li>
+</ol></li>
+<li>函数绑定：
+
+<ol>
+<li>这一技巧用于解决：
+
+<ol>
+<li>为 JavaScript 提供强大的动态函数创建功能，使函数可以在特定环境运行。</li>
+</ol></li>
+<li>实现方法：
+
+<ol>
+<li>bind()</li>
+</ol></li>
+</ol></li>
+<li>函数柯里化：
+
+<ol>
+<li>这一技巧用于解决：
+
+<ol>
+<li>为 JavaScript 提供强大的动态函数创建功能。</li>
+</ol></li>
+<li>实现方法：
+
+<ol>
+<li>创建已经设置好了一个或多个参数的函数，用闭包返回。
+<br /></li>
+</ol></li>
+</ol></li>
+</ol>
+
+<h2 id="8-2-防篡改对象">8.2 防篡改对象</h2>
+
+<ol>
+<li>这一技巧用于解决：对象共享，易被篡改。</li>
+<li>ES5 定义了一些方法，来
+
+<ol>
+<li>使对象不可拓展</li>
+<li>密封对象</li>
+<li>冻结对象</li>
+</ol></li>
+<li>对象定义为防篡改后，不可撤销。</li>
+</ol>
+
+<h2 id="8-3-高级定时器">8.3 高级定时器</h2>
+
+<ol>
+<li>基本定时器，在一定时间之后将代码加入到队列：
+
+<ol>
+<li>setTimeout()</li>
+<li>setInterval()</li>
+</ol></li>
+<li>JavaScript 运行机制，单线程环境，JavaScript 中没有任何代码是立刻执行的，而是一旦进程空闲尽快执行：
+
+<ol>
+<li>主执行进程</li>
+<li>代码队列：进程下一次空闲时执行的代码队列</li>
+</ol></li>
+<li>关于重复定时器 setInterval() 的一些问题
+
+<ol>
+<li>JS引擎，保证队列中只有一段该定时器代码，这确保了定时器代码加入到队列的最小时间间隔为指定间隔。</li>
+<li>问题：
+
+<ol>
+<li>某些间隔会跳过。</li>
+<li>多个定时器的代码执行间隔可能比预期小。</li>
+</ol></li>
+<li>解决方案：链式 setTimeout()</li>
+</ol></li>
+<li>Yielding Processes</li>
+<li>函数节流</li>
+</ol>
+
+<h2 id="8-4-自定义事件">8.4 自定义事件</h2>
+
+<h2 id="8-5-拖放">8.5 拖放</h2></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="/tags/javascript"><span class="tag">JavaScript</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Ran Chen</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="/js/bundle.d1288006cf.js"></script>
+
+
+
+
+  </body>
+</html>
