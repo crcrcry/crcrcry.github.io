@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Skylens</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Ran Chen" />
+  <meta name="description" content="对多维数据，天际线查询可以得到优势点（支配点）的子集。这在涉及多准则决策制定的各个领域都很重要。然而，存在两个问题：1. 天际线查询只能解决一半的问题。因为用户仍然需要手动选择最理想的项目；2. 大量的候选人和属性容易给用户带来情绪压力，不利于决策。人们想要解决这个问题，面临着两个挑战：1. 如何解释天际线：即理解天际线点的优点；2. 如何进行多个天际线点的比较劲。进而，SkyLens 被提出，用于帮助用户多角度比较和解释天际点，并作出决策。
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="Skylens" />
+    <meta name="twitter:description" content="对多维数据，天际线查询可以得到优势点（支配点）的子集。这在涉及多准则决策制定的各个领域都很重要。然而，存在两个问题：1. 天际线查询只能解决一半的问题。因为用户仍然需要手动选择最理想的项目；2. 大量的候选人和属性容易给用户带来情绪压力，不利于决策。人们想要解决这个问题，面临着两个挑战：1. 如何解释天际线：即理解天际线点的优点；2. 如何进行多个天际线点的比较劲。进而，SkyLens 被提出，用于帮助用户多角度比较和解释天际点，并作出决策。
+
+" />
+    <meta name="twitter:image" content="https://crcrcry.github.io/images/blogs/vis/SkyLens0.png" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Skylens" />
+  <meta property="og:description" content="对多维数据，天际线查询可以得到优势点（支配点）的子集。这在涉及多准则决策制定的各个领域都很重要。然而，存在两个问题：1. 天际线查询只能解决一半的问题。因为用户仍然需要手动选择最理想的项目；2. 大量的候选人和属性容易给用户带来情绪压力，不利于决策。人们想要解决这个问题，面临着两个挑战：1. 如何解释天际线：即理解天际线点的优点；2. 如何进行多个天际线点的比较劲。进而，SkyLens 被提出，用于帮助用户多角度比较和解释天际点，并作出决策。
+
+" />
+  <meta property="og:url" content="https://crcrcry.github.io/post/vis/skylens/" />
+  <meta property="og:image" content="https://crcrcry.github.io/images/blogs/vis/SkyLens0.png" />
+
+
+
+
+<meta name="generator" content="Hugo 0.40.2" />
+
+
+<link rel="canonical" href="https://crcrcry.github.io/post/vis/skylens/" />
+<link rel="alternative" href="/index.xml" title="Ran Chen" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Ran Chen" />
+<meta name="msapplication-tooltip" content="Ran Chen" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="/css/bundle.ff02473a9a.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="/images/about/chenran.png" alt="Avatar">
+  
+  <h2 class="title">Ran Chen</h2>
+  
+  <p class="subtitle">Keep moving and explore my limit</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/crcrcry">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/tags/">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:crcrcry.hello@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/crcrcry" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/images/about/wechat.jpeg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      <li class="social-item">
+        <a href="//www.zhihu.com/people/crcr-30" title="Zhihu"><span class="icon icon-zhihu"></span></a>
+      </li>
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Skylens</h1>
+      <p class="post-meta">@Ran Chen · Jun 1, 2018 · 2 min read</p>
+    </header>
+    <article class="post-content"><p>对多维数据，天际线查询可以得到优势点（支配点）的子集。这在涉及多准则决策制定的各个领域都很重要。然而，存在两个问题：1. 天际线查询只能解决一半的问题。因为用户仍然需要手动选择最理想的项目；2. 大量的候选人和属性容易给用户带来情绪压力，不利于决策。人们想要解决这个问题，面临着两个挑战：1. 如何解释天际线：即理解天际线点的优点；2. 如何进行多个天际线点的比较劲。进而，SkyLens 被提出，用于帮助用户多角度比较和解释天际点，并作出决策。</p>
+
+<p></p>
+
+<p><a href="/files/papers/SkyLens.pdf">原文链接：SkyLens: Visual Analysis of Skyline on Multi-dimensional Data</a></p>
+
+<h1 id="一-介绍">一、介绍</h1>
+
+<ul>
+<li>背景：
+
+<ul>
+<li>对多维数据，天际线查询可以得到优势点的子集。这在涉及多准则决策制定的各个领域都很重要。</li>
+</ul></li>
+<li>问题：
+
+<ul>
+<li>天际线查询只能解决一半的问题。因为用户仍然需要手动选择最理想的项目。</li>
+<li>大量的候选人和属性容易给用户带来情绪压力，不利于决策。</li>
+</ul></li>
+<li>挑战：
+
+<ol>
+<li>解释天际线：即理解天际线点的优点</li>
+<li>多个天际线点的比较</li>
+</ol></li>
+<li>解决方案：SkyLens
+
+<ul>
+<li>表格视图：解决挑战 1，总结各个天际点在属性上的排名和差异，还说明了各个天际点的决定性子空间</li>
+<li>投影和比较视图：解决挑战 2，2 个层面比较，宏观比较和微观比较</li>
+</ul></li>
+<li>贡献：
+
+<ol>
+<li>SkyLens 系统，帮助用户多角度比较和解释天际点</li>
+<li>新颖的表格设计，利于天际线解释</li>
+<li>两个使用真实数据集的用户研究场景来展现 SkyLens 的有效性</li>
+</ol></li>
+</ul>
+
+<h1 id="二-背景">二、背景</h1>
+
+<p><img src="/images/blogs/vis/SkyLens1.png" alt="" /></p>
+
+<ul>
+<li>数据
+
+<ul>
+<li>m 维空间 D = (d1, d2, &hellip;, dm)</li>
+<li>点空间 P = {p1, p2, &hellip;, pn}</li>
+</ul></li>
+<li>定义
+
+<ul>
+<li>Dominance：对两个点 p、q，p 统治 q 代表 p 的所有维度属性值都至少等于 q，且至少一个维度属性大于 q。</li>
+<li>Skyline Point：对点 p，不存在任何点统治它。</li>
+<li>Skyline：skyline points 的集合。</li>
+<li>Dominated point：对点 p，存在一个点统治 p。</li>
+<li>Dominating score：对 skyline A 上的点 p，p 的统治分数即 p 统治的点的数量。</li>
+<li>Subspace：D 的非空子集。</li>
+<li>Subspace skyline</li>
+<li>Decisive subspace：对子空间 B，对于 D 上所有 skyline point p，在任何 B 到 D 区间中的子空间，p 的映射都在对应子空间 skyline 上。</li>
+</ul></li>
+</ul>
+
+<h1 id="三-相关工作">三、相关工作</h1>
+
+<h2 id="3-1-天际线查询">3.1 天际线查询</h2>
+
+<ul>
+<li>除了开发能更高效和快速进行天际线查询的算法，大量的研究旨在解决 skyline 查询的两个主要缺点：
+
+<ol>
+<li>随着维度增加，天际线尺寸过大，导致天际线不能提供用户感兴趣的见解。</li>
+<li>天际线查询不能和用户属性偏好进行协作，对待所有属性为同等重要。</li>
+</ol></li>
+<li>解决缺点一：为了减少高维空间中的天际线尺寸，并增加天际线查询的区分能力，已经投入了大量努力来从整个天际线生成具有代表性的天际线。
+
+<ul>
+<li>思想：选择 k 个最有趣的点，一个点一个分类，更好的总结了整个天际线。例如：
+
+<ol>
+<li>天际线点聚类</li>
+<li>天际线点兴趣数值化和排序，例如：天际线频率，定义为天际线点对应在子空间天际线的子空间数量，用于排序并返回 top-k</li>
+</ol></li>
+</ul></li>
+<li>解决缺点二：许多研究尝试集成用户偏好
+
+<ol>
+<li>望远镜算法：通过考虑用户属性偏好和检索大小，来识别个性化天际线点</li>
+<li>p-skylines 框架：给天际线增加了属性重要性这一概念，从用户选择的上下级例子挖掘属性的相对重要性。</li>
+</ol></li>
+</ul>
+
+<h2 id="3-2-多准则决策可视化">3.2 多准则决策可视化</h2>
+
+<ul>
+<li>多属性加权排序是一种流行的多标准决策方案
+
+<ul>
+<li>ValueChart、Lineup、Weightlifter</li>
+<li>但用户偏好通常是模糊的、难以找到精确权重分配的。</li>
+<li>且某些属性偏好可能受到其他属性影响，如：安全太低时，别的条件再优越也不行</li>
+<li>所以，权重调整、用户偏好是非常复杂的。</li>
+</ul></li>
+<li>天际线查询也是一种流行的协助决策方法
+
+<ul>
+<li>不要求用户额外输入，即可减少候选项尺寸</li>
+<li>为增强天际线理解，应用了多种多维数据可视化技术</li>
+<li>这些技术主要关注于代表整个天际线的总览，不足以支持决策</li>
+</ul></li>
+</ul>
+
+<h1 id="四-设计目标">四、设计目标</h1>
+
+<ol>
+<li>从不同角度、不同规模探索整个天际线</li>
+<li>理解天际线点的优越性</li>
+<li>比较天际线点并且高亮其不同</li>
+<li>支持对天际线的交互式探索和精炼</li>
+</ol>
+
+<h1 id="五-分析任务">五、分析任务</h1>
+
+<ol>
+<li>编码多维属性和统计</li>
+<li>编码每个天际点的决定子空间</li>
+<li>高亮多个天际点的不同</li>
+<li>辨别集群和离群点</li>
+<li>分析统治关系</li>
+<li>支持精炼天际线查询</li>
+<li>支持结果过滤</li>
+</ol>
+
+<h1 id="六-设计">六、设计</h1>
+
+<ul>
+<li>数据分析模块：准备数据，计算天际线</li>
+<li>可视分析模块：
+
+<ul>
+<li>投影视图：概览整个天际线</li>
+<li>表格视图：总结了各天际线点的详细信息</li>
+<li>比较视图：从属性和统治角度，比较 candidates</li>
+<li>控制面板：提供用户交互
+<br /></li>
+</ul></li>
+</ul>
+
+<h2 id="6-1-投影视图">6.1 投影视图</h2>
+
+<ul>
+<li>投影布局：skyline points 被投影到二维空间，通过位置来反映相对相似度，用于帮助用户发现集群和异常值。</li>
+<li>Skyline glyph：
+
+<ul>
+<li>内部圆形亮度表示统治分数，外部扇形半径表示属性值大小。</li>
+<li>当选中一个 point 时，其他所有 point 会转化为 focus 模式，即和被选中 point 的属性值进行比较，扇形颜色用于表示属性值得不同。</li>
+<li>潜在缺点是视觉混乱，通过降低 glyph 透明度来减少混乱。
+<img src="/images/blogs/vis/SkyLens2.png" alt="" /></li>
+</ul></li>
+<li>Glyph 替代：
+<img src="/images/blogs/vis/SkyLens3.png" alt="" /></li>
+</ul>
+
+<h2 id="6-2-表格视图">6.2 表格视图</h2>
+
+<ul>
+<li>视觉编码
+
+<ul>
+<li>列：属性被编码为列，每列头部的面积图表示该属性所有值的分布：x 轴从左到右升序表示属性值，y 轴表示数据密度，垂直灰线表示天际线点。</li>
+<li>行：天际线点被编码为行。</li>
+<li>每个单元格中：
+
+<ul>
+<li>bar chart，每个 bar 代表一个天际线点 pi 在该属性的值，所有 bar 升序排序。代表该行 pi 的值的 bar 被编码为紫色。</li>
+<li>每个 bar 的高度，代表它和 pi 在所有其他维度的比较。</li>
+<li>拓展模式，可以进行每个维度的单个比较，可以展示每个维度是否在决定子空间中（可能有多个决定子空间）。</li>
+</ul></li>
+</ul></li>
+<li>交互
+
+<ul>
+<li>过滤：过滤维度属性值、过滤天际线点</li>
+<li>链接：连接到属性分布图</li>
+<li>查询：查询数据集中的特定点</li>
+</ul></li>
+</ul>
+
+<p><img src="/images/blogs/vis/SkyLens4.png" alt="" /></p>
+
+<h2 id="6-3-比较视图">6.3 比较视图</h2>
+
+<ul>
+<li>雷达图：增强了传统雷达图，用于展示 skyline points 的属性值。编码元素：
+
+<ul>
+<li>中心圆半径：统治分数</li>
+<li>轴上圆半径：属性相对排名</li>
+<li>轴长度：属性值</li>
+<li>轴阴影：属性值分布</li>
+</ul></li>
+<li>Domination glyph
+
+<ul>
+<li>饼图：
+
+<ul>
+<li>内扇区角度：统治点比例</li>
+<li>外扇区角度：独自统治点比例</li>
+<li>半径：统治点数量和（去重）</li>
+</ul></li>
+<li>hover：混合雷达图
+
+<ul>
+<li>颜色线：天际线点</li>
+<li>灰色线：hover 扇区的被统治点
+<img src="/images/blogs/vis/SkyLens5.png" alt="" /></li>
+</ul></li>
+</ul></li>
+
+<li><p>可选设计：</p>
+
+<ul>
+<li>设计思路：中心雷达图（属性值） + 外部环（统治分数），外部环上的圆代表被支配的点。</li>
+<li>缺点：被支配的点数量很大时，视觉混乱</li>
+</ul>
+
+<p><img src="/images/blogs/vis/SkyLens6.png" alt="" /></p></li>
+</ul>
+
+<h2 id="6-4-交互">6.4 交互</h2>
+
+<ul>
+<li>拖动改变属性顺序</li>
+<li>point 三个视图的关联和高亮</li>
+<li>brush</li>
+</ul>
+
+<h1 id="七-评估">七、评估</h1>
+
+<h2 id="7-1-使用场景1">7.1 使用场景1</h2>
+
+<ul>
+<li>NBA</li>
+</ul>
+
+<h2 id="7-2-使用场景2">7.2 使用场景2</h2>
+
+<ul>
+<li>旅行</li>
+</ul>
+
+<h2 id="7-3-用户研究">7.3 用户研究</h2>
+
+<ul>
+<li>与现有的天际线可视化系统比较是不适用的，因为之前的天际线可视化工作主要集中在天际线的概述。</li>
+<li>因此，进行定性而非定量研究，且和 LineUp 进行了比较。
+<br /></li>
+</ul>
+
+<h1 id="八-讨论">八、讨论</h1>
+
+<ul>
+<li>关键问题：可拓展性、分类属性</li>
+<li>SkyLens 设计是为了方便决策制定，但它容易拓展到多维数据探索和分析</li>
+</ul>
+
+<h1 id="九-结论">九、结论</h1></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="tag">数据可视化</span></a></li>
+        
+          <li><a href="/tags/tvcg"><span class="tag">TVCG</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Ran Chen</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="/js/bundle.d1288006cf.js"></script>
+
+
+
+
+  </body>
+</html>

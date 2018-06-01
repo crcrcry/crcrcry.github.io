@@ -22,6 +22,28 @@
     </item>
     
     <item>
+      <title>Clustervision</title>
+      <link>https://crcrcry.github.io/post/vis/clustervision/</link>
+      <pubDate>Fri, 01 Jun 2018 11:14:13 +0800</pubDate>
+      
+      <guid>https://crcrcry.github.io/post/vis/clustervision/</guid>
+      <description>&lt;p&gt;聚类算法是无监督机器学习的一种常见类型，对于汇总和聚合复杂多维数据以使其更易于解释是很有帮助的。有多种多样的聚类方法，如 K-means、凝聚聚类、DBSCAN、光谱聚类。然而，现阶段存在一个问题：对于不同的用户，关注不同数据集的不同层次和方面，什么算法和参数能得到一个最好的聚类结果？这一点往往是通过专家的经验去判断和解决。而本文提出了 Clustervision，为用户计算和评估所有的聚类，并推荐其中高质量的聚类，帮助用户更好的理解数据并激发创造力。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Skylens</title>
+      <link>https://crcrcry.github.io/post/vis/skylens/</link>
+      <pubDate>Fri, 01 Jun 2018 11:13:52 +0800</pubDate>
+      
+      <guid>https://crcrcry.github.io/post/vis/skylens/</guid>
+      <description>&lt;p&gt;对多维数据，天际线查询可以得到优势点（支配点）的子集。这在涉及多准则决策制定的各个领域都很重要。然而，存在两个问题：1. 天际线查询只能解决一半的问题。因为用户仍然需要手动选择最理想的项目；2. 大量的候选人和属性容易给用户带来情绪压力，不利于决策。人们想要解决这个问题，面临着两个挑战：1. 如何解释天际线：即理解天际线点的优点；2. 如何进行多个天际线点的比较劲。进而，SkyLens 被提出，用于帮助用户多角度比较和解释天际点，并作出决策。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>正则中的贪心和懒惰</title>
       <link>https://crcrcry.github.io/post/regexr/%E8%B4%AA%E5%BF%83%E5%92%8C%E6%87%92%E6%83%B0/</link>
       <pubDate>Thu, 31 May 2018 14:44:44 +0800</pubDate>
