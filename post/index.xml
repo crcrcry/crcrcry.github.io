@@ -7,13 +7,35 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.</copyright>
-    <lastBuildDate>Fri, 01 Jun 2018 11:14:13 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 02 Jun 2018 13:09:36 +0800</lastBuildDate>
     
 	<atom:link href="https://crcrcry.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Clustervision</title>
+      <title>TACO：表格随时间变化的可视化</title>
+      <link>https://crcrcry.github.io/post/vis/taco/</link>
+      <pubDate>Sat, 02 Jun 2018 13:09:36 +0800</pubDate>
+      
+      <guid>https://crcrcry.github.io/post/vis/taco/</guid>
+      <description>&lt;p&gt;多变量表格式的数据在生活中非常普遍，同时，表格可以进行结构和内容的改变，从而导致了同个表格的多种版本。然而，对于这些衍生的表格，很难理解它们在增删、重排序、合并和分裂、内容改变之间，究竟发生了什么变化。尤其是对于千万条条目级别的大型表格。本文作者提出了 TACO (TAble COmparison) 这一交互式比较工具，用于可视化不同细节等级的不同表格之间的不同。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Rankexplorer：大型时序数据的排名变化可视化</title>
+      <link>https://crcrcry.github.io/post/vis/rankexplorer/</link>
+      <pubDate>Sat, 02 Jun 2018 13:08:16 +0800</pubDate>
+      
+      <guid>https://crcrcry.github.io/post/vis/rankexplorer/</guid>
+      <description>&lt;p&gt;时序数据是当今热门应用数据，其中暗含了趋势、主题、异常、关系等知识。人们既关心数据值随着时间的变化，也关心数据的排名。例如：对于 Google 查询关键词，专家既关心词的搜索数量，也关心相对排名。这些数据随着时间变化。现阶段，叠图是这方面最为广泛使用的可视化技术。然而，叠图存在着不能展现时序变化的缺陷。增强叠图又容易导致混乱。所以，本文作者提出了 RankExplorer，基于 ThemeRiver 的可视化方法来展现排名随时间的变化。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Clustervision：无监督聚类的视觉监督</title>
       <link>https://crcrcry.github.io/post/vis/clustervision/</link>
       <pubDate>Fri, 01 Jun 2018 11:14:13 +0800</pubDate>
       
@@ -24,12 +46,12 @@
     </item>
     
     <item>
-      <title>Skylens</title>
+      <title>Skylens：多维数据的 Skyline 的可视化分析</title>
       <link>https://crcrcry.github.io/post/vis/skylens/</link>
       <pubDate>Fri, 01 Jun 2018 11:13:52 +0800</pubDate>
       
       <guid>https://crcrcry.github.io/post/vis/skylens/</guid>
-      <description>&lt;p&gt;对多维数据，天际线查询可以得到优势点（支配点）的子集。这在涉及多准则决策制定的各个领域都很重要。然而，存在两个问题：1. 天际线查询只能解决一半的问题。因为用户仍然需要手动选择最理想的项目；2. 大量的候选人和属性容易给用户带来情绪压力，不利于决策。人们想要解决这个问题，面临着两个挑战：1. 如何解释天际线：即理解天际线点的优点；2. 如何进行多个天际线点的比较劲。进而，SkyLens 被提出，用于帮助用户多角度比较和解释天际点，并作出决策。&lt;/p&gt;
+      <description>&lt;p&gt;对多维数据，天际线查询可以得到优势点（支配点）的子集。这在涉及多准则决策制定的各个领域都很重要。然而，存在两个问题：1. 天际线查询只能解决一半的问题。因为用户仍然需要手动选择最理想的项目；2. 大量的候选方案和属性容易给用户带来情绪压力，不利于决策。人们想要解决这个问题，面临着两个挑战：1. 如何解释天际线：即理解天际线点的优点；2. 如何进行多个天际线点的比较劲。进而，SkyLens 被提出，用于帮助用户多角度比较和解释天际点，并作出决策。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>

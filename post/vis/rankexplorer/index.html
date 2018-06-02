@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Rankexplorer：大型时序数据的排名变化可视化</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Ran Chen" />
+  <meta name="description" content="时序数据是当今热门应用数据，其中暗含了趋势、主题、异常、关系等知识。人们既关心数据值随着时间的变化，也关心数据的排名。例如：对于 Google 查询关键词，专家既关心词的搜索数量，也关心相对排名。这些数据随着时间变化。现阶段，叠图是这方面最为广泛使用的可视化技术。然而，叠图存在着不能展现时序变化的缺陷。增强叠图又容易导致混乱。所以，本文作者提出了 RankExplorer，基于 ThemeRiver 的可视化方法来展现排名随时间的变化。
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="Rankexplorer：大型时序数据的排名变化可视化" />
+    <meta name="twitter:description" content="时序数据是当今热门应用数据，其中暗含了趋势、主题、异常、关系等知识。人们既关心数据值随着时间的变化，也关心数据的排名。例如：对于 Google 查询关键词，专家既关心词的搜索数量，也关心相对排名。这些数据随着时间变化。现阶段，叠图是这方面最为广泛使用的可视化技术。然而，叠图存在着不能展现时序变化的缺陷。增强叠图又容易导致混乱。所以，本文作者提出了 RankExplorer，基于 ThemeRiver 的可视化方法来展现排名随时间的变化。
+
+" />
+    <meta name="twitter:image" content="https://crcrcry.github.io/images/blogs/vis/RankExplorer1.png" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Rankexplorer：大型时序数据的排名变化可视化" />
+  <meta property="og:description" content="时序数据是当今热门应用数据，其中暗含了趋势、主题、异常、关系等知识。人们既关心数据值随着时间的变化，也关心数据的排名。例如：对于 Google 查询关键词，专家既关心词的搜索数量，也关心相对排名。这些数据随着时间变化。现阶段，叠图是这方面最为广泛使用的可视化技术。然而，叠图存在着不能展现时序变化的缺陷。增强叠图又容易导致混乱。所以，本文作者提出了 RankExplorer，基于 ThemeRiver 的可视化方法来展现排名随时间的变化。
+
+" />
+  <meta property="og:url" content="https://crcrcry.github.io/post/vis/rankexplorer/" />
+  <meta property="og:image" content="https://crcrcry.github.io/images/blogs/vis/RankExplorer1.png" />
+
+
+
+
+<meta name="generator" content="Hugo 0.40.2" />
+
+
+<link rel="canonical" href="https://crcrcry.github.io/post/vis/rankexplorer/" />
+<link rel="alternative" href="/index.xml" title="Ran Chen" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Ran Chen" />
+<meta name="msapplication-tooltip" content="Ran Chen" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="/css/bundle.ff02473a9a.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="/images/about/chenran.png" alt="Avatar">
+  
+  <h2 class="title">Ran Chen</h2>
+  
+  <p class="subtitle">Keep moving and explore my limit</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/crcrcry">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/tags/">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:crcrcry.hello@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/crcrcry" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/images/about/wechat.jpeg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      <li class="social-item">
+        <a href="//www.zhihu.com/people/crcr-30" title="Zhihu"><span class="icon icon-zhihu"></span></a>
+      </li>
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Rankexplorer：大型时序数据的排名变化可视化</h1>
+      <p class="post-meta">@Ran Chen · Jun 2, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><p>时序数据是当今热门应用数据，其中暗含了趋势、主题、异常、关系等知识。人们既关心数据值随着时间的变化，也关心数据的排名。例如：对于 Google 查询关键词，专家既关心词的搜索数量，也关心相对排名。这些数据随着时间变化。现阶段，叠图是这方面最为广泛使用的可视化技术。然而，叠图存在着不能展现时序变化的缺陷。增强叠图又容易导致混乱。所以，本文作者提出了 RankExplorer，基于 ThemeRiver 的可视化方法来展现排名随时间的变化。</p>
+
+<p></p>
+
+<p><a href="/files/papers/RankExplorer.pdf">原文链接：RankExplorer: Visualization of Ranking Changes in Large Time Series Data</a></p>
+
+<h1 id="摘要和介绍">摘要和介绍</h1>
+
+<ul>
+<li>需求：时序数据是当今热门应用数据，其中暗含了趋势、主题、异常、关系等知识。人们既关心数据值随着时间的变化，也关心数据的排名。</li>
+<li>例子：Google 查询关键词，专家既关心词的搜索数量，也关心相对排名。这些数据随着时间变化。</li>
+<li>现状：叠图是广泛使用的技术。
+
+<ul>
+<li>原因：其对时间序列数据的连续性、总结性和单独个体的展示。</li>
+<li>局限性：但传统叠图不能直观展示排名随时间的变化。</li>
+<li>解决方式：增强叠图，改变垂直层次序列来表示排名。</li>
+<li>缺陷：大量时间序列数据集时，频繁地改变容易造成混乱。</li>
+</ul></li>
+<li>改进现状的解决设计思路：
+
+<ul>
+<li>保持叠图的直观和属性性并解决其缺陷：大规模时序数据集中，难以表达排名改变的演化模式。</li>
+</ul></li>
+<li>解决方式：RankExplorer，基于 ThemeRiver 的可视化方法来展现排名随时间的变化。包括四个部分：
+
+<ul>
+<li>一种分割方法，将大量时间序列曲线分解成可管理数量的排名类别。</li>
+<li>一种拓展的 ThemeRiver 视图，嵌入了 bars 和 glyphs。展示了关于每一个排名类别的聚合值的时间演化，以及排名类别的内容变化（outer and inner content changes）。</li>
+<li>趋势曲线，展示了排名随时间变化的程度。</li>
+<li>丰富的用户交互，支持排名变化的交互式探索。</li>
+</ul></li>
+<li>评估：
+
+<ul>
+<li>评估方式：真实时序数据的 case studies。</li>
+<li>结果：RankExplorer 可以揭示，与传统可视化中的可能被隐蔽的排名变化有关的底层模式</li>
+</ul></li>
+<li>贡献：
+
+<ul>
+<li>拓展了 ThemeRiver 可视化，通过 embedded color bars and changing glyphs，传达了随着时间的外部和内部变化。</li>
+<li>提出了一种自适应分割方法，用于分割时间序列数据，来更高效的理解。</li>
+<li>允许用户探索排名的改变，在不同细节等级和不同层次部分，通过丰富的交互。</li>
+</ul></li>
+</ul>
+
+<h1 id="三-系统概述">三、系统概述</h1>
+
+<p><img src="/images/blogs/vis/RankExplorer1.png" alt="" />
+<img src="/images/blogs/vis/RankExplorer2.png" alt="" /></p>
+
+<ul>
+<li>Summary View：ThemeRiver + 趋势曲线：
+
+<ul>
+<li>Ranking：计算每个时间点的 ranking，并统计总体变化。</li>
+<li>Categories：在每个时间点，数据被分为数个分类，并计算聚合值。</li>
+<li>时序改变：
+
+<ul>
+<li>每个分类内的内容会随着时间改变</li>
+<li>一些 item 会 move into or out of the category（我们叫它 flowing-in 和 flowing-out item）</li>
+</ul></li>
+<li>Interactions：查询、缩放、过滤</li>
+</ul></li>
+<li>Statistical View</li>
+<li>Line Chart View</li>
+</ul>
+
+<h1 id="四-可视化设计">四、可视化设计</h1>
+
+<h2 id="4-1-设计理由">4.1 设计理由</h2>
+
+<ul>
+<li>设计目标：表达 item 的值和排名的时序变化。</li>
+<li>最简单的方式：
+
+<ul>
+<li>2 个 line chart，一个表值一个表排名。</li>
+<li>缺点：
+
+<ul>
+<li>数据量大时混乱</li>
+<li>上下文切换成本。</li>
+</ul></li>
+</ul></li>
+<li>ThemeRiver：
+
+<ul>
+<li>将每个 item 作为一个 layer，layer 宽度编码了 item 的值。</li>
+<li>缺点：
+
+<ul>
+<li>数据量大时混乱</li>
+<li>只能编码值的变化，无法编码排名的变化</li>
+</ul></li>
+</ul></li>
+<li>解决 ThemeRiver 的缺点：
+
+<ol>
+<li>将数据项分割为可控数量的分类。</li>
+<li>用 color bars 和 changing glyph 增强 ThemeRiver</li>
+</ol></li>
+</ul>
+
+<h2 id="4-2-分割">4.2 分割</h2>
+
+<ul>
+<li>分割标准：
+
+<ol>
+<li>每层平均高度相近</li>
+<li>外部变化应该尽可能少，每层相对尽可能独立。这样有助于用户关注特定层时减少受到其它层的干扰。</li>
+</ol></li>
+<li>数学模型</li>
+</ul>
+
+<h2 id="4-3-概要视图">4.3 概要视图</h2>
+
+<h3 id="4-3-1-趋势曲线编码方案">4.3.1 趋势曲线编码方案</h3>
+
+<ul>
+<li>曲线高度代表改变程度（0：没有改变，1：几乎全部改变）</li>
+<li>测量排名改变的需求：
+
+<ol>
+<li>要考虑数据项的相对排名改变</li>
+<li>一个项的排名改变越大，对总体排名改变的影响越大</li>
+<li>新数据项的加入和旧数据项的消失</li>
+</ol></li>
+<li>数学模型：拓展了反转数字的概念</li>
+</ul>
+
+<h3 id="4-3-2-color-bars-编码方案">4.3.2 Color Bars 编码方案</h3>
+
+<p><img src="/images/blogs/vis/RankExplorer3.png" alt="" /></p>
+
+<ul>
+<li>Color Bars 代表层间的排名改变</li>
+<li>特殊的色彩编码颜色：
+
+<ul>
+<li>第一次出现：白色</li>
+<li>重新出现：深绿色</li>
+<li>缩放后：深红编码来自上层，深绿编码来自下层</li>
+</ul></li>
+
+<li><p>非相邻的、遥远的层次之间的内容变化是令人关注的，使用了两个交互来增强这些 color bar：</p>
+
+<ul>
+<li>非线性缩放：根据层之间距离非线性的缩放高度。（图中来自两端的层更远，中央的层更近）
+<br /></li>
+</ul>
+
+<p><img src="/images/blogs/vis/RankExplorer4.png" alt="" /></p>
+
+<ul>
+<li>过滤：可以设置下限，来隐藏 change 不足的 bar</li>
+</ul></li>
+</ul>
+
+<h3 id="4-3-3-changing-glyphs-编码方案">4.3.3 Changing Glyphs 编码方案</h3>
+
+<p><img src="/images/blogs/vis/RankExplorer5.png" alt="" /></p>
+
+<ul>
+<li>Changing Glyphs 用于表达单层内的改变</li>
+</ul>
+
+<h2 id="4-4-统计视图和折线图视图">4.4 统计视图和折线图视图</h2>
+
+<ul>
+<li>需要更多更细节的信息</li>
+</ul>
+
+<p><img src="/images/blogs/vis/RankExplorer6.png" alt="" /></p>
+
+<h1 id="五-案例分析">五、案例分析</h1>
+
+<ul>
+<li>Bing 三个月搜索引擎数据</li>
+<li>1955 —— 2010 美国财富 500 强分析</li>
+</ul></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="tag">数据可视化</span></a></li>
+        
+          <li><a href="/tags/tvcg"><span class="tag">TVCG</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Ran Chen</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="/js/bundle.d1288006cf.js"></script>
+
+
+
+
+  </body>
+</html>

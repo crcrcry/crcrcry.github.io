@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>TACO：表格随时间变化的可视化</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Ran Chen" />
+  <meta name="description" content="多变量表格式的数据在生活中非常普遍，同时，表格可以进行结构和内容的改变，从而导致了同个表格的多种版本。然而，对于这些衍生的表格，很难理解它们在增删、重排序、合并和分裂、内容改变之间，究竟发生了什么变化。尤其是对于千万条条目级别的大型表格。本文作者提出了 TACO (TAble COmparison) 这一交互式比较工具，用于可视化不同细节等级的不同表格之间的不同。
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="TACO：表格随时间变化的可视化" />
+    <meta name="twitter:description" content="多变量表格式的数据在生活中非常普遍，同时，表格可以进行结构和内容的改变，从而导致了同个表格的多种版本。然而，对于这些衍生的表格，很难理解它们在增删、重排序、合并和分裂、内容改变之间，究竟发生了什么变化。尤其是对于千万条条目级别的大型表格。本文作者提出了 TACO (TAble COmparison) 这一交互式比较工具，用于可视化不同细节等级的不同表格之间的不同。
+
+" />
+    <meta name="twitter:image" content="https://crcrcry.github.io/images/blogs/vis/TACO6.png" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="TACO：表格随时间变化的可视化" />
+  <meta property="og:description" content="多变量表格式的数据在生活中非常普遍，同时，表格可以进行结构和内容的改变，从而导致了同个表格的多种版本。然而，对于这些衍生的表格，很难理解它们在增删、重排序、合并和分裂、内容改变之间，究竟发生了什么变化。尤其是对于千万条条目级别的大型表格。本文作者提出了 TACO (TAble COmparison) 这一交互式比较工具，用于可视化不同细节等级的不同表格之间的不同。
+
+" />
+  <meta property="og:url" content="https://crcrcry.github.io/post/vis/taco/" />
+  <meta property="og:image" content="https://crcrcry.github.io/images/blogs/vis/TACO6.png" />
+
+
+
+
+<meta name="generator" content="Hugo 0.40.2" />
+
+
+<link rel="canonical" href="https://crcrcry.github.io/post/vis/taco/" />
+<link rel="alternative" href="/index.xml" title="Ran Chen" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Ran Chen" />
+<meta name="msapplication-tooltip" content="Ran Chen" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="/css/bundle.ff02473a9a.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="/images/about/chenran.png" alt="Avatar">
+  
+  <h2 class="title">Ran Chen</h2>
+  
+  <p class="subtitle">Keep moving and explore my limit</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/crcrcry">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/tags/">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:crcrcry.hello@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/crcrcry" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/images/about/wechat.jpeg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      <li class="social-item">
+        <a href="//www.zhihu.com/people/crcr-30" title="Zhihu"><span class="icon icon-zhihu"></span></a>
+      </li>
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">TACO：表格随时间变化的可视化</h1>
+      <p class="post-meta">@Ran Chen · Jun 2, 2018 · 2 min read</p>
+    </header>
+    <article class="post-content"><p>多变量表格式的数据在生活中非常普遍，同时，表格可以进行结构和内容的改变，从而导致了同个表格的多种版本。然而，对于这些衍生的表格，很难理解它们在增删、重排序、合并和分裂、内容改变之间，究竟发生了什么变化。尤其是对于千万条条目级别的大型表格。本文作者提出了 TACO (TAble COmparison) 这一交互式比较工具，用于可视化不同细节等级的不同表格之间的不同。</p>
+
+<p></p>
+
+<p><a href="/files/papers/TACO.pdf">原文链接：TACO: Visualizing Changes in Tables Over Time</a></p>
+
+<h1 id="一-介绍">一、介绍</h1>
+
+<h2 id="1-1-摘要和介绍">1.1 摘要和介绍</h2>
+
+<ul>
+<li>背景：
+
+<ul>
+<li>多变量表格式数据的普遍</li>
+<li>表格可以进行结构和内容的改变，从而导致了同个表格的多种版本</li>
+</ul></li>
+<li>存在的问题：
+
+<ul>
+<li>难以理解这些衍生的表格，在增删、重排序、合并和分裂、内容改变之间，究竟发生了什么变化。</li>
+<li>通过四种类型的改变来区分表格：
+
+<ul>
+<li>structural(add/remove)</li>
+<li>content</li>
+<li>reorder</li>
+<li>split/merge</li>
+</ul></li>
+</ul></li>
+<li>现状：
+
+<ul>
+<li>存在多种比较工具，用于协助用户发现不同</li>
+</ul></li>
+<li>仍未解决的问题：
+
+<ul>
+<li>对发现不同的结果的可视化，是难以理解和难以解释的</li>
+<li>无法应用于千万条目级别的大型表格</li>
+</ul></li>
+<li>如何解决：TACO (TAble COmparison)，交互式比较工具，用于可视化不同细节等级的不同表格之间的不同。可以展示：
+
+<ol>
+<li>随着时间推移，多个表格版本之间的聚合差异</li>
+<li>两个被选中表格版本的聚合更改。</li>
+<li>两个被选中表格的详细更改</li>
+</ol></li>
+<li>如何证明有效性：两个用户场景
+
+<ol>
+<li>1986 —— 2012 奥运奖牌榜</li>
+<li>大型生物医学数据集，TCGA（癌症基因组地图集）项目的演化</li>
+</ol></li>
+</ul>
+
+<h2 id="1-2-作者介绍">1.2 作者介绍</h2>
+
+<h3 id="a-christina-niederer-http-mc-fhstp-ac-at-people-christina-niederer">a) <a href="http://mc.fhstp.ac.at/people/christina-niederer">Christina Niederer</a></h3>
+
+<ul>
+<li>圣波尔滕应用科技大学，奥地利</li>
+<li>10 —— 13：本科，媒体技术/交互媒体</li>
+<li>13 —— 15：硕士，数字媒体技术/媒体计算，supervised by Wolfgang Aigner</li>
+<li>15 至今：初级研究员，媒体计算研究组</li>
+</ul>
+
+<h3 id="b-wolfgang-aigner-http-mc-fhstp-ac-at-people-wolfgang-aigner">b) <a href="http://mc.fhstp.ac.at/people/wolfgang-aigner">Wolfgang Aigner</a></h3>
+
+<h3 id="c-marc-streit-http-www-marc-streit-com">c) <a href="http://www.marc-streit.com/">Marc Streit</a></h3>
+
+<h1 id="三-用户任务">三、用户任务</h1>
+
+<ul>
+<li>T1.改变的类型
+
+<ul>
+<li>用户能逐行、逐列、逐单元的定位发生改变的类型</li>
+</ul></li>
+<li>T2.随着时间比较多种表格版本
+
+<ul>
+<li>多个表版本之间的汇总差异概况</li>
+<li>两个连续表版本之间发生了多少次更改</li>
+</ul></li>
+<li>T3.比较两个时间点下的同一张表</li>
+<li>T4.展示原始数据和元数据
+
+<ul>
+<li>原始数据：表格改变前的上下文数据</li>
+<li>元数据：表格额外信息，例如：结构、尺寸、名字、创建日期。</li>
+</ul></li>
+</ul>
+
+<h1 id="四-相关工作">四、相关工作</h1>
+
+<ul>
+<li>比较问题视觉化的设计空间：并置、叠加和显式表示。
+
+<ul>
+<li>并置：单独比较或彼此临近。</li>
+<li>叠加：多个对象呈现在相同的坐标系或空间基底。</li>
+<li>显式表示（编码）：根据对象差异来计算关系，并进行可视化编码。因此不需要用户比较或找差异，它们已经被计算出来了。</li>
+</ul></li>
+<li>相关工作：也是当前发展现状
+
+<ul>
+<li>研究比较可视化技术</li>
+<li>研究常见的差异化工具和库</li>
+</ul></li>
+<li>结论：
+
+<ul>
+<li>三种基本比较可视化技术都有使用案例。然而，还没有一种方法能解决本文提出的所有必要的变化类型和任务。</li>
+<li>TACO 用于弥补这一缺陷，促进对大型表格数据集的有效的视觉比较。</li>
+</ul></li>
+</ul>
+
+<h1 id="五-计算改变">五、计算改变</h1>
+
+<ul>
+<li>成对比较表：结果是一个联合表，其中包含了出现在任何一个输入表中 的所有的行和列。</li>
+<li>联合表是 TACO 视觉展示的基础</li>
+</ul>
+
+<p><img src="/images/blogs/vis/TACO1.png" alt="" /></p>
+
+<h1 id="六-可视化概念">六、可视化概念</h1>
+
+<ul>
+<li>multi-level overview+detail：自顶到底有三个等级的细节
+
+<ol>
+<li>聚合的、基于时间的预览，沿着一条 timeline</li>
+<li>两个表格版本的比较，包含元信息、各个改变类型的分布</li>
+<li>基于热力图的深度比较视图，允许将变化研究到单个单元值（cell）的等级</li>
+</ol></li>
+<li>接下来详细讨论了每个展示等级的细节、解释了设计原因、介绍了总体交互概念。</li>
+</ul>
+
+<p><img src="/images/blogs/vis/TACO2.png" alt="" /></p>
+
+<h2 id="6-1-多级变化聚合">6.1 多级变化聚合</h2>
+
+<ul>
+<li>diff table</li>
+<li>单维度聚合：
+
+<ul>
+<li>在 diff table 中，聚合应用于表格的每个维度，这意味着，每行或列上被影响的单元数量将以直方图的形式展示。</li>
+<li>我们只考虑单个维度上的改变（eg：行），忽视其他维度上的改变（eg：列）</li>
+</ul></li>
+<li>深度聚合：
+
+<ul>
+<li>将直方图聚合成 bins，bins 数量由直方图宽度和高度决定</li>
+<li>这样的表示更紧凑，但付出了变化的位置更不精确的代价</li>
+</ul></li>
+<li>深度概要：
+
+<ul>
+<li>同时对表格的两个维度进行聚合，提供一个更紧凑的对不同类型的变化的关系总览。</li>
+<li>完全失去了位置信息</li>
+</ul></li>
+<li>总体总结：
+
+<ul>
+<li>堆叠条形图，总结了各个变化类型的全局占比。</li>
+<li>完全没有任何行、列的相关信息。</li>
+</ul></li>
+</ul>
+
+<p><img src="/images/blogs/vis/TACO3.png" alt="" /></p>
+
+<h2 id="6-2-可视化组件">6.2 可视化组件</h2>
+
+<ul>
+<li>三层细节等级</li>
+<li>control bar：自由选择展示或隐藏不同的变化类型。</li>
+<li>配色方案：考虑到红绿色盲患者使用的问题</li>
+</ul>
+
+<h2 id="6-3-等级一-沿着时间线的变化总览">6.3 等级一：沿着时间线的变化总览</h2>
+
+<ul>
+<li>使用堆叠条形图作为每个表格版本的总结，是基于前一个时间点的表格版本的变化，放置于时间轴上。</li>
+<li>重排序是默认禁用的，因为重排序的是内容改变的一种，因此会重复计数。对重排序的可视化是令用户迷惑的（overlapping），有此项需求的用户可以开启此功能。</li>
+</ul>
+
+<h2 id="6-4-等级二-聚合成对比较">6.4 等级二：聚合成对比较</h2>
+
+<ul>
+<li>左边的更老，右边的时间更近</li>
+<li>hover 时显示百分比</li>
+<li>select，显示等级三的细节</li>
+</ul>
+
+<p><img src="/images/blogs/vis/TACO4.png" alt="" /></p>
+
+<h2 id="6-5-等级三-详细成对比较">6.5 等级三：详细成对比较</h2>
+
+<ul>
+<li>Heatmap 的形式，表现 Raw table 及其之间的比较。优点在于对大型数据集的可拓展性。
+
+<ul>
+<li>hover a cell 会显示对应的行号、列号和值。</li>
+<li>select a cell 会多个视图对应高亮。</li>
+</ul></li>
+<li>灰度调色板：代表单元格值，添加了文本标签（但文本标签的使用在大型数据集中难以拓展）</li>
+<li>颜色编码的 diff heatmap：可视化了两个表格的 union，代表表格间的异同。
+
+<ul>
+<li>结构化的变化</li>
+<li>内容变化：将不同的程度量化（增减）</li>
+<li>重排序变化：slope graph，左右下三个盒子来代表行和列的重排序。按钮隐藏 diff heatmap 会使跟踪更加容易</li>
+<li>合并/分解变化：Y-connector，三个盒子和重排序类似。如果是连续的，则 Y-connector 内部是填充的。</li>
+</ul></li>
+</ul>
+
+<p><img src="/images/blogs/vis/TACO5.png" alt="" /></p>
+
+<h1 id="七-实现">七、实现</h1>
+
+<ul>
+<li>D3.js + TypeScript + Flask + Phovea</li>
+<li><a href="https://taco.caleydoapp.org">用户场景在线使用</a></li>
+<li><a href="https://github.com/Caleydo/taco/">Github 源代码</a></li>
+</ul>
+
+<p><img src="/images/blogs/vis/TACO7.png" alt="" /></p>
+
+<h1 id="八-用户场景">八、用户场景</h1>
+
+<ul>
+<li>场景说明
+
+<ul>
+<li>夏季奥运会数据集</li>
+<li>癌症基因组学数据集</li>
+</ul></li>
+<li>评估说明：现有工具都不支持对不同变化类型进行编码，所以作者决定不进行正式评估，因为这只能证明别的方法的局限性。但是，作者相信强大的使用场景足以证明技术的有效性</li>
+</ul>
+
+<h2 id="8-1-夏季奥运会">8.1 夏季奥运会</h2>
+
+<p><img src="/images/blogs/vis/TACO6.png" alt="" /></p>
+
+<h1 id="九-讨论和局限性">九、讨论和局限性</h1>
+
+<ul>
+<li>各种各样的表格：
+
+<ul>
+<li>现状：现在的 TACO 只能比较同种表格</li>
+<li>研究方向：需要一个特定的正常化统一化的方法和视觉编码来处理各种各样的输入表</li>
+</ul></li>
+<li>单个 Item 的深入：
+
+<ul>
+<li>现状：大型表格对单个 item 的操作难以支持</li>
+<li>研究方向：引入 Focus + Context</li>
+</ul></li>
+<li>热力图的局限性
+
+<ol>
+<li>现状：信息密度的局限性，细节信息难以从密集的热力图中获取。热力图从某些方面来说是无关紧要的。</li>
+<li>长宽比：
+
+<ul>
+<li>现状：行列数量差距过大，长宽比失衡，且屏幕像素点不足。</li>
+<li>研究方向：
+
+<ol>
+<li>将表格变形扭曲TC</li>
+<li>加滚动条（对获得总览有影响）</li>
+<li>聚合行或列</li>
+<li>彩色编制，定义区域内的像素是随机置换的</li>
+</ol></li>
+</ul></li>
+</ol></li>
+<li>合并和分解型变化
+
+<ul>
+<li>现状：用户场景缺乏合并和分解类型的变化，未展现在原型中。</li>
+</ul></li>
+<li>可拓展性和性能</li>
+<li>用户任务
+
+<ul>
+<li>现状：比较任务实际上被包含在对应的任务空间，有关比较性质的细节尚未在更系统的层面上讨论。比较任务的完整分类仍未详尽定义。</li>
+<li>本文：提出以下三个比较维度
+
+<ol>
+<li>要比较的元素数量：2个还是多个</li>
+<li>变化类型：结构 vs 内容 vs 重排序 vs 合并/分解</li>
+<li>时间：线性与分支</li>
+</ol></li>
+<li>研究方向：更好的完善比较任务，在变化计算、视觉表示和交互等方面</li>
+</ul></li>
+<li>检测变化的语义</li>
+</ul></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="tag">数据可视化</span></a></li>
+        
+          <li><a href="/tags/tvcg"><span class="tag">TVCG</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Ran Chen</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="/js/bundle.d1288006cf.js"></script>
+
+
+
+
+  </body>
+</html>
