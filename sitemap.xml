@@ -48,6 +48,11 @@
   </url>
   
   <url>
+    <loc>https://crcrcry.github.io/post/js/vue%E5%8E%9F%E7%90%86/</loc>
+    <lastmod>2018-05-31T14:31:28+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://crcrcry.github.io/post/vis/lineup/</loc>
     <lastmod>2018-05-31T14:21:53+08:00</lastmod>
   </url>
@@ -104,6 +109,12 @@
   <url>
     <loc>https://crcrcry.github.io/tags/tvcg/</loc>
     <lastmod>2018-06-02T13:09:36+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://crcrcry.github.io/tags/vue.js/</loc>
+    <lastmod>2018-05-31T14:31:28+08:00</lastmod>
     <priority>0</priority>
   </url>
   
