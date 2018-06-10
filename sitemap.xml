@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>https://crcrcry.github.io/post/research/plagiarism/</loc>
+    <lastmod>2018-06-10T13:46:34+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://crcrcry.github.io/post/vis/taco/</loc>
     <lastmod>2018-06-02T13:09:36+08:00</lastmod>
   </url>
@@ -90,13 +95,19 @@
   
   <url>
     <loc>https://crcrcry.github.io/post/</loc>
-    <lastmod>2018-06-02T13:09:36+08:00</lastmod>
+    <lastmod>2018-06-10T13:46:34+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://crcrcry.github.io/</loc>
     <lastmod>2017-08-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://crcrcry.github.io/tags/research/</loc>
+    <lastmod>2018-06-10T13:46:34+08:00</lastmod>
     <priority>0</priority>
   </url>
   

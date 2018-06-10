@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Research on Ran Chen</title>
+    <link>https://crcrcry.github.io/tags/research/</link>
+    <description>Recent content in Research on Ran Chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.</copyright>
+    <lastBuildDate>Sun, 10 Jun 2018 13:46:34 +0800</lastBuildDate>
+    
+	<atom:link href="https://crcrcry.github.io/tags/research/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>论文写作中的剽窃以及正确引用</title>
+      <link>https://crcrcry.github.io/post/research/plagiarism/</link>
+      <pubDate>Sun, 10 Jun 2018 13:46:34 +0800</pubDate>
+      
+      <guid>https://crcrcry.github.io/post/research/plagiarism/</guid>
+      <description>&lt;p&gt;在科研论文写作中，如何正确的使用引用，并避免有意或无意的剽窃行为。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
