@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>TopoGroups: 多尺度空间聚合的上下文感知的视觉表示</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Ran Chen" />
+  <meta name="description" content="地理空间上的数据之间都有着相关性：everything is related to everything else, but near things are more related than distant things。空间数据集（如带地理区域的 tweet）通常会在不同的缩放等级下展示不同的空间分布模式，而跨多尺度的导航和关联分析对于各领域专家仍然是重要的任务，其中多尺度关联分析尤其重要。而现阶段该任务往往伴随着巨大的交互成本和认知成本。于是 TopoGroups 被提出，它是一个基于自动空间层次聚类的多尺度可视分析技术。可以有效地帮助人们克服上述挑战，更好的进行地理空间多尺度关联分析。
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="TopoGroups: 多尺度空间聚合的上下文感知的视觉表示" />
+    <meta name="twitter:description" content="地理空间上的数据之间都有着相关性：everything is related to everything else, but near things are more related than distant things。空间数据集（如带地理区域的 tweet）通常会在不同的缩放等级下展示不同的空间分布模式，而跨多尺度的导航和关联分析对于各领域专家仍然是重要的任务，其中多尺度关联分析尤其重要。而现阶段该任务往往伴随着巨大的交互成本和认知成本。于是 TopoGroups 被提出，它是一个基于自动空间层次聚类的多尺度可视分析技术。可以有效地帮助人们克服上述挑战，更好的进行地理空间多尺度关联分析。
+
+" />
+    <meta name="twitter:image" content="https://crcrcry.github.io/images/blogs/chi/TopoGroups0.png" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="TopoGroups: 多尺度空间聚合的上下文感知的视觉表示" />
+  <meta property="og:description" content="地理空间上的数据之间都有着相关性：everything is related to everything else, but near things are more related than distant things。空间数据集（如带地理区域的 tweet）通常会在不同的缩放等级下展示不同的空间分布模式，而跨多尺度的导航和关联分析对于各领域专家仍然是重要的任务，其中多尺度关联分析尤其重要。而现阶段该任务往往伴随着巨大的交互成本和认知成本。于是 TopoGroups 被提出，它是一个基于自动空间层次聚类的多尺度可视分析技术。可以有效地帮助人们克服上述挑战，更好的进行地理空间多尺度关联分析。
+
+" />
+  <meta property="og:url" content="https://crcrcry.github.io/post/chi/topogroups/" />
+  <meta property="og:image" content="https://crcrcry.github.io/images/blogs/chi/TopoGroups0.png" />
+
+
+
+
+<meta name="generator" content="Hugo 0.40.2" />
+
+
+<link rel="canonical" href="https://crcrcry.github.io/post/chi/topogroups/" />
+<link rel="alternative" href="/index.xml" title="Ran Chen" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Ran Chen" />
+<meta name="msapplication-tooltip" content="Ran Chen" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="/css/bundle.ff02473a9a.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="/images/about/chenran.png" alt="Avatar">
+  
+  <h2 class="title">Ran Chen</h2>
+  
+  <p class="subtitle">Keep moving and explore my limit</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/crcrcry">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/tags/">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:crcrcry.hello@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/crcrcry" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/images/about/wechat.jpeg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      <li class="social-item">
+        <a href="//www.zhihu.com/people/crcr-30" title="Zhihu"><span class="icon icon-zhihu"></span></a>
+      </li>
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">TopoGroups: 多尺度空间聚合的上下文感知的视觉表示</h1>
+      <p class="post-meta">@Ran Chen · Jun 26, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><p>地理空间上的数据之间都有着相关性：everything is related to everything else, but near things are more related than distant things。空间数据集（如带地理区域的 tweet）通常会在不同的缩放等级下展示不同的空间分布模式，而跨多尺度的导航和关联分析对于各领域专家仍然是重要的任务，其中多尺度关联分析尤其重要。而现阶段该任务往往伴随着巨大的交互成本和认知成本。于是 TopoGroups 被提出，它是一个基于自动空间层次聚类的多尺度可视分析技术。可以有效地帮助人们克服上述挑战，更好的进行地理空间多尺度关联分析。</p>
+
+<p></p>
+
+<p><a href="https://dl.acm.org/citation.cfm?id=3025801">原文链接：TopoGroups: Context-Preserving Visual Illustration of Multi-Scale Spatial Aggregates</a></p>
+
+<h1 id="一-介绍">一、介绍</h1>
+
+<ul>
+<li>背景：地理空间上的数据都有着相关性，越近相关性越大。</li>
+<li>问题：地理空间数据往往在不同的规模层次要展示不同的模式，然而可视化效果不佳：
+
+<ol>
+<li>全局模式可能覆盖局部模式</li>
+<li>缺乏一个对特定细节的概览</li>
+<li>全局和局部之间切换的效率低下</li>
+<li>如何选择恰当的规模尺度</li>
+</ol></li>
+<li>解决方案：TopoGroups，一个基于自动空间层次聚类的多尺度可视分析技术
+
+<ul>
+<li>同时可视化了多个等级的层次结构，来表现模式信息。</li>
+<li>每个聚类边界使用隐式曲线建模，扭曲该曲线以减少相邻尺度上聚类之间的重叠</li>
+<li>导航耦合到可视化表示</li>
+</ul></li>
+<li>评估：
+
+<ul>
+<li>实验确定每种视觉编码策略的优缺点。</li>
+<li>文本可视化编码拓展 TopoGroups 的想法</li>
+</ul></li>
+<li>实际应用：GIS、地理空间分析、在线地理服务等，如 Google Maps、Bing Maps 和 OpenStreetMap</li>
+</ul>
+
+<h1 id="二-背景">二、背景</h1>
+
+<ul>
+<li>多尺度导航</li>
+<li>多尺度视觉总结</li>
+<li>上下文感知的视觉设计</li>
+</ul>
+
+<h1 id="三-挑战和任务表征">三、挑战和任务表征</h1>
+
+<ul>
+<li>核心问题：跨尺度的导航和关联分析对于各领域专家仍然是重要的任务，其中多尺度关联分析尤其重要。</li>
+<li>挑战：聚类结果经常在不同尺度上变化很多，多尺度情景下分析空间大小表现出二次方的增长。
+
+<ul>
+<li>交互过度：大量的 zoom 切换尺度</li>
+<li>认知过度：不同尺度的分析结果，精神上的记忆和关联分析。</li>
+</ul></li>
+<li>任务：
+
+<ol>
+<li>从多个尺度概览地理分布。</li>
+<li>区分地理空间中相同或不同尺度上的不同聚类，并确认其潜在关系</li>
+<li>在相同或不同尺度上定位感兴趣的聚类，确认它的空间范围</li>
+<li>测量和比较相同或不同尺度上的聚类的特定属性值</li>
+<li>获取和特定聚类关联的原生数据项</li>
+</ol></li>
+</ul>
+
+<h1 id="四-topogroups-多尺度空间集成">四、TOPOGROUPS：多尺度空间集成</h1>
+
+<h2 id="4-1-生成空间聚集层次">4.1 生成空间聚集层次</h2>
+
+<p><img src="/images/blogs/chi/TopoGroups1.png" alt="" /></p>
+
+<h2 id="4-2-上下文感知的可视化">4.2 上下文感知的可视化</h2>
+
+<ul>
+<li>隐式曲线表达空间聚合的边界，优点：
+
+<ol>
+<li>自然描述了空间范围</li>
+<li>易与数据项区分开</li>
+<li>较高级别集群边界内的空间可用于较低级别集群进行可视化，产生较小视觉杂波</li>
+</ol></li>
+<li>减小边界重叠：进行失真
+<img src="/images/blogs/chi/TopoGroups7.png" alt="" /></li>
+<li>多个视觉编码策略：旨在传达空间聚合的单变量和多变量属性
+
+<ul>
+<li>单变量属性：
+
+<ul>
+<li>例子：数据点数量、地理区域大小、聚合的规模（缩放尺度）</li>
+<li>编码方式：内部区域颜色、边界宽度/颜色</li>
+<li>晕轮的指示作用
+<img src="/images/blogs/chi/TopoGroups3.png" alt="" /></li>
+</ul></li>
+<li>多变量属性
+
+<ul>
+<li>主要从数据项的分类中产生，例如从社交媒体数据提取不同的主题</li>
+<li>编码方式：连续彩色线段（长度）、离散的彩色虚线（数量）、堆积线（宽度）
+<img src="/images/blogs/chi/TopoGroups4.png" alt="" /></li>
+<li>重复模式的使用，避免传达错误信息
+<img src="/images/blogs/chi/TopoGroups5.png" alt="" /></li>
+</ul></li>
+</ul></li>
+<li>一个例子：
+<img src="/images/blogs/chi/TopoGroups6.png" alt="" />
+<br /></li>
+</ul>
+
+<h2 id="4-3-交互和接口设计">4.3 交互和接口设计</h2>
+
+<ul>
+<li>交互式地图视图</li>
+<li>多尺度聚合层次关系树形视图
+<br /></li>
+</ul>
+
+<h1 id="思考">思考</h1>
+
+<ul>
+<li>优点：
+
+<ul>
+<li>简单易懂，成果有一定的效果</li>
+<li>对细节的考虑比较详尽（边界失真、重复模式、数据属性）</li>
+<li>evaluation 评估了多种视觉编码的效果</li>
+</ul></li>
+<li>缺点：
+
+<ul>
+<li>Introduction 介绍的不够详尽</li>
+<li>可视化形式算不上新颖和有效</li>
+</ul></li>
+</ul></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="tag">数据可视化</span></a></li>
+        
+          <li><a href="/tags/chi"><span class="tag">CHI</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Ran Chen</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="/js/bundle.d1288006cf.js"></script>
+
+
+
+
+  </body>
+</html>

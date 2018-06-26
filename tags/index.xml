@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.</copyright>
-    <lastBuildDate>Thu, 31 May 2018 14:42:23 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 26 Jun 2018 18:56:32 +0800</lastBuildDate>
     
 	<atom:link href="https://crcrcry.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Chi</title>
+      <link>https://crcrcry.github.io/tags/chi/</link>
+      <pubDate>Tue, 26 Jun 2018 18:56:32 +0800</pubDate>
+      
+      <guid>https://crcrcry.github.io/tags/chi/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Javascript</title>
@@ -51,7 +60,7 @@
     <item>
       <title>数据可视化</title>
       <link>https://crcrcry.github.io/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
-      <pubDate>Tue, 12 Jun 2018 16:40:53 +0800</pubDate>
+      <pubDate>Tue, 26 Jun 2018 18:56:32 +0800</pubDate>
       
       <guid>https://crcrcry.github.io/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/</guid>
       <description></description>
