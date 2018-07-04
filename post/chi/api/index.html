@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Visualizing API Usage Examples at Scale: 大规模可视化 API 用例</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Ran Chen" />
+  <meta name="description" content="随着库和 API 在数量和复杂性上的急速增长，在编程中，高效正确的使用 API 是一个关键的挑战。开发者通常需要搜索代码示例来学习 API，但开发者只能人工浏览一部分示例，这部分示例可能不能满足他们的需求。本文的目标是提供一个更好的工具 EXAMPLORE，用于探索海量代码示例的集合。
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="Visualizing API Usage Examples at Scale: 大规模可视化 API 用例" />
+    <meta name="twitter:description" content="随着库和 API 在数量和复杂性上的急速增长，在编程中，高效正确的使用 API 是一个关键的挑战。开发者通常需要搜索代码示例来学习 API，但开发者只能人工浏览一部分示例，这部分示例可能不能满足他们的需求。本文的目标是提供一个更好的工具 EXAMPLORE，用于探索海量代码示例的集合。
+
+" />
+    <meta name="twitter:image" content="https://crcrcry.github.io/images/blogs/chi/API2.png" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Visualizing API Usage Examples at Scale: 大规模可视化 API 用例" />
+  <meta property="og:description" content="随着库和 API 在数量和复杂性上的急速增长，在编程中，高效正确的使用 API 是一个关键的挑战。开发者通常需要搜索代码示例来学习 API，但开发者只能人工浏览一部分示例，这部分示例可能不能满足他们的需求。本文的目标是提供一个更好的工具 EXAMPLORE，用于探索海量代码示例的集合。
+
+" />
+  <meta property="og:url" content="https://crcrcry.github.io/post/chi/api/" />
+  <meta property="og:image" content="https://crcrcry.github.io/images/blogs/chi/API2.png" />
+
+
+
+
+<meta name="generator" content="Hugo 0.40.2" />
+
+
+<link rel="canonical" href="https://crcrcry.github.io/post/chi/api/" />
+<link rel="alternative" href="/index.xml" title="Ran Chen" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Ran Chen" />
+<meta name="msapplication-tooltip" content="Ran Chen" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="/css/bundle.ff02473a9a.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="/images/about/chenran.png" alt="Avatar">
+  
+  <h2 class="title">Ran Chen</h2>
+  
+  <p class="subtitle">Keep moving and explore my limit</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/crcrcry">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/tags/">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:crcrcry.hello@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/crcrcry" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/images/about/wechat.jpeg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      <li class="social-item">
+        <a href="//www.zhihu.com/people/crcr-30" title="Zhihu"><span class="icon icon-zhihu"></span></a>
+      </li>
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Visualizing API Usage Examples at Scale: 大规模可视化 API 用例</h1>
+      <p class="post-meta">@Ran Chen · Jul 4, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><p>随着库和 API 在数量和复杂性上的急速增长，在编程中，高效正确的使用 API 是一个关键的挑战。开发者通常需要搜索代码示例来学习 API，但开发者只能人工浏览一部分示例，这部分示例可能不能满足他们的需求。本文的目标是提供一个更好的工具 EXAMPLORE，用于探索海量代码示例的集合。</p>
+
+<p></p>
+
+<p><a href="https://dl.acm.org/citation.cfm?doid=3173574.3174154">原文链接：Visualizing API Usage Examples at Scale</a></p>
+
+<h1 id="一-介绍">一、介绍</h1>
+
+<ul>
+<li>背景：
+
+<ul>
+<li>API 之于 Coding 是无比重要的</li>
+<li>学习 API 时存在各种各样的困难：
+
+<ol>
+<li>过于笼统或过于具体的解释</li>
+<li>缺乏多个 API 之间交互的理解</li>
+<li>缺乏替代的使用</li>
+<li>难以识别与 API 相关的程序语句和结构</li>
+</ol></li>
+<li>最大的困难：API 文档中，样例不够充分。代码样例对理解 API 起着无比重要的作用。</li>
+<li>程序员需要在线搜索代码样例和 API。然而，对于大量的在线代码，有效的浏览具有挑战性（实际上，由于时间和注意力有限，程序员通常只浏览一部分样例，导致代码存在一定的问题）</li>
+</ul></li>
+<li>需求：
+
+<ul>
+<li>通过对大量的代码样例的高效探索，更好的理解 API</li>
+</ul></li>
+<li>现状：
+
+<ul>
+<li>API 使用挖掘技术：利用大量开源代码来自动推断 API 使用方式。但这种方式对程序员探索代码样例帮助有限</li>
+</ul></li>
+<li>解决方案：EXAMPLORE</li>
+<li>评估</li>
+<li>贡献
+
+<ol>
+<li>可视化方法</li>
+<li>实现：<a href="http://examplore.cs.ucla.edu:3000/">Demo</a></li>
+<li>评估</li>
+</ol></li>
+</ul>
+
+<h1 id="二-相关工作">二、相关工作</h1>
+
+<ul>
+<li>探索复杂对象集合的接口</li>
+<li>用代码样例学习 API</li>
+<li>API 用法的挖掘和可视化</li>
+</ul>
+
+<h1 id="三-合成代码骨架">三、合成代码骨架</h1>
+
+<ul>
+<li>本骨架设计针对 Java API：
+
+<ol>
+<li>声明</li>
+<li>前置方法调用</li>
+<li>守卫：条件分支判断</li>
+<li>返回值检查：检查 API 的返回值</li>
+<li>后置方法调用</li>
+<li>异常处理</li>
+<li>资源管理：文件、流、sockets、数据库等资源的获取和释放</li>
+</ol></li>
+<li>可以推广到类似语言，比如 C++、C，但需要附加组件来捕获其他编程范式中的 API 特征（例如：函数式编程）</li>
+</ul>
+
+<p><img src="/images/blogs/chi/API1.png" alt="" /></p>
+
+<h1 id="四-场景-与代码分布进行交互">四、场景：与代码分布进行交互</h1>
+
+<p><img src="/images/blogs/chi/API2.png" alt="" /></p>
+
+<ul>
+<li>学习使用 FileInputStream object，采用 100 个 GitHub 上挖掘的包含 FileInputStream object 的代码样例。
+
+<ul>
+<li>颜色标记：代码对应的骨架部分</li>
+<li>代码样例从短到长排序</li>
+<li>展示 Top 3 最普遍的用法，对每个骨架部分。bar chart 统计（总共占比），show more/less。
+<img src="/images/blogs/chi/API3.png" alt="" /></li>
+<li>点击勾选筛选代码，联动交互
+<br /></li>
+</ul></li>
+</ul>
+
+<h1 id="五-系统架构和实现">五、系统架构和实现</h1>
+
+<ul>
+<li>数据收集：爬虫</li>
+<li>数据处理：对代码分析和分类</li>
+<li>可视化：渲染</li>
+</ul>
+
+<h1 id="八-讨论和局限性">八、讨论和局限性</h1>
+
+<ul>
+<li>需要更多的研究，更好地把握表现力与视觉复杂性的平衡。</li>
+<li>现阶段不防范陈旧的或低质量的代码用例，需要改进。</li>
+<li>代码用例的排序方式不够完善。</li>
+</ul>
+
+<h1 id="我的思考">我的思考</h1>
+
+<ul>
+<li>优点：
+
+<ul>
+<li>数据收集和处理的方式</li>
+<li>集合社区的智慧，有效的解决了问题</li>
+<li>划分骨架、汇总分析，有效的增强了表现力（表现了一个 API 的各个部分的注意点），并平衡了视觉复杂性</li>
+</ul></li>
+<li>缺点：
+
+<ul>
+<li>可视化方面没有太多亮点</li>
+<li>需要更多的研究，更好地把握表现力与视觉复杂性的平衡。</li>
+<li>代码用例的质量、排序方式问题</li>
+</ul></li>
+</ul></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="tag">数据可视化</span></a></li>
+        
+          <li><a href="/tags/chi"><span class="tag">CHI</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Ran Chen</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="/js/bundle.d1288006cf.js"></script>
+
+
+
+
+  </body>
+</html>
