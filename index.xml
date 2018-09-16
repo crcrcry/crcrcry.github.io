@@ -22,6 +22,17 @@
     </item>
     
     <item>
+      <title>MotionRugs：集群趋势的时空可视化</title>
+      <link>https://crcrcry.github.io/post/vis/motionrugs/</link>
+      <pubDate>Sun, 16 Sep 2018 19:49:40 +0800</pubDate>
+      
+      <guid>https://crcrcry.github.io/post/vis/motionrugs/</guid>
+      <description>&lt;p&gt;追踪大规模集群的迁移是一个挑战性的任务，人们开发了很多技术对集群的时空迁移进行可视化。然而，主流的方法都存在一定的局限性：静态方法存在可拓展性限制；动画方法难以进行时空总览和比较；Small Multiples 方法将连续变化离散化。于是，本文的作者发明了 MotionRugs，一种基于空间划分的集群时空迁移数据的紧密展示方法，可以尽可能的保留行为模式在时空中的变化和其原因，并可以进行总览、追踪和比较，更好的解决上述问题。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Visualizing API Usage Examples at Scale: 大规模可视化 API 用例</title>
       <link>https://crcrcry.github.io/post/chi/api/</link>
       <pubDate>Wed, 04 Jul 2018 20:18:38 +0800</pubDate>
