@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.</copyright>
-    <lastBuildDate>Sun, 16 Sep 2018 19:49:40 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 03 Oct 2018 16:40:51 +0800</lastBuildDate>
     
 	<atom:link href="https://crcrcry.github.io/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Duet：协助数据分析新手进行成对比较</title>
+      <link>https://crcrcry.github.io/post/vis/duet/</link>
+      <pubDate>Wed, 03 Oct 2018 16:40:51 +0800</pubDate>
+      
+      <guid>https://crcrcry.github.io/post/vis/duet/</guid>
+      <description>&lt;p&gt;数据分析新手常常在执行成对比较的底层操作时遇到麻烦。同时，他们常常难以理解和解释比较结果中蕴含的模式。因此，本文的作者开发了 Duet，一个可视分析系统，用于帮助数据分析新手克服成对比较中的执行障碍和解释障碍。同时，该系统利用了 Minimal Specification 技术，进行比较和推荐。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>MotionRugs：集群趋势的时空可视化</title>

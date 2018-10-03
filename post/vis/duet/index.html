@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Duet：协助数据分析新手进行成对比较</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Ran Chen" />
+  <meta name="description" content="数据分析新手常常在执行成对比较的底层操作时遇到麻烦。同时，他们常常难以理解和解释比较结果中蕴含的模式。因此，本文的作者开发了 Duet，一个可视分析系统，用于帮助数据分析新手克服成对比较中的执行障碍和解释障碍。同时，该系统利用了 Minimal Specification 技术，进行比较和推荐。
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="Duet：协助数据分析新手进行成对比较" />
+    <meta name="twitter:description" content="数据分析新手常常在执行成对比较的底层操作时遇到麻烦。同时，他们常常难以理解和解释比较结果中蕴含的模式。因此，本文的作者开发了 Duet，一个可视分析系统，用于帮助数据分析新手克服成对比较中的执行障碍和解释障碍。同时，该系统利用了 Minimal Specification 技术，进行比较和推荐。
+
+" />
+    <meta name="twitter:image" content="https://crcrcry.github.io/images/blogs/vis/Duet1.png" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Duet：协助数据分析新手进行成对比较" />
+  <meta property="og:description" content="数据分析新手常常在执行成对比较的底层操作时遇到麻烦。同时，他们常常难以理解和解释比较结果中蕴含的模式。因此，本文的作者开发了 Duet，一个可视分析系统，用于帮助数据分析新手克服成对比较中的执行障碍和解释障碍。同时，该系统利用了 Minimal Specification 技术，进行比较和推荐。
+
+" />
+  <meta property="og:url" content="https://crcrcry.github.io/post/vis/duet/" />
+  <meta property="og:image" content="https://crcrcry.github.io/images/blogs/vis/Duet1.png" />
+
+
+
+
+<meta name="generator" content="Hugo 0.48" />
+
+
+<link rel="canonical" href="https://crcrcry.github.io/post/vis/duet/" />
+<link rel="alternative" href="/index.xml" title="Ran Chen" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Ran Chen" />
+<meta name="msapplication-tooltip" content="Ran Chen" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="/css/bundle.ff02473a9a.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="/images/about/chenran.png" alt="Avatar">
+  
+  <h2 class="title">Ran Chen</h2>
+  
+  <p class="subtitle">Keep moving and explore my limit</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/crcrcry">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/tags/">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:crcrcry.hello@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/crcrcry" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/images/about/wechat.jpeg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      <li class="social-item">
+        <a href="//www.zhihu.com/people/crcr-30" title="Zhihu"><span class="icon icon-zhihu"></span></a>
+      </li>
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Duet：协助数据分析新手进行成对比较</h1>
+      <p class="post-meta">@Ran Chen · Oct 3, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><p>数据分析新手常常在执行成对比较的底层操作时遇到麻烦。同时，他们常常难以理解和解释比较结果中蕴含的模式。因此，本文的作者开发了 Duet，一个可视分析系统，用于帮助数据分析新手克服成对比较中的执行障碍和解释障碍。同时，该系统利用了 Minimal Specification 技术，进行比较和推荐。</p>
+
+<p></p>
+
+<p><a href="/files/papers/Duet.pdf">原文链接：Duet: Helping Data Analysis Novices Conduct Pairwise Comparisons by Minimal Specification</a></p>
+
+<h1 id="一-介绍">一、介绍</h1>
+
+<ul>
+<li>背景：成对比较，促进决策</li>
+<li>问题：对数据分析新手来说，成对比较是有挑战的</li>
+<li>例子：抓捕犯罪嫌疑人，对了解领域知识但不了解数据分析的警察</li>
+<li>挑战：新手的两个障碍，包含执行障碍和解释障碍
+
+<ul>
+<li>执行障碍：创建什么可视化、执行什么交互、如何查看模式</li>
+<li>解释障碍：将可视化和问题联系起来</li>
+</ul></li>
+<li>解决方案：Duet
+
+<ul>
+<li>简介：表格数据对象的成对比较
+
+<ul>
+<li>对单个对象，推荐相似对象</li>
+<li>对多个对象，给出对象间的相似和不同</li>
+</ul></li>
+<li>执行障碍：Minimal Specification 技术。创建可视化，并展示底层策略和模式</li>
+<li>解释障碍：解释可视化</li>
+</ul></li>
+<li>评估</li>
+</ul>
+
+<h1 id="二-相关工作">二、相关工作</h1>
+
+<ul>
+<li>执行和解释障碍</li>
+<li>成对比较工具</li>
+<li>数据分析的推荐系统</li>
+</ul>
+
+<h1 id="三-设计需求">三、设计需求</h1>
+
+<ol>
+<li>可以灵活定义对象组</li>
+<li>防止用户被大量的推荐淹没</li>
+<li>允许用户保存感兴趣的推荐对象</li>
+<li>为新手提供解释（底层策略）</li>
+</ol>
+
+<h1 id="四-duet-用户接口">四、Duet 用户接口</h1>
+
+<ul>
+<li>五个主要组件：属性列表，数据表格，组和属性架，结果面板，关系映射</li>
+<li>核心问题：识别复杂属性对象组</li>
+<li>工作流：设置对象属性 -&gt; 比较/推荐类似和不同对象 -&gt; 对感兴趣的进行保存
+
+<ul>
+<li>属性列表：列出所有属性，以供设置</li>
+<li>数据表格：列出所有对象及其属性，以供拖拽设置</li>
+<li>组和属性架：设置好的对象属性</li>
+<li>结果面板：双面，显示查询的对象、比较结果、推荐的类似对象和不同对象</li>
+<li>关系映射：显示保存的推荐对象关系</li>
+</ul></li>
+</ul>
+
+<h2 id="4-1-overview">4.1 Overview</h2>
+
+<p><img src="/images/blogs/vis/Duet1.png" alt="" /></p>
+
+<h2 id="4-2-属性列表-数据表格-组和属性架">4.2 属性列表、数据表格、组和属性架</h2>
+
+<p><img src="/images/blogs/vis/Duet2.png" alt="" /></p>
+
+<h2 id="4-3-组和属性架-结果面板">4.3 组和属性架、结果面板</h2>
+
+<p><img src="/images/blogs/vis/Duet3.png" alt="" />
+<img src="/images/blogs/vis/Duet4.png" alt="" /></p>
+
+<h2 id="4-4-关系映射">4.4 关系映射</h2>
+
+<p><img src="/images/blogs/vis/Duet5.png" alt="" />
+<img src="/images/blogs/vis/Duet6.png" alt="" /></p>
+
+<h1 id="五-minimal-specification-技术的实现">五、Minimal Specification 技术的实现</h1>
+
+<ul>
+<li>介绍：
+
+<ul>
+<li>是一个成对比较和推荐的技术。</li>
+<li>当指定一个对象组时，推荐相似或不同的其他对象组。</li>
+<li>当指定两个对象组时，比较两个组，得到相似和不同的属性。</li>
+</ul></li>
+<li>作者认为，对数据分析新手，浏览大量的统计距离值产生巨大的认知负担，所以将其转化为相似和不相似这个分类属性。</li>
+<li>具体计算相似和不相似的没有细看，但感觉没有很特别。</li>
+<li>缺失值处理：直接移除缺失值</li>
+</ul>
+
+<p><img src="/images/blogs/vis/Duet7.png" alt="" /></p>
+
+<h1 id="我的思考">我的思考</h1>
+
+<ul>
+<li>可视化设计简单易懂，工作流紧密。紧扣本文主题，适合数据分析新手使用。</li>
+<li>Minimal Specification 技术，针对不同情况给出相应的处理。</li>
+</ul></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="tag">数据可视化</span></a></li>
+        
+          <li><a href="/tags/tvcg"><span class="tag">TVCG</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Ran Chen</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="/js/bundle.d1288006cf.js"></script>
+
+
+
+
+  </body>
+</html>
