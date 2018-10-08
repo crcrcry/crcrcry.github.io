@@ -22,6 +22,17 @@
     </item>
     
     <item>
+      <title>P4：对交互式信息可视化的可移植并行处理管道</title>
+      <link>https://crcrcry.github.io/post/vis/p4/</link>
+      <pubDate>Mon, 08 Oct 2018 16:32:32 +0800</pubDate>
+      
+      <guid>https://crcrcry.github.io/post/vis/p4/</guid>
+      <description>&lt;p&gt;经典可视化库，如 D3，通常提供了高表现力的声明式编程语法，这有利于提高可视化的开发生产力。然而，这些库却很少提供对高性能计算的支持。当需要处理海量数据时，可视化的速度和性能往往不令人满意。而本文提出了 P4，这是一个高性能、高生产力、高度灵活、高度可移植的可视化技术。简单的说，P4 = D3 + GPU，适用于海量大数据的高性能可视化场景。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Duet：协助数据分析新手进行成对比较</title>
       <link>https://crcrcry.github.io/post/vis/duet/</link>
       <pubDate>Wed, 03 Oct 2018 16:40:51 +0800</pubDate>
