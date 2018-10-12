@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.</copyright>
-    <lastBuildDate>Mon, 08 Oct 2018 16:32:32 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 12 Oct 2018 11:39:02 +0800</lastBuildDate>
     
 	<atom:link href="https://crcrcry.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>基于共享单车轨迹规划自行车道路</title>
+      <link>https://crcrcry.github.io/post/vis/bike-lines/</link>
+      <pubDate>Fri, 12 Oct 2018 11:39:02 +0800</pubDate>
+      
+      <guid>https://crcrcry.github.io/post/vis/bike-lines/</guid>
+      <description>&lt;p&gt;自行车是广泛的城市交通模式，优点包括价格低廉、有利于环境、健康、减少交通拥堵等。然而，随着自行车的数量不断上升，如何有效建立自行车道成为一个问题。本文通过调研良好的定义问题，并利用摩拜共享单车轨迹数据，通过贪心的网络拓张算法解决了该问题。是一个轨迹数据挖掘领域的典型应用。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>P4：对交互式信息可视化的可移植并行处理管道</title>

@@ -5,7 +5,11 @@
   <meta charset="utf-8" />
 
   
-  <title>正则中的贪心和懒惰</title>
+  <title>
+  Tag → 数据挖掘
+  
+   | Ran Chen&#39;s Homepage
+</title>
 
   
   
@@ -16,28 +20,20 @@
 
   
   <meta name="author" content="Ran Chen" />
-  <meta name="description" content="正则匹配时，对贪心和懒惰理解不到位，常常会匹配到一些我们不想要的结果。
-
-" />
+  <meta name="description" content="Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again." />
 
   
-  
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@gohugoio" />
-    <meta name="twitter:title" content="正则中的贪心和懒惰" />
-    <meta name="twitter:description" content="正则匹配时，对贪心和懒惰理解不到位，常常会匹配到一些我们不想要的结果。
-
-" />
-    <meta name="twitter:image" content="https://crcrcry.github.io/img/avatar.jpg" />
-  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@gohugoio" />
+  <meta name="twitter:title" content="Ran Chen&#39;s Homepage" />
+  <meta name="twitter:description" content="Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again." />
+  <meta name="twitter:image" content="https://crcrcry.github.io/img/avatar.jpg" />
 
   
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="正则中的贪心和懒惰" />
-  <meta property="og:description" content="正则匹配时，对贪心和懒惰理解不到位，常常会匹配到一些我们不想要的结果。
-
-" />
-  <meta property="og:url" content="https://crcrcry.github.io/post/regexr/%E8%B4%AA%E5%BF%83%E5%92%8C%E6%87%92%E6%83%B0/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Ran Chen&#39;s Homepage" />
+  <meta property="og:description" content="Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again." />
+  <meta property="og:url" content="https://crcrcry.github.io/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" />
   <meta property="og:image" content="https://crcrcry.github.io/img/avatar.jpg" />
 
 
@@ -46,7 +42,7 @@
 <meta name="generator" content="Hugo 0.48" />
 
 
-<link rel="canonical" href="https://crcrcry.github.io/post/regexr/%E8%B4%AA%E5%BF%83%E5%92%8C%E6%87%92%E6%83%B0/" />
+<link rel="canonical" href="https://crcrcry.github.io/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" />
 <link rel="alternative" href="/index.xml" title="Ran Chen" type="application/atom+xml" />
 
 
@@ -110,8 +106,6 @@
     <div class="suspension">
       <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
       
-        
-      
     </div>
     
     
@@ -134,8 +128,6 @@
         <li class="menu-item
             
             
-            
-              is-active
             ">
             <a href="/">Home</a>
           </li>
@@ -227,77 +219,31 @@
   </nav>
 </header>
 
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">正则中的贪心和懒惰</h1>
-      <p class="post-meta">@Ran Chen · May 31, 2018 · 1 min read</p>
+  <section class="main post-list">
+    <header class="list-header offscreen">
+      <h2 class="list-label">Posts List</h2>
     </header>
-    <article class="post-content"><p>正则匹配时，对贪心和懒惰理解不到位，常常会匹配到一些我们不想要的结果。</p>
-
-<p></p>
-
-<h1 id="正则中的-greedy-和-lazy">正则中的 Greedy 和 Lazy</h1>
-
-<h2 id="一-现象">一、现象</h2>
-
-<pre><code class="language-javascript">let result = 'aaab'.match(/(a+?)b/);
-
-console.log(result);	
-</code></pre>
-
-<ul>
-<li>预料结果是 ab？</li>
-<li>结果是 aaab。</li>
-</ul>
-
-<h2 id="二-问题">二、问题</h2>
-
-<ul>
-<li>? 表示 lazy match，不是会匹配尽可能少吗？</li>
-<li>这个理解是有问题的，反映了对正则表达式中 lazy 和 greedy 理解的不透彻。</li>
-</ul>
-
-<h2 id="三-解释">三、解释</h2>
-
-<ul>
-<li>/(a+?)b/，意思是匹配（1——n）个 a 加上1个 b，采取 lazy match。</li>
-<li>匹配过程：
-
-<ul>
-<li>寻找第一个 a，在 index = 0 处找到，于是 (a+?) 匹配完成，index++，开始匹配 b。</li>
-<li>在 index = 1 处没有找到 b，回溯匹配 (a+?) ，匹配成功，index++，开始匹配 b。</li>
-<li>&hellip;</li>
-<li>在 index = 3 处找到 b，匹配完成。</li>
-</ul></li>
-<li>原理：
-
-<ul>
-<li>lazy 表达，lazy 部分匹配成功时，则立刻匹配下一部分正则。</li>
-<li>greedy 则表示，greedy 部分匹配成功时，继续尝试匹配当前部分的 greedy 正则，直到匹配不成功，再尝试匹配下一部分。</li>
-<li>换句话说，lazy 表示“成功即停止”，而不是简单理解成“最少”。</li>
-<li>换句话说，greedy 表示“成功则继续，直到失败”，也不能简单理解成“最多”。</li>
-</ul></li>
-</ul>
-
-<h2 id="四-正则匹配原理">四、正则匹配原理</h2>
-
-<ul>
-<li><a href="http://blog.csdn.net/lxcnn/article/details/4756030">参考文献</a></li>
-</ul></article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="tag">正则表达式</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.This post was published <strong>133</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
-      </p>
-    </footer>
+    
     
       
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://crcrcry.github.io/post/vis/bike-lines/" class="post-link">基于共享单车轨迹规划自行车道路</a></h3>
+    <p class="post-meta">@Ran Chen · Oct 12, 2018 · 1 min read</p>
+  </header>
+  
+    <img class="post-cover" src="/images/blogs/vis/BikeLines8.png" alt="基于共享单车轨迹规划自行车道路">
+  
+  <p class="post-summary">自行车是广泛的城市交通模式，优点包括价格低廉、有利于环境、健康、减少交通拥堵等。然而，随着自行车的数量不断上升，如何有效建立自行车道成为一个问题。本文通过调研良好的定义问题，并利用摩拜共享单车轨迹数据，通过贪心的网络拓张算法解决了该问题。是一个轨迹数据挖掘领域的典型应用。
+
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://crcrcry.github.io/post/vis/bike-lines/">Read More →</a>
+  </footer>
+</article>
+
+      
+    
     
   </section>
   <footer class="site-footer">
