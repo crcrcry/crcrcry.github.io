@@ -22,6 +22,17 @@
     </item>
     
     <item>
+      <title>TPFlow：用于大规模时空数据分析的渐进式分区和多维模式提取</title>
+      <link>https://crcrcry.github.io/post/vis/tpflow/</link>
+      <pubDate>Sun, 21 Oct 2018 11:44:02 +0800</pubDate>
+      
+      <guid>https://crcrcry.github.io/post/vis/tpflow/</guid>
+      <description>&lt;p&gt;多维时空数据中蕴含着丰富的模式，常用于数据分析中，多视图交互式可视化是分析的经典方法。然而，这样的方法不能为分析师提供充分的分析指导，分析师需要迭代式的手动选择切片、查看和比较，这使得模式发掘更加困难。这篇工作将多维时空数据建模为张量，提出了一个新颖的分段秩一张量分解方法，该方法支持自动切片和发掘模式。基于这个方法，这篇工作提出了 TPFlow，一个支持从上到下的渐进式多维时空数据探索的视觉分析框架，可以减轻分析负担，良好的解决了多维时空数据探索的问题。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>基于共享单车轨迹规划自行车道路</title>
       <link>https://crcrcry.github.io/post/vis/bike-lines/</link>
       <pubDate>Fri, 12 Oct 2018 11:39:02 +0800</pubDate>

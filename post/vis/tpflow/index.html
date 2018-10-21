@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>TPFlow：用于大规模时空数据分析的渐进式分区和多维模式提取</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Ran Chen" />
+  <meta name="description" content="多维时空数据中蕴含着丰富的模式，常用于数据分析中，多视图交互式可视化是分析的经典方法。然而，这样的方法不能为分析师提供充分的分析指导，分析师需要迭代式的手动选择切片、查看和比较，这使得模式发掘更加困难。这篇工作将多维时空数据建模为张量，提出了一个新颖的分段秩一张量分解方法，该方法支持自动切片和发掘模式。基于这个方法，这篇工作提出了 TPFlow，一个支持从上到下的渐进式多维时空数据探索的视觉分析框架，可以减轻分析负担，良好的解决了多维时空数据探索的问题。
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="TPFlow：用于大规模时空数据分析的渐进式分区和多维模式提取" />
+    <meta name="twitter:description" content="多维时空数据中蕴含着丰富的模式，常用于数据分析中，多视图交互式可视化是分析的经典方法。然而，这样的方法不能为分析师提供充分的分析指导，分析师需要迭代式的手动选择切片、查看和比较，这使得模式发掘更加困难。这篇工作将多维时空数据建模为张量，提出了一个新颖的分段秩一张量分解方法，该方法支持自动切片和发掘模式。基于这个方法，这篇工作提出了 TPFlow，一个支持从上到下的渐进式多维时空数据探索的视觉分析框架，可以减轻分析负担，良好的解决了多维时空数据探索的问题。
+
+" />
+    <meta name="twitter:image" content="https://crcrcry.github.io/images/blogs/vis/TPFlow5.png" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="TPFlow：用于大规模时空数据分析的渐进式分区和多维模式提取" />
+  <meta property="og:description" content="多维时空数据中蕴含着丰富的模式，常用于数据分析中，多视图交互式可视化是分析的经典方法。然而，这样的方法不能为分析师提供充分的分析指导，分析师需要迭代式的手动选择切片、查看和比较，这使得模式发掘更加困难。这篇工作将多维时空数据建模为张量，提出了一个新颖的分段秩一张量分解方法，该方法支持自动切片和发掘模式。基于这个方法，这篇工作提出了 TPFlow，一个支持从上到下的渐进式多维时空数据探索的视觉分析框架，可以减轻分析负担，良好的解决了多维时空数据探索的问题。
+
+" />
+  <meta property="og:url" content="https://crcrcry.github.io/post/vis/tpflow/" />
+  <meta property="og:image" content="https://crcrcry.github.io/images/blogs/vis/TPFlow5.png" />
+
+
+
+
+<meta name="generator" content="Hugo 0.48" />
+
+
+<link rel="canonical" href="https://crcrcry.github.io/post/vis/tpflow/" />
+<link rel="alternative" href="/index.xml" title="Ran Chen" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Ran Chen" />
+<meta name="msapplication-tooltip" content="Ran Chen" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="/css/bundle.ff02473a9a.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="/images/about/chenran.png" alt="Avatar">
+  
+  <h2 class="title">Ran Chen</h2>
+  
+  <p class="subtitle">Keep moving and explore my limit</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/crcrcry">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/tags/">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:crcrcry.hello@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/crcrcry" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/images/about/wechat.jpeg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      <li class="social-item">
+        <a href="//www.zhihu.com/people/crcr-30" title="Zhihu"><span class="icon icon-zhihu"></span></a>
+      </li>
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">TPFlow：用于大规模时空数据分析的渐进式分区和多维模式提取</h1>
+      <p class="post-meta">@Ran Chen · Oct 21, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><p>多维时空数据中蕴含着丰富的模式，常用于数据分析中，多视图交互式可视化是分析的经典方法。然而，这样的方法不能为分析师提供充分的分析指导，分析师需要迭代式的手动选择切片、查看和比较，这使得模式发掘更加困难。这篇工作将多维时空数据建模为张量，提出了一个新颖的分段秩一张量分解方法，该方法支持自动切片和发掘模式。基于这个方法，这篇工作提出了 TPFlow，一个支持从上到下的渐进式多维时空数据探索的视觉分析框架，可以减轻分析负担，良好的解决了多维时空数据探索的问题。</p>
+
+<p></p>
+
+<p><a href="/files/papers/TPFlow.pdf">原文链接：TPFlow: Progressive Partition and Multidimensional Pattern Extraction for Large-Scale Spatio-Temporal Data Analysis</a></p>
+
+<h1 id="一-介绍">一、介绍</h1>
+
+<ul>
+<li>背景：
+
+<ul>
+<li>多维时空数据可视化</li>
+<li>传统方法：数据缩减、多维视图、实时交互</li>
+</ul></li>
+<li>问题：
+
+<ul>
+<li>高度集成总览不足以提供有效的模式线索</li>
+<li>交互式操作（brush、filter、link&hellip;）进行模式发掘是复杂困难的</li>
+</ul></li>
+<li>解决方案：
+
+<ul>
+<li>算法：piecewise rank-one tensor decomposition，分段秩1张量分解。</li>
+<li>功能：自动寻找最优的张量分解方法，为每个分区导出模式。</li>
+<li>意义：减轻分析人员手动迭代数据不同切片发掘模式的负担。</li>
+<li>系统：TPFlow，Tensor Partition Flow。</li>
+</ul></li>
+<li>评估：
+
+<ul>
+<li>使用场景：三个数据集（出租车、销售、客流）</li>
+<li>专家访谈</li>
+</ul></li>
+<li>贡献：
+
+<ul>
+<li>算法</li>
+<li>框架</li>
+<li>使用场景</li>
+</ul></li>
+</ul>
+
+<h1 id="二-相关工作">二、相关工作</h1>
+
+<ol>
+<li>大范围多维时空数据可视化</li>
+<li>大范围多维时空数据挖掘</li>
+</ol>
+
+<h1 id="三-算法">三、算法</h1>
+
+<ul>
+<li>本节建议直接阅读原文</li>
+</ul>
+
+<h2 id="3-1-将时空数据建模为张量">3.1 将时空数据建模为张量</h2>
+
+<ul>
+<li>张量：多维数组，例如交通流量张量有三个维度，位置、天、小时。</li>
+<li>外积：三个向量的外积可以得到一个三维张量。</li>
+<li>秩一张量：可以被向量外积表示的张量。</li>
+</ul>
+
+<p><img src="/images/blogs/vis/TPFlow2.png" alt="" /></p>
+
+<ul>
+<li>张量分解：逐步迭代，每次确定最好的秩一近似张量（捕获了最突出的数据变化和模式）。之后每次为剩余张量进行迭代。
+<img src="/images/blogs/vis/TPFlow1.png" alt="" /></li>
+<li>细节：
+
+<ol>
+<li>第一个近似张量可以总览数据</li>
+<li>迭代持续至 cost 提升很小或迭代步数到达上限</li>
+<li>最好的结果，最后一步 cost = 0，原始张量可以被完全分解。
+<img src="/images/blogs/vis/TPFlow3.png" alt="" /></li>
+</ol></li>
+</ul>
+
+<h2 id="3-2-分段秩一张量分解">3.2 分段秩一张量分解</h2>
+
+<ul>
+<li>问题：第一个子张量给了数据总览，但不能捕获数据的所有变化情况。</li>
+<li>例子：交通流量在工作日和周末有不同的地理分布，而第一个张量平均利用了所有天的情况，于是这样的信息丢失了。</li>
+<li>解决方式：分段秩一张量分解。
+
+<ul>
+<li>步骤：给定维度，发掘和划分有相似特征的子张量（作为第一个子张量）。对每个子张量进行分解。</li>
+<li>发掘方式：组合问题，采用聚类算法。</li>
+</ul></li>
+</ul>
+
+<p><img src="/images/blogs/vis/TPFlow4.png" alt="" /></p>
+
+<h1 id="四-tpflow">四、TPFlow</h1>
+
+<h2 id="4-2-可视化和交互">4.2 可视化和交互</h2>
+
+<ul>
+<li>基本可视化图表
+<img src="/images/blogs/vis/TPFlow6.png" alt="" /></li>
+<li>偏差可视化
+<img src="/images/blogs/vis/TPFlow7.png" alt="" /></li>
+<li>工作流：树状视图 + 维度特征视图
+
+<ul>
+<li>树状可视化划分过程</li>
+<li>树节点的交互</li>
+<li>查看特征和比较</li>
+</ul></li>
+</ul>
+
+<p><img src="/images/blogs/vis/TPFlow5.png" alt="" /></p>
+
+<h1 id="五-用户场景">五、用户场景</h1>
+
+<ul>
+<li>区域销售数据分析</li>
+<li>客户在实体零售商的商店交通数据分析</li>
+<li>纽约出租车交通数据</li>
+</ul>
+
+<h1 id="我的思考">我的思考</h1>
+
+<h2 id="优点">优点</h2>
+
+<ul>
+<li>数据挖掘：
+
+<ul>
+<li>之前习惯于从不同维度角度看数据，本文从张量分解角度，还利用了聚类（有点像层次结构）的方法。</li>
+<li>之前习惯于看相似几天的数据变化。本文却看相似数据在哪些天。</li>
+<li>之前不习惯只看数据的单个维度，但有时候单个维度也能表达重要信息。</li>
+</ul></li>
+<li>可视化：
+
+<ul>
+<li>偏差可视化</li>
+<li>柱状元素和树的使用</li>
+<li>多视图挖掘多维度特征</li>
+</ul></li>
+</ul></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="tag">数据可视化</span></a></li>
+        
+          <li><a href="/tags/tvcg"><span class="tag">TVCG</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Ran Chen</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="/js/bundle.d1288006cf.js"></script>
+
+
+
+
+  </body>
+</html>
