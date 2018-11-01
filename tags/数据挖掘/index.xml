@@ -7,17 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.</copyright>
-    <lastBuildDate>Fri, 12 Oct 2018 11:39:02 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 01 Nov 2018 11:39:40 +0800</lastBuildDate>
     
 	<atom:link href="https://crcrcry.github.io/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>共享单车停在哪里？——新城市的停放热点挖掘</title>
+      <link>https://crcrcry.github.io/post/kdd/parkinghotspots/</link>
+      <pubDate>Thu, 01 Nov 2018 11:39:40 +0800</pubDate>
+      
+      <guid>https://crcrcry.github.io/post/kdd/parkinghotspots/</guid>
+      <description>&lt;p&gt;在现在共享单车大背景下，胡乱停车给人们带来了很多困扰。因此，对一个新城市，如何提前预测停车热点，更好的规划城市，是一个重要的问题。该问题衍生了三个挑战：道路热度的定义；热点随时间的变化；热点和地理特征的关系（领域转移）。本文提出了利用 KDE 测量道路热度的方法，并引入了一个新型的领域适应的神经网络 ConvCDAN，用于在源城市和目标城市之间转移热点知识和进行预测。最后，多种实验证明了本文方法的有效性。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>基于共享单车轨迹规划自行车道路</title>
-      <link>https://crcrcry.github.io/post/vis/bike-lines/</link>
+      <link>https://crcrcry.github.io/post/kdd/bike-lines/</link>
       <pubDate>Fri, 12 Oct 2018 11:39:02 +0800</pubDate>
       
-      <guid>https://crcrcry.github.io/post/vis/bike-lines/</guid>
+      <guid>https://crcrcry.github.io/post/kdd/bike-lines/</guid>
       <description>&lt;p&gt;自行车是广泛的城市交通模式，优点包括价格低廉、有利于环境、健康、减少交通拥堵等。然而，随着自行车的数量不断上升，如何有效建立自行车道成为一个问题。本文通过调研良好的定义问题，并利用摩拜共享单车轨迹数据，通过贪心的网络拓张算法解决了该问题。是一个轨迹数据挖掘领域的典型应用。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>

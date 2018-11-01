@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>共享单车停在哪里？——新城市的停放热点挖掘</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Ran Chen" />
+  <meta name="description" content="在现在共享单车大背景下，胡乱停车给人们带来了很多困扰。因此，对一个新城市，如何提前预测停车热点，更好的规划城市，是一个重要的问题。该问题衍生了三个挑战：道路热度的定义；热点随时间的变化；热点和地理特征的关系（领域转移）。本文提出了利用 KDE 测量道路热度的方法，并引入了一个新型的领域适应的神经网络 ConvCDAN，用于在源城市和目标城市之间转移热点知识和进行预测。最后，多种实验证明了本文方法的有效性。
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="共享单车停在哪里？——新城市的停放热点挖掘" />
+    <meta name="twitter:description" content="在现在共享单车大背景下，胡乱停车给人们带来了很多困扰。因此，对一个新城市，如何提前预测停车热点，更好的规划城市，是一个重要的问题。该问题衍生了三个挑战：道路热度的定义；热点随时间的变化；热点和地理特征的关系（领域转移）。本文提出了利用 KDE 测量道路热度的方法，并引入了一个新型的领域适应的神经网络 ConvCDAN，用于在源城市和目标城市之间转移热点知识和进行预测。最后，多种实验证明了本文方法的有效性。
+
+" />
+    <meta name="twitter:image" content="https://crcrcry.github.io/images/blogs/kdd/ParkingHotspots5.png" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="共享单车停在哪里？——新城市的停放热点挖掘" />
+  <meta property="og:description" content="在现在共享单车大背景下，胡乱停车给人们带来了很多困扰。因此，对一个新城市，如何提前预测停车热点，更好的规划城市，是一个重要的问题。该问题衍生了三个挑战：道路热度的定义；热点随时间的变化；热点和地理特征的关系（领域转移）。本文提出了利用 KDE 测量道路热度的方法，并引入了一个新型的领域适应的神经网络 ConvCDAN，用于在源城市和目标城市之间转移热点知识和进行预测。最后，多种实验证明了本文方法的有效性。
+
+" />
+  <meta property="og:url" content="https://crcrcry.github.io/post/kdd/parkinghotspots/" />
+  <meta property="og:image" content="https://crcrcry.github.io/images/blogs/kdd/ParkingHotspots5.png" />
+
+
+
+
+<meta name="generator" content="Hugo 0.48" />
+
+
+<link rel="canonical" href="https://crcrcry.github.io/post/kdd/parkinghotspots/" />
+<link rel="alternative" href="/index.xml" title="Ran Chen" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Ran Chen" />
+<meta name="msapplication-tooltip" content="Ran Chen" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="/css/bundle.ff02473a9a.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="/images/about/chenran.png" alt="Avatar">
+  
+  <h2 class="title">Ran Chen</h2>
+  
+  <p class="subtitle">Keep moving and explore my limit</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/crcrcry">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/tags/">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:crcrcry.hello@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/crcrcry" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/images/about/wechat.jpeg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      <li class="social-item">
+        <a href="//www.zhihu.com/people/crcr-30" title="Zhihu"><span class="icon icon-zhihu"></span></a>
+      </li>
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">共享单车停在哪里？——新城市的停放热点挖掘</h1>
+      <p class="post-meta">@Ran Chen · Nov 1, 2018 · 2 min read</p>
+    </header>
+    <article class="post-content"><p>在现在共享单车大背景下，胡乱停车给人们带来了很多困扰。因此，对一个新城市，如何提前预测停车热点，更好的规划城市，是一个重要的问题。该问题衍生了三个挑战：道路热度的定义；热点随时间的变化；热点和地理特征的关系（领域转移）。本文提出了利用 KDE 测量道路热度的方法，并引入了一个新型的领域适应的神经网络 ConvCDAN，用于在源城市和目标城市之间转移热点知识和进行预测。最后，多种实验证明了本文方法的有效性。</p>
+
+<p></p>
+
+<p><a href="/files/papers/Parking-Hotspots.pdf">原文链接：Where Will Dockless Shared Bikes be Stacked? — Parking Hotspots Detection in a New City</a></p>
+
+<h1 id="一-介绍">一、介绍</h1>
+
+<ul>
+<li>背景：共享单车大背景下，胡乱停车带来了很多困扰</li>
+<li>问题：对一个新城市，如何提前预测停车热点
+
+<ul>
+<li>对运营商：更好的投放和部署</li>
+<li>对政府：更好的更新自行车法规和预先建立电子停车位</li>
+</ul></li>
+<li>挑战：
+
+<ul>
+<li>如何定义道路热度（需要减轻道路长度变化的影响）</li>
+<li>热点随时间变化</li>
+<li>热点和地理特征相关（领域转移问题）</li>
+</ul></li>
+<li>解决方案：
+
+<ul>
+<li>道路热度和热点：
+
+<ul>
+<li>基于全市的自行车概率密度函数来量化道路热度</li>
+<li>采用核密度估计来估算自行车在全市的停放概率</li>
+<li>中心点高密度值路段被定义为热点</li>
+</ul></li>
+<li>时间变化：根据对 Mobike 的数据分析，由于自行车路线短距离的性质，热点随时间变化较小</li>
+<li>地理特征相关：
+
+<ul>
+<li>城市特征学习：用多源城市数据（POI、路网、卫星图），学习关于热点的判别特征</li>
+<li>领域转移问题：ConvCDAN，新型卷积城市域适应网络，用于将源城市的知识转移。具体，当仅提供源城市自行车记录时，模型自动检测目标城市热点。包括三部分：
+
+<ol>
+<li>FeatureNet：源城市学习到的判别特征</li>
+<li>DensityNet：预测道路自行车密度</li>
+<li>DomainNet：将 FeatureNet 中的功能提升为领域不变的更深层的表示</li>
+</ol></li>
+</ul></li>
+</ul></li>
+<li>贡献：
+
+<ul>
+<li>问题解决（第 2 节）</li>
+<li>核密度估计来测量道路热度（第 3 节）</li>
+<li>特征提取 + ConvCDAN 热点预测检测（第 4 节）</li>
+<li>评估（第 5 节）</li>
+</ul></li>
+</ul>
+
+<h1 id="二-初步">二、初步</h1>
+
+<ul>
+<li>道路边界矩形、中心点：
+
+<ul>
+<li>边界矩形即道路凸包矩形</li>
+<li>中心点即矩形对角线交点</li>
+</ul></li>
+<li>道路热度：
+
+<ul>
+<li>方法：道路中心点的平均每时自行车密度</li>
+<li>考虑时变因素，观察发现，热点随时间的变化是相对小的</li>
+<li>利用核密度估计（KDE）计算全市自行车密度函数</li>
+</ul></li>
+<li>城市热点：道路热度 top k</li>
+<li>问题描述：
+
+<ul>
+<li>概述：热点知识的城市间转移</li>
+<li>具体：预测目标城市的道路自行车密度，得到热度最高的 k 个路段作为城市热点</li>
+</ul></li>
+</ul>
+
+<h1 id="三-热点发现和分析">三、热点发现和分析</h1>
+
+<h2 id="3-1-利用核密度估计-kde-发掘热点">3.1 利用核密度估计（KDE）发掘热点</h2>
+
+<ul>
+<li>思路：
+
+<ol>
+<li>通过 KDE 评估自行车在全市停放的概率密度函数</li>
+<li>再评估道路中心点平均密度值，作为道路热度</li>
+</ol></li>
+</ul>
+
+<h2 id="3-2-热点的时空属性分析">3.2 热点的时空属性分析</h2>
+
+<p><img src="/images/blogs/kdd/ParkingHotspots1.png" alt="" /></p>
+
+<h3 id="3-2-1-时间属性">3.2.1 时间属性：</h3>
+
+<ul>
+<li>思路：
+
+<ul>
+<li>将两个临近时间窗口的热点道路重叠率作为相似分数</li>
+</ul></li>
+<li>结果1（北京、不同窗口大小）：见左图
+
+<ol>
+<li>不同时间窗口大小时，热点结果相似，平均分分别为0.49、0.54和0.67</li>
+<li>窗口大小1小时和3小时，得分趋势按天呈周期性变化</li>
+</ol></li>
+<li>结果2（不同城市）：见中图
+
+<ol>
+<li>不同城市间，连续时间窗口的热点是稳定的（分数很高）</li>
+<li>上海相似度最低、其次是北京、宁波，原因是上海路网最复杂。</li>
+</ol></li>
+<li>结论：
+
+<ul>
+<li>热点的时间稳定性，可能是由于自行车短骑行距离的特性</li>
+</ul></li>
+</ul>
+
+<h3 id="3-2-2-空间属性">3.2.2 空间属性</h3>
+
+<ul>
+<li>结果：见右图
+
+<ol>
+<li>许多热点是空间临近的，由于路网连通性。</li>
+<li>商业中心、交通枢纽、住宅区附近的道路更有可能成为热点。</li>
+</ol></li>
+<li>结论：
+
+<ul>
+<li>热点和城市地理信息紧密关联，有利于从多个城市数据源提取高辨识的特征</li>
+</ul></li>
+</ul>
+
+<h1 id="四-在新城市发掘热点">四、在新城市发掘热点</h1>
+
+<h2 id="4-1-特征提取">4.1 特征提取</h2>
+
+<ul>
+<li>思路：从道路边界矩形范围内提取特征</li>
+<li>特征分类：
+
+<ul>
+<li>POI：每个种类频率、总数、熵（反映信息不确定性）</li>
+<li>路网：道路类型、覆盖道路数量</li>
+<li>卫星图像：平均光强、到最近光中心的距离</li>
+<li>交通：离最近地铁站的距离、小于3公里的地铁站数量</li>
+<li>商业中心：离最近的商业中心的距离、最近商业中心等级</li>
+</ul></li>
+</ul>
+
+<h2 id="4-2-特征关联和领域分析">4.2 特征关联和领域分析</h2>
+
+<h3 id="4-2-1-特征关联分析">4.2.1 特征关联分析</h3>
+
+<ul>
+<li>采用皮尔逊相关系数，计算和道路热度关联最强的10个特征</li>
+</ul>
+
+<p><img src="/images/blogs/kdd/ParkingHotspots2.png" alt="" /></p>
+
+<h3 id="4-2-2-城市间领域分析">4.2.2 城市间领域分析</h3>
+
+<ul>
+<li><p>特征领域转移：</p>
+
+<ol>
+<li><p>采用最大平均差异（MMD）来量化源城市和目标城市的差异。其中 u 是城市特征平均化后的特征向量。公式：</p>
+
+<p><img src="/images/blogs/kdd/ParkingHotspots3.png" alt="" /></p></li>
+
+<li><p>TSNE 可视化降维</p></li>
+</ol></li>
+
+<li><p>结果：
+<img src="/images/blogs/kdd/ParkingHotspots4.png" alt="" /></p></li>
+
+<li><p>结论：存在不同城市的知识转移，需要用引入一个城市领域的适应方法。</p></li>
+</ul>
+
+<h2 id="4-3-城市领域适应网络">4.3 城市领域适应网络</h2>
+
+<p><img src="/images/blogs/kdd/ParkingHotspots5.png" alt="" /></p>
+
+<ul>
+<li>ConvCDAN：
+
+<ol>
+<li>FeatureNet：源城市学习到的判别特征</li>
+<li>DensityNet：预测道路自行车密度</li>
+<li>DomainNet：将 FeatureNet 中的功能提升为领域不变的更深层的表示</li>
+</ol></li>
+</ul>
+
+<h3 id="4-3-1-featurenet">4.3.1 FeatureNet</h3>
+
+<ul>
+<li>输入：获取热点附近的 n 条路网，将路网特征矩阵（m * n）作为输入</li>
+<li>结构：两个卷积块（每个包含两个卷积层）+一个池化层
+
+<ul>
+<li>第一层卷积：1 * m 卷积核，有 k 个 channel，作用是寻找特定特征。</li>
+<li>第二层卷积：3 * k 卷积核，有 k^2 个 channel，作用是发掘临近道路的特征。</li>
+<li>激活函数：ReLU</li>
+</ul></li>
+</ul>
+
+<h3 id="4-3-2-densitynet">4.3.2 DensityNet</h3>
+
+<ul>
+<li>结构：两个全连接前馈层和一个输出层</li>
+<li>激活函数：ReLU</li>
+<li>训练集：源城市数据</li>
+<li>代价函数：结合回归损失和排名损失</li>
+</ul>
+
+<h3 id="4-3-3-domainnet">4.3.3 DomainNet</h3>
+
+<ul>
+<li>知识转移解决思路：
+
+<ol>
+<li>学习新的领域不变特征空间时匹配源和目标特征分布。</li>
+</ol></li>
+<li>DomainNet：
+
+<ul>
+<li>作用：一个领域分类网络，监督 FeatureNet 学习判别的和可转移的特征。具体的，将输入特征分类到对应领域。</li>
+<li>结构：两个全连接前馈层和一个输出层</li>
+<li>激活函数：Sigmoid</li>
+</ul></li>
+</ul>
+
+<h3 id="4-3-4-convcdan-优化">4.3.4 ConvCDAN 优化</h3>
+
+<h1 id="五-实验">五、实验</h1>
+
+<h2 id="5-1-实验设置">5.1 实验设置</h2>
+
+<ul>
+<li>数据集：Mobike 上海、北京、宁波，一个月数据</li>
+<li>比较方法
+
+<ul>
+<li>基线：Lasso Regression、GBRT、MLP、RankNet、LambdaMart</li>
+<li>评估策略：K 表示 top K
+
+<ul>
+<li>MAP@K：预测平均准确率</li>
+<li>NDCG@K：评估排名相关性</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="5-2-比较结果">5.2 比较结果</h2>
+
+<ul>
+<li>预测顺序：北京 -&gt; 宁波、上海 -&gt; 宁波、上海 -&gt; 北京，符合客观现实。</li>
+<li>比较结果：ConvCDAN 全部性能最佳。</li>
+<li>一些发现：
+
+<ul>
+<li>所有方法都至少 30% 准确率，表明停放位置与多源数据的地理信息紧密相关。</li>
+<li>北京-&gt;宁波 &gt; 上海-&gt;北京 &gt; 上海-&gt;宁波，潜在原因是道路网络的复杂性，三个城市的道路数量分别是 12916、8913、1242。</li>
+</ul></li>
+</ul>
+
+<p><img src="/images/blogs/kdd/ParkingHotspots7.png" alt="" /></p>
+
+<h2 id="5-3-featurenet-中卷积操作的影响">5.3 FeatureNet 中卷积操作的影响</h2>
+
+<p><img src="/images/blogs/kdd/ParkingHotspots6.png" alt="" /></p>
+
+<h2 id="5-4-densitynet-中-ranking-loss-的影响">5.4 DensityNet 中 Ranking Loss 的影响</h2>
+
+<h2 id="5-5-domainnet-的集成效果">5.5 DomainNet 的集成效果</h2>
+
+<h1 id="思考">思考</h1>
+
+<ul>
+<li>我对深度学习还是懂的太少，理解不够</li>
+<li>优点：
+
+<ul>
+<li>逻辑推导很缜密：挖掘-&gt;分析-&gt;指导下一步</li>
+<li>定义问题和解决方案思考的很透彻</li>
+<li>代价函数：考虑因素较全面</li>
+</ul></li>
+<li>缺点：
+
+<ul>
+<li>特征提取：从道路边界矩形提取的空间特征，不够完整</li>
+<li>特征关联：Top 10 的划分方式没有依据</li>
+<li>领域分析：平均化的特征用于城市比较，准确度不够</li>
+</ul></li>
+</ul>
+
+<hr />
+
+<h1 id="补充材料">补充材料</h1>
+
+<h2 id="概率分布和概率密度">概率分布和概率密度</h2>
+
+<ul>
+<li>对离散型随机变量：
+
+<ul>
+<li>概率函数：函数结果是各个取值的概率，eg：P(1) = 0.5</li>
+<li>概率分布函数：函数结果是各个区间分布的概率，eg：F(x &lt; 1) = 0.3</li>
+</ul></li>
+<li>对连续型随机变量：
+
+<ul>
+<li>概率密度函数：
+
+<ul>
+<li>对应离散型的概率函数，然而连续性随机变量通常不存在具体的某个值的概率，而是某个区间的概率。</li>
+<li>具体解释是，事件 { x &lt; X &lt; x+h } 的概率应为 F(x+h)-F(x)。所以比值 [F(x+h)-F(x)]/h(h-&gt;0) 可以解释为单位概率。F&rsquo;(x)=f(x)，f(x)为概率密度函数。</li>
+<li>反映了概率在 x 点处的密集程度。</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p><img src="/images/blogs/kdd/ParkingHotspotsSupplement1.png" alt="" /></p>
+
+<h2 id="核密度估计-kde">核密度估计（KDE）</h2>
+
+<ul>
+<li>密度估计：
+
+<ul>
+<li>参数估计：通过某种模型去拟合数据分布，调节模型参数</li>
+<li>非参数估计：例如核密度估计</li>
+</ul></li>
+<li>核密度估计：
+
+<ul>
+<li>作用：估计未知的概率密度函数。具体来说是对直方图的自然拓展，将直方图进行平滑连续化模拟。</li>
+<li>原理：近大远小。如果某一个数在观察中出现了，我们可以认为这个数的概率密度很大，和这个数比较近的数的概率密度也会比较大，而那些离这个数远的数的概率密度会比较小。</li>
+<li>核函数：用于拟合近大远小的概率密度变化。</li>
+<li>具体数学原理见 <a href="https://www.zhihu.com/question/27301358">here</a></li>
+</ul></li>
+</ul>
+
+<h2 id="排名评价指标">排名评价指标</h2>
+
+<ul>
+<li>MAP、DCG、NDCG，<a href="http://www.cnblogs.com/by-dream/p/9403984.html">here</a></li>
+</ul></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98"><span class="tag">数据挖掘</span></a></li>
+        
+          <li><a href="/tags/kdd"><span class="tag">KDD</span></a></li>
+        
+          <li><a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0"><span class="tag">深度学习</span></a></li>
+        
+          <li><a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="tag">神经网络</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Ran Chen</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="/js/bundle.d1288006cf.js"></script>
+
+
+
+
+  </body>
+</html>
