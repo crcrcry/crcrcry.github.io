@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.</copyright>
-    <lastBuildDate>Thu, 01 Nov 2018 11:39:40 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 11 Nov 2018 10:58:00 +0800</lastBuildDate>
     
 	<atom:link href="https://crcrcry.github.io/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>利用共享单车轨迹检测非法停车事件</title>
+      <link>https://crcrcry.github.io/post/kdd/illparking/</link>
+      <pubDate>Sun, 11 Nov 2018 10:58:00 +0800</pubDate>
+      
+      <guid>https://crcrcry.github.io/post/kdd/illparking/</guid>
+      <description>&lt;p&gt;在城市中，非法停车是一个普遍且令人困扰的问题，常常造成交通堵塞和交通事故，同时也降低了骑行者的体验。传统的非法停车检测采用警察巡逻、视频识别等方法，然而这些方法的覆盖范围有限且成本较高。本文提出了一种，基于共享单车轨迹检测非法停车的方法，通过将海量自行车轨迹和轨迹基线进行对比，发现其中的异常，自动检测出非法停车现象。本文主要使用了2个组件：轨迹预处理和轨迹检测，来完成这一工作。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>共享单车停在哪里？——新城市的停放热点挖掘</title>

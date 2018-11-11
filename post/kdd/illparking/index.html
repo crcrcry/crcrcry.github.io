@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>利用共享单车轨迹检测非法停车事件</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Ran Chen" />
+  <meta name="description" content="在城市中，非法停车是一个普遍且令人困扰的问题，常常造成交通堵塞和交通事故，同时也降低了骑行者的体验。传统的非法停车检测采用警察巡逻、视频识别等方法，然而这些方法的覆盖范围有限且成本较高。本文提出了一种，基于共享单车轨迹检测非法停车的方法，通过将海量自行车轨迹和轨迹基线进行对比，发现其中的异常，自动检测出非法停车现象。本文主要使用了2个组件：轨迹预处理和轨迹检测，来完成这一工作。
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="利用共享单车轨迹检测非法停车事件" />
+    <meta name="twitter:description" content="在城市中，非法停车是一个普遍且令人困扰的问题，常常造成交通堵塞和交通事故，同时也降低了骑行者的体验。传统的非法停车检测采用警察巡逻、视频识别等方法，然而这些方法的覆盖范围有限且成本较高。本文提出了一种，基于共享单车轨迹检测非法停车的方法，通过将海量自行车轨迹和轨迹基线进行对比，发现其中的异常，自动检测出非法停车现象。本文主要使用了2个组件：轨迹预处理和轨迹检测，来完成这一工作。
+
+" />
+    <meta name="twitter:image" content="https://crcrcry.github.io/images/blogs/kdd/IllParking0.png" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="利用共享单车轨迹检测非法停车事件" />
+  <meta property="og:description" content="在城市中，非法停车是一个普遍且令人困扰的问题，常常造成交通堵塞和交通事故，同时也降低了骑行者的体验。传统的非法停车检测采用警察巡逻、视频识别等方法，然而这些方法的覆盖范围有限且成本较高。本文提出了一种，基于共享单车轨迹检测非法停车的方法，通过将海量自行车轨迹和轨迹基线进行对比，发现其中的异常，自动检测出非法停车现象。本文主要使用了2个组件：轨迹预处理和轨迹检测，来完成这一工作。
+
+" />
+  <meta property="og:url" content="https://crcrcry.github.io/post/kdd/illparking/" />
+  <meta property="og:image" content="https://crcrcry.github.io/images/blogs/kdd/IllParking0.png" />
+
+
+
+
+<meta name="generator" content="Hugo 0.48" />
+
+
+<link rel="canonical" href="https://crcrcry.github.io/post/kdd/illparking/" />
+<link rel="alternative" href="/index.xml" title="Ran Chen" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Ran Chen" />
+<meta name="msapplication-tooltip" content="Ran Chen" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="/css/bundle.ff02473a9a.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="/images/about/chenran.png" alt="Avatar">
+  
+  <h2 class="title">Ran Chen</h2>
+  
+  <p class="subtitle">Keep moving and explore my limit</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/crcrcry">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/tags/">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:crcrcry.hello@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/crcrcry" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/images/about/wechat.jpeg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      <li class="social-item">
+        <a href="//www.zhihu.com/people/crcr-30" title="Zhihu"><span class="icon icon-zhihu"></span></a>
+      </li>
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">利用共享单车轨迹检测非法停车事件</h1>
+      <p class="post-meta">@Ran Chen · Nov 11, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><p>在城市中，非法停车是一个普遍且令人困扰的问题，常常造成交通堵塞和交通事故，同时也降低了骑行者的体验。传统的非法停车检测采用警察巡逻、视频识别等方法，然而这些方法的覆盖范围有限且成本较高。本文提出了一种，基于共享单车轨迹检测非法停车的方法，通过将海量自行车轨迹和轨迹基线进行对比，发现其中的异常，自动检测出非法停车现象。本文主要使用了2个组件：轨迹预处理和轨迹检测，来完成这一工作。</p>
+
+<p></p>
+
+<p><a href="/files/papers/IllParking.pdf">原文链接：Detecting Vehicle Illegal Parking Events using Sharing Bikes’ Trajectories</a></p>
+
+<h1 id="一-介绍">一、介绍</h1>
+
+<ul>
+<li>背景：非法停车</li>
+<li>问题：如何高效的检测非法停车</li>
+<li>现状：警察巡逻、视频识别</li>
+<li>局限性：覆盖范围有限、成本高</li>
+<li>解决方案：
+
+<ul>
+<li>方法：通过挖掘共享单车轨迹检测非法停车</li>
+<li>优点：使用范围广、数据质量高（采样频繁）<img src="/images/blogs/kdd/IllParking1.png" alt="1" /></li>
+<li>直觉（可行性）验证实验：可行<img src="/images/blogs/kdd/IllParking2.png" alt="IllegalParking2" /></li>
+<li>挑战：</li>
+<li>数据错误（GPS 设备或人为产生）</li>
+<li>地图匹配：难于普通匹配，因为自行车可以在道路外行走。</li>
+<li>非法停车检测：模型开发困难，因为难以收集大量标记数据。</li>
+<li>系统效率：海量数据的快速响应。</li>
+<li>系统：</li>
+<li>预处理模块：异常过滤、地图匹配、建立索引</li>
+<li>模型检测模块</li>
+</ul></li>
+<li>贡献：
+
+<ul>
+<li>首次尝试通过挖掘自行车轨迹检测非法停车</li>
+<li>自行车轨迹数据预处理、非法停车的检验模型</li>
+<li>数据：手动收集了400多个非法停车标签</li>
+<li>评估：北京、6个月、Mobike 轨迹评估；现场案例研究</li>
+<li>系统：<a href="http://illparking.urban-computing.com/">云上部署</a></li>
+</ul></li>
+</ul>
+
+<h1 id="二-概览">二、概览</h1>
+
+<ul>
+<li>基本概念定义：
+
+<ul>
+<li>轨迹：时序点集 (lat~i~, lng~i~, t~i~)</li>
+<li>路网：graph G = (V, E)，顶点为路口，边为路段</li>
+<li>非法停车事件：在某时间范围内，影响自行车正常行为轨迹的障碍物</li>
+</ul></li>
+<li>问题定义：
+
+<ul>
+<li>给定轨迹集合、路网集合、时间段，对每个路段，我们需要推断非法停车时间出现的概率</li>
+<li>高准确率、高效率（低响应时间）</li>
+</ul></li>
+<li>系统概览：
+
+<ul>
+<li>预处理模块：异常过滤、地图匹配、建立索引</li>
+<li>模型检测模块：对每个路段计算一个概率分数，包含基线轨迹建模、轨迹特征提取、基于分布测试的检测</li>
+</ul></li>
+</ul>
+
+<h1 id="四-非法停车检测">四、非法停车检测</h1>
+
+<h2 id="4-1-概览">4.1 概览</h2>
+
+<ul>
+<li>挑战：
+
+<ul>
+<li>数据未标记：难以应用传统分类模型</li>
+<li>复杂的非法停车事件：不同数量、不同位置</li>
+<li>多样的个体行为：用户的骑行习惯不同，使模型设计更困难和不稳定</li>
+<li>GPS 不准确：微小的随机偏移</li>
+</ul></li>
+<li>克服思路：
+
+<ul>
+<li>辨别没有非法停车的轨迹是相对简单的</li>
+<li>没有非法停车的轨迹特征更稳定和易于辨别</li>
+<li>测量轨迹集合的聚合特征</li>
+<li>和 build-up proximity 高度相关，因此对每个路段建立基线模型</li>
+</ul></li>
+<li>问题解决思路：将聚合轨迹的位移分布（相对基线轨迹）作为检测的主要特征<img src="/images/blogs/kdd/IllParking3.png" alt="IllParking3" /></li>
+</ul>
+
+<h2 id="4-2-基线轨迹建模">4.2 基线轨迹建模</h2>
+
+<ol>
+<li>朴素基线模型：直接使用道路形状。</li>
+<li>夜间基线模型：假定夜间自行车轨迹不受非法停车影响。</li>
+</ol>
+
+<h2 id="4-3-评估轨迹特征提取">4.3 评估轨迹特征提取</h2>
+
+<ul>
+<li>提取前的步骤，使采样更准确：
+
+<ol>
+<li>轨迹深度分段（50米每个段）：防止长路段上非法停车事件的位移分布被非违法停车的部分抵消。</li>
+<li>位移重采样（5米每个点）：防止位移分布被少量点支配。</li>
+</ol></li>
+<li>提取方法：
+
+<ol>
+<li>平均位移：所有轨迹在每个点的平均位移</li>
+<li>峰值位移：位移最高的10个点</li>
+</ol></li>
+<li>直觉：
+
+<ul>
+<li>平均位移和峰值位移不重叠，暗示了非法停车事件（位移剧变）。</li>
+</ul></li>
+</ul>
+
+<p><img src="/images/blogs/kdd/IllParking4.png" alt="IllParking4" /></p>
+
+<h2 id="4-4-基于分布测试的检测">4.4 基于分布测试的检测</h2>
+
+<ul>
+<li>思路：
+
+<ul>
+<li>两个位移分布统计样本足够相似，则意味着属于同一场景（没有非法停车/有非法停车）。</li>
+<li>否则，存在非法停车现象。</li>
+</ul></li>
+<li>方法：
+
+<ul>
+<li>KS test 统计，计算两个位移分布的最大偏差。</li>
+<li>基于手动标记数据集的阈值选择，而不是标准统计方法。</li>
+</ul></li>
+</ul>
+
+<h1 id="我的思考">我的思考</h1>
+
+<ul>
+<li>优点：
+
+<ul>
+<li>Idea 很有创意，提高了对轨迹形状的理解和应用</li>
+<li>算法简单易懂</li>
+<li>行文考虑周全，且对数据的处理细节很到位</li>
+</ul></li>
+<li>缺点：
+
+<ul>
+<li>别的因素导致的轨迹变化如何考虑？</li>
+<li>基线轨迹建模过于简单？</li>
+</ul></li>
+</ul></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98"><span class="tag">数据挖掘</span></a></li>
+        
+          <li><a href="/tags/kdd"><span class="tag">KDD</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Ran Chen</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="/js/bundle.d1288006cf.js"></script>
+
+
+
+
+  </body>
+</html>
