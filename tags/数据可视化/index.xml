@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.</copyright>
-    <lastBuildDate>Sun, 21 Oct 2018 11:44:02 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 16 Nov 2018 17:38:37 +0800</lastBuildDate>
     
 	<atom:link href="https://crcrcry.github.io/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>在长时间眼动跟踪数据集中识别时变的感兴趣区域</title>
+      <link>https://crcrcry.github.io/post/vis/longdurationeyetracking/</link>
+      <pubDate>Fri, 16 Nov 2018 17:38:37 +0800</pubDate>
+      
+      <guid>https://crcrcry.github.io/post/vis/longdurationeyetracking/</guid>
+      <description>&lt;p&gt;眼动跟踪常用于许多技术领域的分析实践，通常更侧重于短期任务。在长时间的眼动跟踪中，长时间的观察对比感兴趣区域的变化以及应对一些紧急情况，会使得分析极度困难。本文提出了一种新的方法，通过在时间域中采用聚类和聚类合并方法，自动识别时变的空间兴趣点，并采用时空立方体技术进行可视化。有效的克服了长时间眼动跟踪的困难，并适用于其他广大相关领域。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>TPFlow：用于大规模时空数据分析的渐进式分区和多维模式提取</title>
