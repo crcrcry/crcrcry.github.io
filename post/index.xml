@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.</copyright>
-    <lastBuildDate>Fri, 16 Nov 2018 17:38:37 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 23 Nov 2018 19:15:21 +0800</lastBuildDate>
     
 	<atom:link href="https://crcrcry.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Juniper：一种用于多变量图可视化的树&#43;表格方法</title>
+      <link>https://crcrcry.github.io/post/vis/juniper/</link>
+      <pubDate>Fri, 23 Nov 2018 19:15:21 +0800</pubDate>
+      
+      <guid>https://crcrcry.github.io/post/vis/juniper/</guid>
+      <description>&lt;p&gt;分析大型、多变量图在许多领域中都是重要的问题，然而，可视化这样的图充满了挑战。本文介绍了一个新颖的、可拓展的、树+表格的多变量图可视化技术。该技术主要关注于焦点任务，即单个节点、边、邻居、子图相关的任务。该技术的核心步骤是查询感兴趣的节点/子图——&amp;gt;树+表格的可视化，主要采用了生成树技术、线性布局和表格可视化技术，该技术的有效性通过两个用例（Game of Thrones Network、科研合作网络）得到了证明。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>在长时间眼动跟踪数据集中识别时变的感兴趣区域</title>
