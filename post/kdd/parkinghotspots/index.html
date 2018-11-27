@@ -28,7 +28,7 @@
     <meta name="twitter:description" content="在现在共享单车大背景下，胡乱停车给人们带来了很多困扰。因此，对一个新城市，如何提前预测停车热点，更好的规划城市，是一个重要的问题。该问题衍生了三个挑战：道路热度的定义；热点随时间的变化；热点和地理特征的关系（领域转移）。本文提出了利用 KDE 测量道路热度的方法，并引入了一个新型的领域适应的神经网络 ConvCDAN，用于在源城市和目标城市之间转移热点知识和进行预测。最后，多种实验证明了本文方法的有效性。
 
 " />
-    <meta name="twitter:image" content="https://crcrcry.github.io/images/blogs/kdd/ParkingHotspots5.png" />
+    <meta name="twitter:image" content="https://crcrcry.github.io/images/ParkingHotspots5.png" />
   
 
   
@@ -38,7 +38,7 @@
 
 " />
   <meta property="og:url" content="https://crcrcry.github.io/post/kdd/parkinghotspots/" />
-  <meta property="og:image" content="https://crcrcry.github.io/images/blogs/kdd/ParkingHotspots5.png" />
+  <meta property="og:image" content="https://crcrcry.github.io/images/ParkingHotspots5.png" />
 
 
 
@@ -116,7 +116,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="/images/about/chenran.png" alt="Avatar">
+  <img class="avatar" src="/images/chenran.png" alt="Avatar">
   
   <h2 class="title">Ran Chen</h2>
   
@@ -205,9 +205,7 @@
 
       
 
-      <li class="social-item">
-        <a href="/images/about/wechat.jpeg" title="Wechat"><span class="icon icon-wechat"></span></a>
-      </li>
+      
 
       
 
@@ -236,7 +234,7 @@
 
 <p></p>
 
-<p><a href="/files/papers/Parking-Hotspots.pdf">原文链接：Where Will Dockless Shared Bikes be Stacked? — Parking Hotspots Detection in a New City</a></p>
+<p><a href="/files/Parking-Hotspots.pdf">原文链接：Where Will Dockless Shared Bikes be Stacked? — Parking Hotspots Detection in a New City</a></p>
 
 <h1 id="一-介绍">一、介绍</h1>
 
@@ -329,7 +327,7 @@
 
 <h2 id="3-2-热点的时空属性分析">3.2 热点的时空属性分析</h2>
 
-<p><img src="/images/blogs/kdd/ParkingHotspots1.png" alt="" /></p>
+<p><img src="/images/ParkingHotspots1.png" alt="" /></p>
 
 <h3 id="3-2-1-时间属性">3.2.1 时间属性：</h3>
 
@@ -399,7 +397,7 @@
 <li>采用皮尔逊相关系数，计算和道路热度关联最强的10个特征</li>
 </ul>
 
-<p><img src="/images/blogs/kdd/ParkingHotspots2.png" alt="" /></p>
+<p><img src="/images/ParkingHotspots2.png" alt="" /></p>
 
 <h3 id="4-2-2-城市间领域分析">4.2.2 城市间领域分析</h3>
 
@@ -409,20 +407,20 @@
 <ol>
 <li><p>采用最大平均差异（MMD）来量化源城市和目标城市的差异。其中 u 是城市特征平均化后的特征向量。公式：</p>
 
-<p><img src="/images/blogs/kdd/ParkingHotspots3.png" alt="" /></p></li>
+<p><img src="/images/ParkingHotspots3.png" alt="" /></p></li>
 
 <li><p>TSNE 可视化降维</p></li>
 </ol></li>
 
 <li><p>结果：
-<img src="/images/blogs/kdd/ParkingHotspots4.png" alt="" /></p></li>
+<img src="/images/ParkingHotspots4.png" alt="" /></p></li>
 
 <li><p>结论：存在不同城市的知识转移，需要用引入一个城市领域的适应方法。</p></li>
 </ul>
 
 <h2 id="4-3-城市领域适应网络">4.3 城市领域适应网络</h2>
 
-<p><img src="/images/blogs/kdd/ParkingHotspots5.png" alt="" /></p>
+<p><img src="/images/ParkingHotspots5.png" alt="" /></p>
 
 <ul>
 <li>ConvCDAN：
@@ -507,11 +505,11 @@
 </ul></li>
 </ul>
 
-<p><img src="/images/blogs/kdd/ParkingHotspots7.png" alt="" /></p>
+<p><img src="/images/ParkingHotspots7.png" alt="" /></p>
 
 <h2 id="5-3-featurenet-中卷积操作的影响">5.3 FeatureNet 中卷积操作的影响</h2>
 
-<p><img src="/images/blogs/kdd/ParkingHotspots6.png" alt="" /></p>
+<p><img src="/images/ParkingHotspots6.png" alt="" /></p>
 
 <h2 id="5-4-densitynet-中-ranking-loss-的影响">5.4 DensityNet 中 Ranking Loss 的影响</h2>
 
@@ -563,7 +561,7 @@
 </ul></li>
 </ul>
 
-<p><img src="/images/blogs/kdd/ParkingHotspotsSupplement1.png" alt="" /></p>
+<p><img src="/images/ParkingHotspotsSupplement1.png" alt="" /></p>
 
 <h2 id="核密度估计-kde">核密度估计（KDE）</h2>
 

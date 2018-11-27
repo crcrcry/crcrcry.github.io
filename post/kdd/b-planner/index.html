@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>B-Planner：利用大规模出租车GPS轨迹规划双向夜间公交路线</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Ran Chen" />
+  <meta name="description" content="公交车是城市中一种经济方便的交通方式，然而大部分公交在夜间都停止运行，为了为夜间出行的人提供一种低成本的绿色交通方式，许多城市都开始规划夜间公交路线。然而，人工调研成本高且适应力弱。而本文利用出租车轨迹数据进行了夜间公交线路规划问题的探索。具体来说，本文提出了一种两层方法，在第一层中进行热点区域挖掘，在第二层进行线路规划。为了验证该方法的有效性，本文作者采用真实世界数据集进行试验和评估。
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="B-Planner：利用大规模出租车GPS轨迹规划双向夜间公交路线" />
+    <meta name="twitter:description" content="公交车是城市中一种经济方便的交通方式，然而大部分公交在夜间都停止运行，为了为夜间出行的人提供一种低成本的绿色交通方式，许多城市都开始规划夜间公交路线。然而，人工调研成本高且适应力弱。而本文利用出租车轨迹数据进行了夜间公交线路规划问题的探索。具体来说，本文提出了一种两层方法，在第一层中进行热点区域挖掘，在第二层进行线路规划。为了验证该方法的有效性，本文作者采用真实世界数据集进行试验和评估。
+
+" />
+    <meta name="twitter:image" content="https://crcrcry.github.io/images/B-Planner0.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="B-Planner：利用大规模出租车GPS轨迹规划双向夜间公交路线" />
+  <meta property="og:description" content="公交车是城市中一种经济方便的交通方式，然而大部分公交在夜间都停止运行，为了为夜间出行的人提供一种低成本的绿色交通方式，许多城市都开始规划夜间公交路线。然而，人工调研成本高且适应力弱。而本文利用出租车轨迹数据进行了夜间公交线路规划问题的探索。具体来说，本文提出了一种两层方法，在第一层中进行热点区域挖掘，在第二层进行线路规划。为了验证该方法的有效性，本文作者采用真实世界数据集进行试验和评估。
+
+" />
+  <meta property="og:url" content="https://crcrcry.github.io/post/kdd/b-planner/" />
+  <meta property="og:image" content="https://crcrcry.github.io/images/B-Planner0.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.48" />
+
+
+<link rel="canonical" href="https://crcrcry.github.io/post/kdd/b-planner/" />
+<link rel="alternative" href="/index.xml" title="Ran Chen" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Ran Chen" />
+<meta name="msapplication-tooltip" content="Ran Chen" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="/css/bundle.ff02473a9a.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="/images/chenran.png" alt="Avatar">
+  
+  <h2 class="title">Ran Chen</h2>
+  
+  <p class="subtitle">Keep moving and explore my limit</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/crcrcry">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/tags/">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:crcrcry.hello@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/crcrcry" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="//www.zhihu.com/people/crcr-30" title="Zhihu"><span class="icon icon-zhihu"></span></a>
+      </li>
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">B-Planner：利用大规模出租车GPS轨迹规划双向夜间公交路线</h1>
+      <p class="post-meta">@Ran Chen · Nov 27, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><p>公交车是城市中一种经济方便的交通方式，然而大部分公交在夜间都停止运行，为了为夜间出行的人提供一种低成本的绿色交通方式，许多城市都开始规划夜间公交路线。然而，人工调研成本高且适应力弱。而本文利用出租车轨迹数据进行了夜间公交线路规划问题的探索。具体来说，本文提出了一种两层方法，在第一层中进行热点区域挖掘，在第二层进行线路规划。为了验证该方法的有效性，本文作者采用真实世界数据集进行试验和评估。</p>
+
+<p></p>
+
+<p><a href="/files/B-Planner.pdf">原文链接：B-Planner: Planning Bidirectional Night Bus Routes Using Large-Scale Taxi GPS Traces</a></p>
+
+<h1 id="一-介绍">一、介绍</h1>
+
+<ul>
+<li>背景：公交车。</li>
+<li>问题：夜班公交车路线规划。</li>
+<li>现状：人工调研，缺点是成本高，且城市路网交通变化快，适应力弱。</li>
+<li>解决方案：
+
+<ul>
+<li>思路：
+
+<ul>
+<li>利用出租车轨迹规划夜班公交车线路，尽可能多覆盖乘客。</li>
+<li>可分为两个子问题：确认候选公交站点、路径选择。</li>
+</ul></li>
+<li>挑战：
+
+<ul>
+<li>确认候选公交站点</li>
+<li>乘客数量和旅行时间的权衡：站点影响乘客数和旅行时间</li>
+<li>乘客流累计效果：站点数量和乘客流数量的权衡</li>
+<li>动态乘客流：时变因素</li>
+<li>不对称的乘客流和旅行时间：双向变化因素</li>
+</ul></li>
+<li>方法：两阶段方法
+
+<ul>
+<li>阶段一：通过聚类和分割热区，确定备选站点</li>
+<li>阶段二：多种策略，最佳路径规划</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p><img src="/images/B-Planner2.png" alt="B-Planner2" /></p>
+
+<ul>
+<li>贡献：
+
+<ul>
+<li>两阶段方法解决夜班公交车路径规划问题</li>
+<li>利用乘客上下车数据聚类热点区域的方法</li>
+<li>构建和修建有向公交路径图-&gt;BPS算法</li>
+<li>通过计算不同路径、不同频率下最大乘客数量确定夜班公交容量</li>
+</ul></li>
+</ul>
+
+<h1 id="三-候选公交车站点确认">三、候选公交车站点确认</h1>
+
+<ul>
+<li>步骤：
+
+<ul>
+<li>选择热点单元：划分网格、标记热点单元</li>
+<li>合并和分裂：合并邻近（不一定邻接）热点单元形成热区、将大区划分为可步行范围的小区</li>
+<li>选择公交站点：选择区域内合适单元，作为公交站点</li>
+</ul></li>
+</ul>
+
+<h1 id="四-公交路径选择">四、公交路径选择</h1>
+
+<ul>
+<li>步骤：
+
+<ul>
+<li>近似乘客流和旅行时间</li>
+<li>公交路径选择方法：
+
+<ol>
+<li>构建公交路线图：根据约束和条件构建图、迭代移除无效节点和边来修剪图</li>
+<li>自动生成备选公交路径：利用两个贪心算法</li>
+<li>选择最佳路径：给定旅行时间约束，比较乘客覆盖率</li>
+</ol></li>
+</ul></li>
+<li>乘客流和旅行时间估计：
+
+<ul>
+<li>两个矩阵：假设不考虑时变因素、平均化</li>
+<li>最大等待时间（发车频率）</li>
+</ul></li>
+</ul>
+
+<p><img src="/images/B-Planner1.png" alt="B-Planner1" /></p>
+
+<ul>
+<li>构造公交路线图：
+
+<ul>
+<li>要求：旅行时间、乘客流</li>
+<li>约束和条件：
+
+<ul>
+<li>站之间距离不能过大</li>
+<li>每站都在向终点方向移动</li>
+<li>离起点越来越远</li>
+<li>离终点越来越近</li>
+<li>没有过于曲折的路径</li>
+</ul></li>
+<li>图构造和修剪
+
+<ul>
+<li>图构造：给定起点和终点，遍历其中的站点，根据约束条件（地理的）构造图</li>
+<li>图修剪：删除无效节点（入/出度为0的节点）</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p><img src="/images/B-Planner3.png" alt="B-Planner3" /></p>
+
+<ul>
+<li>自动生成备选公交路径
+
+<ul>
+<li>基于概率的传播算法（PBS）
+
+<ul>
+<li>定义：
+
+<ul>
+<li>支配：如果 $T(R_i) \leq T(R_j)$ 且 $Num(R_i) &gt; Num(R_j)$，则称 $R_i$ 支配 $R_j$。T为Time，Num为乘客数量。</li>
+<li>Skyline route：不被支配的route</li>
+</ul></li>
+<li>算法：
+
+<ul>
+<li>根据构造的图，迭代生成不同路径（只考虑单向）</li>
+<li>其中，高累计客流的下一站拥有更高的随机被选取概率</li>
+<li>得到Skyline routes集，当routes集始终不变时停止</li>
+</ul></li>
+<li>Baseline：
+
+<ul>
+<li>每步Top-K Nodes传播算法</li>
+</ul></li>
+</ul></li>
+<li>BPS算法：双向运行PBS算法，双向站点可以不一样</li>
+</ul></li>
+</ul>
+
+<h1 id="五-实验评估">五、实验评估</h1>
+
+<ul>
+<li>公交车站评估</li>
+</ul>
+
+<p><img src="/images/B-Planner4.png" alt="B-Planner4" /></p>
+
+<ul>
+<li>公交车路径选择算法评估：
+
+<ul>
+<li>收敛度</li>
+<li>参数敏感度：$T_1$ 聚类范围、$T_2$ 行走可达范围、$\delta$ 站距离</li>
+<li>候选路线统计</li>
+<li>天际线路径</li>
+<li>和基线 top-K 算法比较：有利于发现更好的路径，未比较运算效率。</li>
+</ul></li>
+</ul>
+
+<p><img src="/images/B-Planner5.png" alt="收敛度" /></p>
+
+<p><img src="/images/B-Planner6.png" alt="基线算法比较" /></p>
+
+<ul>
+<li>双向 vs 单向公交车路径</li>
+</ul>
+
+<p><img src="/images/B-Planner7.png" alt="B-Planner7" /></p>
+
+<p><img src="/images/B-Planner9.png" alt="B-Planner9" /></p>
+
+<ul>
+<li>实际路线比较、对出租车服务的影响</li>
+</ul>
+
+<p><img src="/images/B-Planner8.png" alt="B-Planner8" /></p>
+
+<ul>
+<li>公交容量分析</li>
+</ul>
+
+<h1 id="我的思考">我的思考</h1>
+
+<ul>
+<li>优点：
+
+<ul>
+<li>很好的分解、描述和解决了问题</li>
+<li>评估的很具体</li>
+</ul></li>
+<li>缺点：
+
+<ul>
+<li>算法比较naive，感觉都是拍拍脑袋就能想出来的，效率也比较堪忧。</li>
+</ul></li>
+</ul></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98"><span class="tag">数据挖掘</span></a></li>
+        
+          <li><a href="/tags/tits"><span class="tag">TITS</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        Powered by Hugo and hugo-nuo Theme. Copyright © 2017. All Rights Reserved.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Ran Chen</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="/js/bundle.d1288006cf.js"></script>
+
+
+
+
+  </body>
+</html>

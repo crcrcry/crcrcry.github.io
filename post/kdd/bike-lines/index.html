@@ -28,7 +28,7 @@
     <meta name="twitter:description" content="自行车是广泛的城市交通模式，优点包括价格低廉、有利于环境、健康、减少交通拥堵等。然而，随着自行车的数量不断上升，如何有效建立自行车道成为一个问题。本文通过调研良好的定义问题，并利用摩拜共享单车轨迹数据，通过贪心的网络拓张算法解决了该问题。是一个轨迹数据挖掘领域的典型应用。
 
 " />
-    <meta name="twitter:image" content="https://crcrcry.github.io/images/blogs/kdd/BikeLines8.png" />
+    <meta name="twitter:image" content="https://crcrcry.github.io/images/BikeLines8.png" />
   
 
   
@@ -38,7 +38,7 @@
 
 " />
   <meta property="og:url" content="https://crcrcry.github.io/post/kdd/bike-lines/" />
-  <meta property="og:image" content="https://crcrcry.github.io/images/blogs/kdd/BikeLines8.png" />
+  <meta property="og:image" content="https://crcrcry.github.io/images/BikeLines8.png" />
 
 
 
@@ -116,7 +116,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="/images/about/chenran.png" alt="Avatar">
+  <img class="avatar" src="/images/chenran.png" alt="Avatar">
   
   <h2 class="title">Ran Chen</h2>
   
@@ -205,9 +205,7 @@
 
       
 
-      <li class="social-item">
-        <a href="/images/about/wechat.jpeg" title="Wechat"><span class="icon icon-wechat"></span></a>
-      </li>
+      
 
       
 
@@ -236,7 +234,7 @@
 
 <p></p>
 
-<p><a href="/files/papers/Bike-Lanes.pdf">原文链接：Planning Bike Lanes based on Sharing-Bikes’ Trajectories</a></p>
+<p><a href="/files/Bike-Lanes.pdf">原文链接：Planning Bike Lanes based on Sharing-Bikes’ Trajectories</a></p>
 
 <h1 id="一-介绍">一、介绍</h1>
 
@@ -291,11 +289,11 @@
 <ul>
 <li>促进服务更多用户</li>
 <li>覆盖更多连通路段：提高用户体验。例如，Plan2 好于 Plan1。
-<img src="/images/blogs/kdd/BikeLines1.png" alt="" /></li>
+<img src="/images/BikeLines1.png" alt="" /></li>
 <li>这两个目标是矛盾的，因此提出一个得分函数，用于根据偏好计算每条轨迹的分数。
-<img src="/images/blogs/kdd/BikeLines2.png" alt="" /></li>
+<img src="/images/BikeLines2.png" alt="" /></li>
 <li>因此可以得出一个边集（即规划方案）的总分
-<img src="/images/blogs/kdd/BikeLines3.png" alt="" /></li>
+<img src="/images/BikeLines3.png" alt="" /></li>
 </ul></li>
 </ul></li>
 <li>问题定义：
@@ -353,21 +351,21 @@
 <li>描述了贪心网络拓展算法，以及初始化该算法的不同方法</li>
 </ul>
 
-<p><img src="/images/blogs/kdd/BikeLines4.png" alt="" /></p>
+<p><img src="/images/BikeLines4.png" alt="" /></p>
 
 <h2 id="4-1-贪心网络拓展算法">4.1 贪心网络拓展算法</h2>
 
 <ul>
 <li>思路：在网络中拓展一组 k 个起始路段</li>
 <li>启发：源于数据集中两个关键点的发现，空间热点、星状移动模式
-<img src="/images/blogs/kdd/BikeLines5.png" alt="" /><br /></li>
+<img src="/images/BikeLines5.png" alt="" /></li>
 <li>具体步骤：
 
 <ul>
 <li>初始化：选择 k 个起始路段</li>
 <li>网络拓展：迭代的运行算法。每次迭代选择最好的邻接路段，拓展网络<br /></li>
 <li>终止：终止于经费不足
-<img src="/images/blogs/kdd/BikeLines6.png" alt="" /><br /></li>
+<img src="/images/BikeLines6.png" alt="" /><br /></li>
 </ul></li>
 </ul>
 
@@ -378,12 +376,12 @@
 <li>启发：top k 代表空间热点，应该包含在规划方案中</li>
 
 <li><p>缺点：top k 过于临近，限制了搜索空间
-<img src="/images/blogs/kdd/BikeLines7.png" alt="" /></p>
+<img src="/images/BikeLines7.png" alt="" /></p>
 
 <h2 id="4-3-基于聚类的空间初始化">4.3 基于聚类的空间初始化</h2></li>
 
 <li><p>采用了层次聚类，原因是不需要设置空间参数（DBSCAN）并总生成稳定的结果（K Means）。
-<img src="/images/blogs/kdd/BikeLines8.png" alt="" /></p></li>
+<img src="/images/BikeLines8.png" alt="" /></p></li>
 </ul>
 
 <h1 id="七-相关工作">七、相关工作</h1>

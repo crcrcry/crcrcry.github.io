@@ -28,7 +28,7 @@
     <meta name="twitter:description" content="在城市中，非法停车是一个普遍且令人困扰的问题，常常造成交通堵塞和交通事故，同时也降低了骑行者的体验。传统的非法停车检测采用警察巡逻、视频识别等方法，然而这些方法的覆盖范围有限且成本较高。本文提出了一种，基于共享单车轨迹检测非法停车的方法，通过将海量自行车轨迹和轨迹基线进行对比，发现其中的异常，自动检测出非法停车现象。本文主要使用了2个组件：轨迹预处理和轨迹检测，来完成这一工作。
 
 " />
-    <meta name="twitter:image" content="https://crcrcry.github.io/images/blogs/kdd/IllParking0.png" />
+    <meta name="twitter:image" content="https://crcrcry.github.io/images/IllParking0.png" />
   
 
   
@@ -38,7 +38,7 @@
 
 " />
   <meta property="og:url" content="https://crcrcry.github.io/post/kdd/illparking/" />
-  <meta property="og:image" content="https://crcrcry.github.io/images/blogs/kdd/IllParking0.png" />
+  <meta property="og:image" content="https://crcrcry.github.io/images/IllParking0.png" />
 
 
 
@@ -116,7 +116,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="/images/about/chenran.png" alt="Avatar">
+  <img class="avatar" src="/images/chenran.png" alt="Avatar">
   
   <h2 class="title">Ran Chen</h2>
   
@@ -205,9 +205,7 @@
 
       
 
-      <li class="social-item">
-        <a href="/images/about/wechat.jpeg" title="Wechat"><span class="icon icon-wechat"></span></a>
-      </li>
+      
 
       
 
@@ -236,7 +234,7 @@
 
 <p></p>
 
-<p><a href="/files/papers/IllParking.pdf">原文链接：Detecting Vehicle Illegal Parking Events using Sharing Bikes’ Trajectories</a></p>
+<p><a href="/files/IllParking.pdf">原文链接：Detecting Vehicle Illegal Parking Events using Sharing Bikes’ Trajectories</a></p>
 
 <h1 id="一-介绍">一、介绍</h1>
 
@@ -249,8 +247,8 @@
 
 <ul>
 <li>方法：通过挖掘共享单车轨迹检测非法停车</li>
-<li>优点：使用范围广、数据质量高（采样频繁）<img src="/images/blogs/kdd/IllParking1.png" alt="1" /></li>
-<li>直觉（可行性）验证实验：可行<img src="/images/blogs/kdd/IllParking2.png" alt="IllegalParking2" /></li>
+<li>优点：使用范围广、数据质量高（采样频繁）<img src="/images/IllParking1.png" alt="1" /></li>
+<li>直觉（可行性）验证实验：可行<img src="/images/IllParking2.png" alt="IllegalParking2" /></li>
 </ul></li>
 <li>挑战：
 
@@ -322,7 +320,7 @@
 <li>测量轨迹集合的聚合特征</li>
 <li>和 build-up proximity 高度相关，因此对每个路段建立基线模型</li>
 </ul></li>
-<li>问题解决思路：将聚合轨迹的位移分布（相对基线轨迹）作为检测的主要特征<img src="/images/blogs/kdd/IllParking3.png" alt="IllParking3" /></li>
+<li>问题解决思路：将聚合轨迹的位移分布（相对基线轨迹）作为检测的主要特征<img src="/images/IllParking3.png" alt="IllParking3" /></li>
 </ul>
 
 <h2 id="4-2-基线轨迹建模">4.2 基线轨迹建模</h2>
@@ -354,7 +352,7 @@
 </ul></li>
 </ul>
 
-<p><img src="/images/blogs/kdd/IllParking4.png" alt="IllParking4" /></p>
+<p><img src="/images/IllParking4.png" alt="IllParking4" /></p>
 
 <h2 id="4-4-基于分布测试的检测">4.4 基于分布测试的检测</h2>
 

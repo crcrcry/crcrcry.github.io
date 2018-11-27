@@ -28,7 +28,7 @@
     <meta name="twitter:description" content="追踪大规模集群的迁移是一个挑战性的任务，人们开发了很多技术对集群的时空迁移进行可视化。然而，主流的方法都存在一定的局限性：静态方法存在可拓展性限制；动画方法难以进行时空总览和比较；Small Multiples 方法将连续变化离散化。于是，本文的作者发明了 MotionRugs，一种基于空间划分的集群时空迁移数据的紧密展示方法，可以尽可能的保留行为模式在时空中的变化和其原因，并可以进行总览、追踪和比较，更好的解决上述问题。
 
 " />
-    <meta name="twitter:image" content="https://crcrcry.github.io/images/blogs/vis/MotionRugs3.png" />
+    <meta name="twitter:image" content="https://crcrcry.github.io/images/MotionRugs3.png" />
   
 
   
@@ -38,7 +38,7 @@
 
 " />
   <meta property="og:url" content="https://crcrcry.github.io/post/vis/motionrugs/" />
-  <meta property="og:image" content="https://crcrcry.github.io/images/blogs/vis/MotionRugs3.png" />
+  <meta property="og:image" content="https://crcrcry.github.io/images/MotionRugs3.png" />
 
 
 
@@ -116,7 +116,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="/images/about/chenran.png" alt="Avatar">
+  <img class="avatar" src="/images/chenran.png" alt="Avatar">
   
   <h2 class="title">Ran Chen</h2>
   
@@ -205,9 +205,7 @@
 
       
 
-      <li class="social-item">
-        <a href="/images/about/wechat.jpeg" title="Wechat"><span class="icon icon-wechat"></span></a>
-      </li>
+      
 
       
 
@@ -236,7 +234,7 @@
 
 <p></p>
 
-<p><a href="/files/papers/MotionRugs.pdf">原文链接：MotionRugs: Visualizing Collective Trends in Space and Time</a></p>
+<p><a href="/files/MotionRugs.pdf">原文链接：MotionRugs: Visualizing Collective Trends in Space and Time</a></p>
 
 <h1 id="一-介绍">一、介绍</h1>
 
@@ -503,7 +501,7 @@
 </ol></li>
 </ul>
 
-<p><img src="/images/blogs/vis/MotionRugs0.png" alt="" /></p>
+<p><img src="/images/MotionRugs0.png" alt="" /></p>
 
 <h2 id="3-1-空间划分和转化">3.1 空间划分和转化</h2>
 
@@ -526,7 +524,7 @@
 <ul>
 <li>Z 阶曲线：利于计算</li>
 <li>希尔伯特曲线：更好的保留了局部特征
-<img src="/images/blogs/vis/MotionRugs1.png" alt="" /></li>
+<img src="/images/MotionRugs1.png" alt="" /></li>
 </ul></li>
 </ul>
 
@@ -543,7 +541,7 @@
 <li>以及每种树的变体</li>
 </ul></li>
 <li>作用：反映了结构中，节点间空间接近度
-<img src="/images/blogs/vis/MotionRugs2.png" alt="" /></li>
+<img src="/images/MotionRugs2.png" alt="" /></li>
 <li>特点：空间树结构不提供固有的一维排序，旨在保留数据的空间属性</li>
 <li>生成一维序列的方法：
 
@@ -568,7 +566,7 @@
 <li>比较测试：时空鱼类数据，每秒 25 帧，每两个切片相差 40 m</li>
 </ul>
 
-<p><img src="/images/blogs/vis/MotionRugs3.png" alt="" /></p>
+<p><img src="/images/MotionRugs3.png" alt="" /></p>
 
 <ul>
 <li>从视觉效果看
@@ -602,8 +600,8 @@
 </ul></li>
 </ul>
 
-<p><img src="/images/blogs/vis/MotionRugs5.png" alt="" />
-<img src="/images/blogs/vis/MotionRugs4.png" alt="" /></p>
+<p><img src="/images/MotionRugs5.png" alt="" />
+<img src="/images/MotionRugs4.png" alt="" /></p>
 
 <h3 id="视觉瑕疵">视觉瑕疵</h3>
 
@@ -623,7 +621,7 @@
 <li>从 Phantom-Splits 的瑕疵的角度，以及之前的统计角度，最好的空间聚合函数是希尔伯特曲线</li>
 </ul>
 
-<p><img src="/images/blogs/vis/MotionRugs11.png" alt="" /></p>
+<p><img src="/images/MotionRugs11.png" alt="" /></p>
 
 <h2 id="3-3-移动特征的视觉编码">3.3 移动特征的视觉编码</h2>
 
@@ -639,7 +637,7 @@
 <li>视觉编码：Colormap</li>
 </ul>
 
-<p><img src="/images/blogs/vis/MotionRugs6.png" alt="" /></p>
+<p><img src="/images/MotionRugs6.png" alt="" /></p>
 
 <h2 id="3-4-motionrug-的可视化解释">3.4 MotionRug 的可视化解释</h2>
 
@@ -655,15 +653,15 @@
 
 <li><p>空间停滞：平行水平线，表示整个组的整体位置停滞不变</p>
 
-<p><img src="/images/blogs/vis/MotionRugs7.png" alt="" /></p></li>
+<p><img src="/images/MotionRugs7.png" alt="" /></p></li>
 
 <li><p>空间改变：从顶到底或从底到顶的条带，表示组内的空间变化</p>
 
-<p><img src="/images/blogs/vis/MotionRugs8.png" alt="" /></p></li>
+<p><img src="/images/MotionRugs8.png" alt="" /></p></li>
 
 <li><p>趋势进展：一部分实体引发的行为模式，例如：一组鱼游的更快导致整个组跟随</p>
 
-<p><img src="/images/blogs/vis/MotionRugs9.png" alt="" /></p></li>
+<p><img src="/images/MotionRugs9.png" alt="" /></p></li>
 
 <li><p>分裂和合并：</p>
 
@@ -673,7 +671,7 @@
 <li>Phantom-Splits</li>
 </ul>
 
-<p><img src="/images/blogs/vis/MotionRugs10.png" alt="" /></p></li>
+<p><img src="/images/MotionRugs10.png" alt="" /></p></li>
 </ul>
 
 <h1 id="四-用例和反馈">四、用例和反馈</h1>
@@ -699,7 +697,7 @@
 </ol></li>
 </ul>
 
-<p><img src="/images/blogs/vis/MotionRugs12.png" alt="" /></p>
+<p><img src="/images/MotionRugs12.png" alt="" /></p>
 
 <h2 id="4-2-专家反馈">4.2 专家反馈</h2>
 

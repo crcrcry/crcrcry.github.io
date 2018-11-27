@@ -28,7 +28,7 @@
     <meta name="twitter:description" content="多维时空数据中蕴含着丰富的模式，常用于数据分析中，多视图交互式可视化是分析的经典方法。然而，这样的方法不能为分析师提供充分的分析指导，分析师需要迭代式的手动选择切片、查看和比较，这使得模式发掘更加困难。这篇工作将多维时空数据建模为张量，提出了一个新颖的分段秩一张量分解方法，该方法支持自动切片和发掘模式。基于这个方法，这篇工作提出了 TPFlow，一个支持从上到下的渐进式多维时空数据探索的视觉分析框架，可以减轻分析负担，良好的解决了多维时空数据探索的问题。
 
 " />
-    <meta name="twitter:image" content="https://crcrcry.github.io/images/blogs/vis/TPFlow5.png" />
+    <meta name="twitter:image" content="https://crcrcry.github.io/images/TPFlow5.png" />
   
 
   
@@ -38,7 +38,7 @@
 
 " />
   <meta property="og:url" content="https://crcrcry.github.io/post/vis/tpflow/" />
-  <meta property="og:image" content="https://crcrcry.github.io/images/blogs/vis/TPFlow5.png" />
+  <meta property="og:image" content="https://crcrcry.github.io/images/TPFlow5.png" />
 
 
 
@@ -116,7 +116,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="/images/about/chenran.png" alt="Avatar">
+  <img class="avatar" src="/images/chenran.png" alt="Avatar">
   
   <h2 class="title">Ran Chen</h2>
   
@@ -205,9 +205,7 @@
 
       
 
-      <li class="social-item">
-        <a href="/images/about/wechat.jpeg" title="Wechat"><span class="icon icon-wechat"></span></a>
-      </li>
+      
 
       
 
@@ -236,7 +234,7 @@
 
 <p></p>
 
-<p><a href="/files/papers/TPFlow.pdf">原文链接：TPFlow: Progressive Partition and Multidimensional Pattern Extraction for Large-Scale Spatio-Temporal Data Analysis</a></p>
+<p><a href="/files/TPFlow.pdf">原文链接：TPFlow: Progressive Partition and Multidimensional Pattern Extraction for Large-Scale Spatio-Temporal Data Analysis</a></p>
 
 <h1 id="一-介绍">一、介绍</h1>
 
@@ -297,18 +295,18 @@
 <li>秩一张量：可以被向量外积表示的张量。</li>
 </ul>
 
-<p><img src="/images/blogs/vis/TPFlow2.png" alt="" /></p>
+<p><img src="/images/TPFlow2.png" alt="" /></p>
 
 <ul>
 <li>张量分解：逐步迭代，每次确定最好的秩一近似张量（捕获了最突出的数据变化和模式）。之后每次为剩余张量进行迭代。
-<img src="/images/blogs/vis/TPFlow1.png" alt="" /></li>
+<img src="/images/TPFlow1.png" alt="" /></li>
 <li>细节：
 
 <ol>
 <li>第一个近似张量可以总览数据</li>
 <li>迭代持续至 cost 提升很小或迭代步数到达上限</li>
 <li>最好的结果，最后一步 cost = 0，原始张量可以被完全分解。
-<img src="/images/blogs/vis/TPFlow3.png" alt="" /></li>
+<img src="/images/TPFlow3.png" alt="" /></li>
 </ol></li>
 </ul>
 
@@ -325,7 +323,7 @@
 </ul></li>
 </ul>
 
-<p><img src="/images/blogs/vis/TPFlow4.png" alt="" /></p>
+<p><img src="/images/TPFlow4.png" alt="" /></p>
 
 <h1 id="四-tpflow">四、TPFlow</h1>
 
@@ -333,9 +331,9 @@
 
 <ul>
 <li>基本可视化图表
-<img src="/images/blogs/vis/TPFlow6.png" alt="" /></li>
+<img src="/images/TPFlow6.png" alt="" /></li>
 <li>偏差可视化
-<img src="/images/blogs/vis/TPFlow7.png" alt="" /></li>
+<img src="/images/TPFlow7.png" alt="" /></li>
 <li>工作流：树状视图 + 维度特征视图
 
 <ul>
@@ -345,7 +343,7 @@
 </ul></li>
 </ul>
 
-<p><img src="/images/blogs/vis/TPFlow5.png" alt="" /></p>
+<p><img src="/images/TPFlow5.png" alt="" /></p>
 
 <h1 id="五-用户场景">五、用户场景</h1>
 
